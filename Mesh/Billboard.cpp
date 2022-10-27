@@ -16,7 +16,7 @@ Billboard::Billboard(Shader& shader, Camera* cam)
 	mMatrix = glm::mat4(1.0f);
 	mPosition = glm::vec3(0.f, 0.f, 10.f);
 
-	mTexture = new Texture("../3DProgExam/Assets/tex/jacky.bmp");
+    mTexture = new Texture("../SPIM-Folder/Assets/tex/jacky.bmp");
 }
 
 Billboard::Billboard(Shader& shader, Camera* cam, std::string fileDir)

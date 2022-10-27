@@ -142,9 +142,7 @@ void RenderWindow::render()
 
      /// Other Things
     calculateFramerate();
-
     checkForGLerrors();
-
     mContext->swapBuffers(this);
 
     auto end = std::chrono::system_clock::now();
@@ -176,6 +174,7 @@ void RenderWindow::exposeEvent(QExposeEvent *)
     }
 }
 
+//Debug method
 void RenderWindow::DrawLine(const glm::vec3& start, const glm::vec3& end, const glm::vec4& color)
 {
     static uint32_t VAO{};
@@ -266,7 +265,6 @@ void RenderWindow::checkForGLerrors()
         }
     }
 }
-
 
 void RenderWindow::startOpenGLDebugger()
 {

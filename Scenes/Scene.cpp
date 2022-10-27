@@ -135,7 +135,6 @@ void Scene::draw()
         }
     }
 
-
         //Draw Skybox
     if (mSkybox)
     {
