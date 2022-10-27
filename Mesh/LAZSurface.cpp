@@ -209,25 +209,25 @@ void LAZSurface::init()
 
 void LAZSurface::draw()
 {
-    drawEquidistanceLines = RenderWindow::bDrawEquidistance;
+    //drawEquidistanceLines = RenderWindow::bDrawEquidistance;
 
 
     if(mEquiLines && drawEquidistanceLines)
         mEquiLines->draw();
 
-    if (RenderWindow::bDrawPointCloud)
-    {
+    //if (RenderWindow::bDrawPointCloud)
+    //{
         glBindVertexArray(mVAO);
         glUniformMatrix4fv(mShader.mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
         glDrawElements(GL_POINTS, mIndices.size(), GL_UNSIGNED_INT, nullptr);
         glBindVertexArray(0);
-    }
-    else {
+    //}
+    //else {
         glBindVertexArray(mVAO);
         glUniformMatrix4fv(mShader.mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
         glDrawElements(GL_TRIANGLES, mIndices.size(), GL_UNSIGNED_INT, nullptr);
         glBindVertexArray(0);
-    }
+    //}
 
 
 }

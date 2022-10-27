@@ -23,8 +23,8 @@ public:
 	glm::mat4 mPMatrix = glm::mat4{ 1.0f };	//Set to identity
 
 	glm::vec3 mUp = glm::vec3(0.0f, 0.0f, 1.0f);
-	glm::vec3 mOrientation = glm::vec3(0.0f, 1.0f, 0.0f);
-	glm::vec3 mPosition = glm::vec3(0.f, 0.f, 250.f); //Default Position
+	glm::vec3 mOrientation = glm::vec3(0.0f, 1.0f, 0.0f); //Look Direction
+	glm::vec3 mPosition = glm::vec3(0.f, -2.f, 0.f); //Default Position
 
 	Camera();
 	void init(GLint pMatrixUniform, GLint vMatrixUniform);
@@ -45,7 +45,7 @@ public:
 
 	//New camera stuff
 	bool bFollowPlayer{ false };
-	float speed = 1.f;
+	float speed = 0.1f;
 	float sensitivity = 0.4f;
 	void TakeInput();
 

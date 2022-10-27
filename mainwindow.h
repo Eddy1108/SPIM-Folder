@@ -24,14 +24,6 @@ private slots:
     ///Slot called from the File->Exit menu in the mainwindow.ui file
     void on_fileExit_triggered();
 
-    void on_pushButton_2_toggled(bool checked);
-
-    void on_pushButton_toggled(bool checked);
-
-    void on_pushButton_3_clicked();
-
-    void on_pushButton_4_toggled(bool checked);
-
 private:
     ///called from the constructor. Initializes different parts of the program.
     void init();

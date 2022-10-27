@@ -320,16 +320,6 @@ void RenderWindow::keyPressEvent(QKeyEvent* event)
         mMainWindow->close();       //Shuts down the whole program
     }
 
-    if (event->key() == Qt::Key_C)
-    {
-        bDrawEquidistance = !bDrawEquidistance;
-    }
-
-    if (event->key() == Qt::Key_V)
-    {
-        bDrawPointCloud = !bDrawPointCloud;
-    }
-
     if(event->key() == Qt::Key_A)
     {
         if (!Scenes[activeScene]->mCamera->bFollowPlayer)
