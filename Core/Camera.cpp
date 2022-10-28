@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include <iostream>
 
 Camera::Camera()
 {
@@ -33,7 +34,7 @@ void Camera::lookAt(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& 
 
 void Camera::update()
 {
-    TakeInput();
+    Move();
 
 	initializeOpenGLFunctions();
 	glUniformMatrix4fv(mPMatrixUniform, 1, GL_FALSE, glm::value_ptr(mPMatrix));
@@ -47,17 +48,19 @@ void Camera::mouseMovementStop()
     MouseMove = false;
 }
 
-void Camera::mouseMovementStart()
+void Camera::mouseMovementStart(float eventX, float eventY)
 {
-    // offsett
-    MouseMove = true;
+    // Mouse starting position
+    mouseX = eventY;
+    mouseY = eventX;
     mouseOldX = mouseX;
     mouseOldY = mouseY;
+
+    MouseMove = true;
 }
 
-void Camera::TakeInput()
+void Camera::Move()
 {
-
 	//Button Inputs
 	if (WMove)
 	{
@@ -87,8 +90,11 @@ void Camera::TakeInput()
 	//Mouse Input
 	if (MouseMove)
     {
-		float mouseDeltaX = mouseOldX - mouseX;
-		float mouseDeltaY = mouseOldY - mouseY;
+        float mouseDeltaX{0};
+        float mouseDeltaY{0};
+
+        mouseDeltaX = mouseOldX - mouseX;
+        mouseDeltaY = mouseOldY - mouseY;
 
 		mouseOldX = mouseX;
 		mouseOldY = mouseY;
@@ -105,5 +111,4 @@ void Camera::TakeInput()
 
 		mOrientation = glm::rotate(mOrientation, glm::radians(rotY), mUp);
 	}
-
 }

@@ -31,7 +31,7 @@ public:
 	void lookAt(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up);
 	void update();
     void mouseMovementStop();
-    void mouseMovementStart();
+    void mouseMovementStart(float eventX, float eventY);
 
 	glm::vec3 getPos() { return mPosition; };
 	glm::vec3 GetUp() { return mUp; };
@@ -48,14 +48,12 @@ public:
 	bool bFollowPlayer{ false };
 	float speed = 0.1f;
 	float sensitivity = 0.4f;
-	void TakeInput();
+    void Move();
 
 	float mouseX{ 0 };
 	float mouseY{ 0 };
 	float mouseOldX{ 0 };
-	float mouseOldY{ 0 };
-
-    bool mDeltaOffset{false};
+    float mouseOldY{ 0 };
 
 	bool WMove{ false };
 	bool AMove{ false };
