@@ -20,6 +20,8 @@
 #include "mainwindow.h"
 #include "logger.h"
 
+#include <AL/al.h>
+
 RenderWindow::RenderWindow(const QSurfaceFormat& format, MainWindow* mainWindow)
     : mContext(nullptr), mInitialized(false), mMainWindow(mainWindow)
 
