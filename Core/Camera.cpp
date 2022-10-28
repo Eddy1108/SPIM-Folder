@@ -18,8 +18,7 @@ void Camera::perspective(float degrees, float aspect, float nearplane, float far
 void Camera::lookAt(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up)
 {
 	if (!bFollowPlayer)
-	{
-		TakeInput();
+    {
 		mVMatrix = glm::lookAt(mPosition, mPosition + mOrientation, mUp);
 	}
 	else
@@ -34,11 +33,26 @@ void Camera::lookAt(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& 
 
 void Camera::update()
 {
+    TakeInput();
 
 	initializeOpenGLFunctions();
 	glUniformMatrix4fv(mPMatrixUniform, 1, GL_FALSE, glm::value_ptr(mPMatrix));
 	glUniformMatrix4fv(mVMatrixUniform, 1, GL_FALSE, glm::value_ptr(mVMatrix));
 
+}
+
+void Camera::mouseMovementStop()
+{
+    mLastMousePos = glm::vec2(mouseX,mouseY);
+    MouseMove = false;
+}
+
+void Camera::mouseMovementStart()
+{
+    // offsett
+    MouseMove = true;
+    mouseOldX = mouseX;
+    mouseOldY = mouseY;
 }
 
 void Camera::TakeInput()
@@ -63,17 +77,16 @@ void Camera::TakeInput()
 	}
 	if (QMove)
 	{
-		mPosition += speed * mUp;
+        mPosition += speed * -mUp;
 	}
 	if (EMove)
 	{
-		mPosition += speed * -mUp;
+        mPosition += speed * mUp;
 	}
 
 	//Mouse Input
 	if (MouseMove)
-	{
-
+    {
 		float mouseDeltaX = mouseOldX - mouseX;
 		float mouseDeltaY = mouseOldY - mouseY;
 
@@ -91,7 +104,6 @@ void Camera::TakeInput()
 		}
 
 		mOrientation = glm::rotate(mOrientation, glm::radians(rotY), mUp);
-
 	}
 
 }

@@ -10,15 +10,14 @@
 class Camera : public QOpenGLFunctions_4_1_Core
 {
 private:
-	
 	glm::vec3 mEye = glm::vec3(0.f,0.f,0.f);	//Not needed??
 
 	GLint mPMatrixUniform{ 0 };
 	GLint mVMatrixUniform{ 0 };
 
+    glm::vec2 mLastMousePos{0,0};
 
 public:
-
 	glm::mat4 mVMatrix = glm::mat4{ 1.0f };
 	glm::mat4 mPMatrix = glm::mat4{ 1.0f };	//Set to identity
 
@@ -31,11 +30,13 @@ public:
 	void perspective(float degrees, float aspect, float nearplane, float farplane);
 	void lookAt(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up);
 	void update();
-	
+    void mouseMovementStop();
+    void mouseMovementStart();
 
 	glm::vec3 getPos() { return mPosition; };
 	glm::vec3 GetUp() { return mUp; };
 	glm::vec3 GetForward() { return mOrientation; };
+
 
 	//glm::vec3 GetUpWorld() { return mPosition + mUp; };
 	//glm::vec3 GetForwardWorld() { return mPosition + mOrientation; };
@@ -53,6 +54,8 @@ public:
 	float mouseY{ 0 };
 	float mouseOldX{ 0 };
 	float mouseOldY{ 0 };
+
+    bool mDeltaOffset{false};
 
 	bool WMove{ false };
 	bool AMove{ false };
