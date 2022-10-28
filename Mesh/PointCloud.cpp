@@ -101,11 +101,11 @@ void PointCloud::draw()
 	//Enable for different size, anything over 20 is too big
 	//glPointSize(20);
 
-	if (RenderWindow::bDrawRealPointCloud)
-	{
+	//if (RenderWindow::bDrawRealPointCloud)
+	//{
 		glBindVertexArray(mVAO);
 		glUniformMatrix4fv(mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
 		glDrawArrays(GL_POINTS, 0, mVertices.size());
 		glBindVertexArray(0);
-	}
+	//}
 }

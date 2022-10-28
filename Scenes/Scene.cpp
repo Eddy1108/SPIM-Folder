@@ -61,9 +61,6 @@ void Scene::draw()
         //Move Player
         mMap3["mia"]->move(0.1f, 0.1f, 0.1f);   //old dumb way of doint it but gonna let it stay, it works
 
-        //Move Ball
-        mMap["RollingBall"]->move(RenderWindow::mDeltaTime);
-
         //Move Camera, look at player
         mCamera->lookAt(
             mMap3["mia"]->mCameraOffset,
@@ -115,7 +112,8 @@ void Scene::draw()
 
         //Update light
         glUniform3f(mShaderPrograms["phong"]->mCameraPositionUniform, mCamera->mPosition.x, mCamera->mPosition.y, mCamera->mPosition.z);
-        glUniform3f(mShaderPrograms["phong"]->mLightPositionUniform, mLight->getPosition3D().x, mLight->getPosition3D().y, mLight->getPosition3D().z);
+        //glUniform3f(mShaderPrograms["phong"]->mLightPositionUniform, mLight->getPosition3D().x, mLight->getPosition3D().y, mLight->getPosition3D().z);
+        glUniform3f(mShaderPrograms["phong"]->mLightPositionUniform, 0.f, 0.f, 0.f);
 
         mCamera->init(tempPMatrix, tempVMatrix);
         mCamera->update();
@@ -347,8 +345,5 @@ void Scene::PauseObjects()
 
     if (dynamic_cast<XYZ*>(mMap["XYZ"]))
         dynamic_cast<XYZ*>(mMap["XYZ"])->bDraw = !bPlayMode;
-
-    if (dynamic_cast<Sun*>(mMap["Sun"]))
-        dynamic_cast<Sun*>(mMap["Sun"])->bPlay = bPlayMode;
 
 }

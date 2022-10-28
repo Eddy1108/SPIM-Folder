@@ -15,7 +15,6 @@ SOURCES += main.cpp \
     Core/shader.cpp \
     Core/texture.cpp \
     Light/Light.cpp \
-    Light/Sun.cpp \
     Math/Barycentric.cpp \
     Math/BezierCurve.cpp \
     Math/SortCoords.cpp \
@@ -33,9 +32,7 @@ SOURCES += main.cpp \
     Mesh/SkyBox.cpp \
     Mesh/Triangle.cpp \
     Mesh/TriangleSurface.cpp \
-    Mesh/ballspawner.cpp \
     Mesh/line.cpp \
-    Mesh/rollingball.cpp \
     Scenes/Scene.cpp \
     Scenes/Scene0.cpp \
     Scenes/Scene1.cpp \
@@ -58,7 +55,6 @@ HEADERS += \
     Core/shader.h \
     Core/texture.h \
     Light/Light.h \
-    Light/Sun.h \
     Math/Barycentric.h \
     Math/BezierCurve.h \
     Math/SortCoords.h \
@@ -76,9 +72,7 @@ HEADERS += \
     Mesh/SkyBox.h \
     Mesh/Triangle.h \
     Mesh/TriangleSurface.h \
-    Mesh/ballspawner.h \
     Mesh/line.h \
-    Mesh/rollingball.h \
     Scenes/Scene.h \
     Scenes/Scene0.h \
     Scenes/Scene1.h \

@@ -92,8 +92,6 @@ void Camera::TakeInput()
 
 		mOrientation = glm::rotate(mOrientation, glm::radians(rotY), mUp);
 
-
-
 	}
 
 }
