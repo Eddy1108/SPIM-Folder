@@ -9,8 +9,6 @@
 
 #include "Scenes/SceneSwitcher.h"
 #include "Scenes/Scene.h"
-#include "Scenes/Scene0.h"
-#include "Scenes/Scene1.h"
 #include "Core/Camera.h"
 
 #include "Light/Light.h"
@@ -27,6 +25,7 @@
 class QOpenGLContext;
 class Shader;
 class MainWindow;
+
 
 /// This inherits from QWindow to get access to the Qt functionality and
 // OpenGL surface.
