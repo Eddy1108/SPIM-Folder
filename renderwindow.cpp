@@ -13,6 +13,9 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "Scenes/Scene0.h"
+#include "Scenes/Scene1.h"
+
 #include "Core/shader.h"
 #include "mainwindow.h"
 #include "logger.h"
