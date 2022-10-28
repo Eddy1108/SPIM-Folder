@@ -100,6 +100,7 @@ protected:
     void mouseMoveEvent(QMouseEvent* event) override;
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent* event) override;
+    void mouseDoubleClickEvent(QMouseEvent *) override;
     //    void wheelEvent(QWheelEvent *event) override{}
 };
 

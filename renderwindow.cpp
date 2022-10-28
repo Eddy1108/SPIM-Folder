@@ -124,8 +124,8 @@ void RenderWindow::init()
 // Called each frame - doing the rendering!!!
 void RenderWindow::render()
 {
+    ///Used in Deta time calculation
     auto start = std::chrono::system_clock::now();
-
     mTimeStart.restart(); //restart FPS clock
     mContext->makeCurrent(this); //must be called every frame (every time mContext->swapBuffers is called)
 
@@ -145,6 +145,7 @@ void RenderWindow::render()
     checkForGLerrors();
     mContext->swapBuffers(this);
 
+    ///Calculates Delta time
     auto end = std::chrono::system_clock::now();
     auto ElapsedSeconds = end - start;
     mDeltaTime = std::chrono::duration<double>(ElapsedSeconds).count();
@@ -288,6 +289,9 @@ void RenderWindow::startOpenGLDebugger()
 
 void RenderWindow::mousePressEvent(QMouseEvent* event)
 {
+    if(Scenes[activeScene])
+        Scenes[activeScene]->mousePressEvent(event);
+
     if (event->button() == Qt::LeftButton)
     {
         Scenes[activeScene]->mCamera->MouseMove = true;
@@ -296,6 +300,9 @@ void RenderWindow::mousePressEvent(QMouseEvent* event)
 
 void RenderWindow::mouseReleaseEvent(QMouseEvent* event)
 {
+    if(Scenes[activeScene])
+        Scenes[activeScene]->mouseReleaseEvent(event);
+
     if (event->button() == Qt::LeftButton)
     {
         Scenes[activeScene]->mCamera->MouseMove = false;
@@ -304,6 +311,9 @@ void RenderWindow::mouseReleaseEvent(QMouseEvent* event)
 
 void RenderWindow::mouseMoveEvent(QMouseEvent* event)
 {
+    if(Scenes[activeScene])
+        Scenes[activeScene]->mouseMoveEvent(event);
+
     if (Scenes[activeScene]->mCamera->MouseMove)
     {
         Scenes[activeScene]->mCamera->mouseX = event->y();
@@ -315,6 +325,9 @@ void RenderWindow::mouseMoveEvent(QMouseEvent* event)
 
 void RenderWindow::keyPressEvent(QKeyEvent* event)
 {
+    if(Scenes[activeScene])
+        Scenes[activeScene]->keyPressEvent(event);
+
     if (event->key() == Qt::Key_Escape)
     {
         mMainWindow->close();       //Shuts down the whole program
@@ -393,6 +406,9 @@ void RenderWindow::keyPressEvent(QKeyEvent* event)
 
 void RenderWindow::keyReleaseEvent(QKeyEvent* event)
 {
+    if(Scenes[activeScene])
+        Scenes[activeScene]->keyReleaseEvent(event);
+
     if (event->key() == Qt::Key_A)
     {
         if (!Scenes[activeScene]->mCamera->bFollowPlayer)
@@ -454,4 +470,10 @@ void RenderWindow::keyReleaseEvent(QKeyEvent* event)
         else
             static_cast<InteractiveObject*>(Scenes[activeScene]->mMap3["mia"])->EMove = false;
     }
+}
+
+void RenderWindow::mouseDoubleClickEvent(QMouseEvent *)
+{
+    if(Scenes[activeScene])
+        Scenes[activeScene]->mouseDoubleClickEvent(event);
 }

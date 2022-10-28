@@ -11,6 +11,7 @@ SOURCES += main.cpp \
     Core/Vertex.cpp \
     Core/VisualObject.cpp \
     Core/XYZ.cpp \
+    Core/inputmanager.cpp \
     Core/quadtree.cpp \
     Core/shader.cpp \
     Core/texture.cpp \
@@ -51,6 +52,7 @@ HEADERS += \
     Core/Vertex.h \
     Core/VisualObject.h \
     Core/XYZ.h \
+    Core/inputmanager.h \
     Core/quadtree.h \
     Core/shader.h \
     Core/texture.h \

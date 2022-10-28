@@ -2,7 +2,7 @@
 
 #include "renderwindow.h"
 
-Scene::Scene(std::unordered_map<std::string, Shader*> shaders)
+Scene::Scene(std::unordered_map<std::string, Shader*> shaders, )
 	: mShaderPrograms{shaders}
 {
     mQuadTre = new QuadTre();

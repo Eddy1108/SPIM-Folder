@@ -82,3 +82,8 @@ void Scene0::draw()
     Scene::draw();
 
 }
+
+void Scene0::mousePressEvent(QMouseEvent *event)
+{
+
+}
