@@ -64,11 +64,7 @@ InteractiveObject::InteractiveObject(Shader& shader)
 	mVertices.push_back(Vertex{ a, b, b,  1,0,0 }); // B
 	mVertices.push_back(Vertex{ a, b, a,  0,1,1 }); // H
 
-	mMatrix = glm::mat4(1.0f);
-
-	bBypass = true;
-	move(5, 5, 0);
-	bBypass = false;
+    mMatrix = glm::mat4(1.0f);
 
 	mBShape = new AABB();
 	//dynamic_cast<AABB*>(mBShape)->mExtent *= 2.f;
@@ -140,9 +136,9 @@ void InteractiveObject::move(float x, float y, float z)
 
 	if (DMove) mx += x;
 
-	if (QMove) mz += z;
+    if (QMove) mz -= z;
 
-	if (EMove) mz -= z;
+    if (EMove) mz += z;
 	
 	if (bBypass)
 	{

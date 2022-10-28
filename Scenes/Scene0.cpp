@@ -82,3 +82,167 @@ void Scene0::draw()
     Scene::draw();
 
 }
+
+void Scene0::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton)
+    {
+        mCamera->mouseMovementStart();
+    }
+}
+
+void Scene0::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton)
+    {
+        mCamera->mouseMovementStop();
+    }
+}
+
+void Scene0::mouseMoveEvent(QMouseEvent *event)
+{
+    if (mCamera->MouseMove)
+    {
+        mCamera->mouseX = event->y();
+        mCamera->mouseY = event->x();
+    }
+}
+
+void Scene0::keyPressEvent(QKeyEvent *event)
+{
+
+    if(event->key() == Qt::Key_A)
+    {
+        if (!mCamera->bFollowPlayer)
+        {
+            mCamera->AMove = true;;
+        }
+        //else
+        //    static_cast<InteractiveObject*>( mMap3["mia"])->AMove = true;
+
+    }
+    if (event->key() == Qt::Key_D)
+    {
+
+        if (!mCamera->bFollowPlayer)
+        {
+            mCamera->DMove = true;
+        }
+        //else
+        //    static_cast<InteractiveObject*>( mMap3["mia"])->DMove = true;
+
+    }
+
+    if(event->key() == Qt::Key_S)
+    {
+        if (!mCamera->bFollowPlayer)
+        {
+            mCamera->SMove = true;
+        }
+        //else
+        //    static_cast<InteractiveObject*>( mMap3["mia"])->SMove = true;
+
+    }
+    if (event->key() == Qt::Key_W)
+    {
+        if (!mCamera->bFollowPlayer)
+        {
+            mCamera->WMove = true;
+
+        }
+        //else
+        //    static_cast<InteractiveObject*>( mMap3["mia"])->WMove = true;
+
+
+    }
+    if (event->key() == Qt::Key_G)
+    {
+        bPlayMode = !bPlayMode;
+    }
+
+    if (event->key() == Qt::Key_Q)
+    {
+        if (!mCamera->bFollowPlayer)
+        {
+            mCamera->QMove = true;
+        }
+        //else
+        //    static_cast<InteractiveObject*>( mMap3["mia"])->QMove = true;
+    }
+
+    if (event->key() == Qt::Key_E)
+    {
+        if (!mCamera->bFollowPlayer)
+        {
+            mCamera->EMove = true;
+        }
+        //else
+        //    static_cast<InteractiveObject*>( mMap3["mia"])->EMove = true;
+
+    }
+}
+
+void Scene0::keyReleaseEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_A)
+    {
+        if (!mCamera->bFollowPlayer)
+        {
+            mCamera->AMove = false;
+        }
+        else
+            static_cast<InteractiveObject*>(mMap3["mia"])->AMove = false;
+
+    }
+    if (event->key() == Qt::Key_D)
+    {
+        if (!mCamera->bFollowPlayer)
+        {
+            mCamera->DMove = false;
+        }
+        else
+            static_cast<InteractiveObject*>(mMap3["mia"])->DMove = false;
+
+    }
+
+    if (event->key() == Qt::Key_S)
+    {
+        if (!mCamera->bFollowPlayer)
+        {
+            mCamera->SMove = false;
+        }
+        else
+            static_cast<InteractiveObject*>(mMap3["mia"])->SMove = false;
+
+    }
+    if (event->key() == Qt::Key_W)
+    {
+        if (!mCamera->bFollowPlayer)
+        {
+            mCamera->WMove = false;
+        }
+        else
+        static_cast<InteractiveObject*>(mMap3["mia"])->WMove = false;
+
+    }
+
+    if (event->key() == Qt::Key_Q)
+    {
+        if (!mCamera->bFollowPlayer)
+        {
+            mCamera->QMove = false;
+        }
+        else
+            static_cast<InteractiveObject*>(mMap3["mia"])->QMove = false;
+    }
+
+    if (event->key() == Qt::Key_E)
+    {
+        if (!mCamera->bFollowPlayer)
+        {
+             mCamera->EMove = false;
+        }
+        else
+            static_cast<InteractiveObject*>(mMap3["mia"])->EMove = false;
+    }
+}

@@ -276,7 +276,7 @@ void Scene::DrawAABB(glm::vec3 position, glm::vec3 extent)
         verts.push_back(Vertex{ size, -size,  size, 1,1,1 });
         verts.push_back(Vertex{ -size, -size,  size, 1,1,1 });
 
-
+        //AABB bounding box vertex indices
         std::vector<GLuint> indices{ 0,1,1,2,2,3,3,0,4,5,5,6,6,7,7,4,0,4,1,5,2,6,3,7 };
 
         uint32_t VBO{};

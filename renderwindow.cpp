@@ -129,8 +129,8 @@ void RenderWindow::init()
 // Called each frame - doing the rendering!!!
 void RenderWindow::render()
 {
+    ///Used in Deta time calculation
     auto start = std::chrono::system_clock::now();
-
     mTimeStart.restart(); //restart FPS clock
     mContext->makeCurrent(this); //must be called every frame (every time mContext->swapBuffers is called)
 
@@ -150,6 +150,7 @@ void RenderWindow::render()
     checkForGLerrors();
     mContext->swapBuffers(this);
 
+    ///Calculates Delta time
     auto end = std::chrono::system_clock::now();
     auto ElapsedSeconds = end - start;
     mDeltaTime = std::chrono::duration<double>(ElapsedSeconds).count();
@@ -293,170 +294,45 @@ void RenderWindow::startOpenGLDebugger()
 
 void RenderWindow::mousePressEvent(QMouseEvent* event)
 {
-    if (event->button() == Qt::LeftButton)
-    {
-        Scenes[activeScene]->mCamera->MouseMove = true;
-    }
+    if(Scenes[activeScene])
+        Scenes[activeScene]->mousePressEvent(event);
+
 }
 
 void RenderWindow::mouseReleaseEvent(QMouseEvent* event)
 {
-    if (event->button() == Qt::LeftButton)
-    {
-        Scenes[activeScene]->mCamera->MouseMove = false;
-    }
+    if(Scenes[activeScene])
+        Scenes[activeScene]->mouseReleaseEvent(event);
+
 }
 
 void RenderWindow::mouseMoveEvent(QMouseEvent* event)
 {
-    if (Scenes[activeScene]->mCamera->MouseMove)
-    {
-        Scenes[activeScene]->mCamera->mouseX = event->y();
-        Scenes[activeScene]->mCamera->mouseY = event->x();
-    }
-
+    if(Scenes[activeScene])
+        Scenes[activeScene]->mouseMoveEvent(event);
 }
 
 
 void RenderWindow::keyPressEvent(QKeyEvent* event)
 {
+    //Exit application
     if (event->key() == Qt::Key_Escape)
     {
         mMainWindow->close();       //Shuts down the whole program
     }
 
-    if(event->key() == Qt::Key_A)
-    {
-        if (!Scenes[activeScene]->mCamera->bFollowPlayer)
-        {
-            Scenes[activeScene]->mCamera->AMove = true;;
-        }
-        //else
-        //    static_cast<InteractiveObject*>(Scenes[activeScene]->mMap3["mia"])->AMove = true;
-        
-    }
-    if (event->key() == Qt::Key_D)
-    {
-        
-        if (!Scenes[activeScene]->mCamera->bFollowPlayer)
-        {
-            Scenes[activeScene]->mCamera->DMove = true;
-        }
-        //else
-        //    static_cast<InteractiveObject*>(Scenes[activeScene]->mMap3["mia"])->DMove = true;
-
-    }
-
-    if(event->key() == Qt::Key_S)
-    {
-        if (!Scenes[activeScene]->mCamera->bFollowPlayer)
-        {
-            Scenes[activeScene]->mCamera->SMove = true;
-        }
-        //else
-        //    static_cast<InteractiveObject*>(Scenes[activeScene]->mMap3["mia"])->SMove = true;
-
-    }
-    if (event->key() == Qt::Key_W)
-    {
-        if (!Scenes[activeScene]->mCamera->bFollowPlayer)
-        {
-            Scenes[activeScene]->mCamera->WMove = true;
-            
-        }
-        //else
-        //    static_cast<InteractiveObject*>(Scenes[activeScene]->mMap3["mia"])->WMove = true;
-
-
-    }
-    if (event->key() == Qt::Key_G)
-    {
-        Scenes[activeScene]->bPlayMode = !Scenes[activeScene]->bPlayMode;
-    }
-
-    if (event->key() == Qt::Key_Q)
-    {
-        if (!Scenes[activeScene]->mCamera->bFollowPlayer)
-        {
-            Scenes[activeScene]->mCamera->QMove = true;
-        }
-        //else
-        //    static_cast<InteractiveObject*>(Scenes[activeScene]->mMap3["mia"])->QMove = true;
-    }
-
-    if (event->key() == Qt::Key_E)
-    {
-        if (!Scenes[activeScene]->mCamera->bFollowPlayer)
-        {
-            Scenes[activeScene]->mCamera->EMove = true;
-        }
-        //else
-        //    static_cast<InteractiveObject*>(Scenes[activeScene]->mMap3["mia"])->EMove = true;
-
-    }
+    if(Scenes[activeScene])
+        Scenes[activeScene]->keyPressEvent(event);
 }
 
 void RenderWindow::keyReleaseEvent(QKeyEvent* event)
 {
-    if (event->key() == Qt::Key_A)
-    {
-        if (!Scenes[activeScene]->mCamera->bFollowPlayer)
-        {
-            Scenes[activeScene]->mCamera->AMove = false;
-        }
-        else
-            static_cast<InteractiveObject*>(Scenes[activeScene]->mMap3["mia"])->AMove = false;
-        
-    }
-    if (event->key() == Qt::Key_D)
-    {
-        if (!Scenes[activeScene]->mCamera->bFollowPlayer)
-        {
-            Scenes[activeScene]->mCamera->DMove = false;
-        }
-        else
-            static_cast<InteractiveObject*>(Scenes[activeScene]->mMap3["mia"])->DMove = false;
-  
-    }
+    if(Scenes[activeScene])
+        Scenes[activeScene]->keyReleaseEvent(event);
+}
 
-    if (event->key() == Qt::Key_S)
-    {
-        if (!Scenes[activeScene]->mCamera->bFollowPlayer)
-        {
-            Scenes[activeScene]->mCamera->SMove = false;
-        }
-        else
-            static_cast<InteractiveObject*>(Scenes[activeScene]->mMap3["mia"])->SMove = false;
-        
-    }
-    if (event->key() == Qt::Key_W)
-    {
-        if (!Scenes[activeScene]->mCamera->bFollowPlayer)
-        {
-            Scenes[activeScene]->mCamera->WMove = false;
-        }
-        else
-        static_cast<InteractiveObject*>(Scenes[activeScene]->mMap3["mia"])->WMove = false;
- 
-    }
-
-    if (event->key() == Qt::Key_Q)
-    {
-        if (!Scenes[activeScene]->mCamera->bFollowPlayer)
-        {
-            Scenes[activeScene]->mCamera->QMove = false;
-        }
-        else
-            static_cast<InteractiveObject*>(Scenes[activeScene]->mMap3["mia"])->QMove = false;
-    }
-
-    if (event->key() == Qt::Key_E)
-    {
-        if (!Scenes[activeScene]->mCamera->bFollowPlayer)
-        {
-            Scenes[activeScene]->mCamera->EMove = false;
-        }
-        else
-            static_cast<InteractiveObject*>(Scenes[activeScene]->mMap3["mia"])->EMove = false;
-    }
+void RenderWindow::mouseDoubleClickEvent(QMouseEvent* event)
+{
+    if(Scenes[activeScene])
+        Scenes[activeScene]->mouseDoubleClickEvent(event);
 }

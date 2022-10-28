@@ -18,7 +18,6 @@ Triangle::~Triangle()
 
 void Triangle::init()
 {
-
 	initializeOpenGLFunctions();
 
 	//Vertex Array Object - VAO
