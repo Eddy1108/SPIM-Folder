@@ -110,9 +110,11 @@ DISTFILES += \
     Shaders/textureshader.frag \
     Shaders/textureshader.vert
 
+
+
 win32: LIBS += -L$$PWD/build_libraries/debug/OpenAL/ -lOpenAL32
 
 INCLUDEPATH += $$PWD/build_libraries/debug/OpenAL
 DEPENDPATH += $$PWD/build_libraries/debug/OpenAL
 
-win32: LIBS += -lOpenAL32
+INCLUDEPATH += $$PWD/library_includes
