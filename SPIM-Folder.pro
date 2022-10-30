@@ -6,11 +6,13 @@ CONFIG      += c++17
 TARGET      = 3D-programmering
 
 SOURCES += main.cpp \
+    Audio.cpp \
     Core/Camera.cpp \
     Core/CollisionShapes.cpp \
     Core/Vertex.cpp \
     Core/VisualObject.cpp \
     Core/XYZ.cpp \
+    Core/dr_wav.cpp \
     Core/inputmanager.cpp \
     Core/quadtree.cpp \
     Core/shader.cpp \
@@ -47,6 +49,7 @@ SOURCES += main.cpp \
     renderwindow.cpp
 
 HEADERS += \
+    Audio.h \
     Core/Camera.h \
     Core/CollisionShapes.h \
     Core/Vertex.h \
@@ -83,6 +86,7 @@ HEADERS += \
     Shaders/PlainShader.h \
     Shaders/SkyBoxShader.h \
     Shaders/TextureShader.h \
+    library_includes/dr_lib/dr_wav.h \
     logger.h \
     mainwindow.h \
     renderwindow.h \
@@ -105,3 +109,10 @@ DISTFILES += \
     Shaders/plainshaderChad.vert \
     Shaders/textureshader.frag \
     Shaders/textureshader.vert
+
+win32: LIBS += -L$$PWD/build_libraries/debug/OpenAL/ -lOpenAL32
+
+INCLUDEPATH += $$PWD/build_libraries/debug/OpenAL
+DEPENDPATH += $$PWD/build_libraries/debug/OpenAL
+
+win32: LIBS += -lOpenAL32
