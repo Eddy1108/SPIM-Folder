@@ -20,7 +20,6 @@
 #include "mainwindow.h"
 #include "logger.h"
 
-#include <AL/al.h>
 
 RenderWindow::RenderWindow(const QSurfaceFormat& format, MainWindow* mainWindow)
     : mContext(nullptr), mInitialized(false), mMainWindow(mainWindow)
@@ -123,6 +122,11 @@ void RenderWindow::init()
     //glBindTexture(GL_TEXTURE_2D, mTexture[0]->id());
     //glActiveTexture(GL_TEXTURE1);
     //glBindTexture(GL_TEXTURE_2D, mTexture[1]->id());
+
+    //Audio test
+    soundTest = new Audio();
+    soundTest->ReadAudioData();
+    soundTest->PlayAudio();
 }
 
 

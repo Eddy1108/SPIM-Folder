@@ -22,6 +22,8 @@
 
 #include <chrono>
 
+#include "Audio.h"
+
 class QOpenGLContext;
 class Shader;
 class MainWindow;
@@ -77,20 +79,18 @@ private:
 
     QTimer *mRenderTimer{nullptr};           //timer that drives the gameloop
     QElapsedTimer mTimeStart;               //time variable that reads the calculated FPS
-
     MainWindow *mMainWindow{nullptr};        //points back to MainWindow to be able to put info in StatusBar
 
     class QOpenGLDebugLogger *mOpenGLDebugLogger{nullptr};  //helper class to get some clean debug info from OpenGL
     class Logger *mLogger{nullptr};         //logger - Output Log in the application
 
+    void calculateFramerate();          //as name says
+    ///Starts QOpenGLDebugLogger if possible
+    void startOpenGLDebugger();
 
     void DrawLine(const glm::vec3 &start, const glm::vec3 &end, const glm::vec4 &color);
 
-
-    void calculateFramerate();          //as name says
-
-    ///Starts QOpenGLDebugLogger if possible
-    void startOpenGLDebugger();
+    Audio* soundTest{ nullptr };
 
 protected:
 

@@ -114,7 +114,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)\3D-programmering.exe</OutputFile>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Link>
     <Midl>
@@ -168,7 +168,7 @@
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
       <OutputFile>$(OutDir)\3D-programmering.exe</OutputFile>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Link>
     <Midl>
@@ -194,6 +194,8 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Audio.cpp" />
+    <ClCompile Include="Core\dr_wav.cpp" />
     <ClCompile Include="Math\Barycentric.cpp" />
     <ClCompile Include="Math\BezierCurve.cpp" />
     <ClCompile Include="Mesh\Billboard.cpp" />
@@ -235,6 +237,7 @@
     <ClCompile Include="Core\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Audio.h" />
     <ClInclude Include="Math\Barycentric.h" />
     <ClInclude Include="Math\BezierCurve.h" />
     <ClInclude Include="Mesh\Billboard.h" />
