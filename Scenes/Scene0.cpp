@@ -87,7 +87,7 @@ void Scene0::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton)
     {
-        mCamera->mouseMovementStart();
+        mCamera->mouseMovementStart(event->x(), event->y());
     }
 }
 
