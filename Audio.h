@@ -9,7 +9,7 @@
 class Audio
 {
 public:
-	Audio();
+	Audio(std::string file);
 	~Audio();
 
 private:
@@ -17,7 +17,7 @@ private:
 	unsigned int sampleRate = 0;
 	drwav_uint64 totalPCMFrameCount = 0;
 	std::vector<uint16_t> pcmData;
-	drwav_uint16 getTotalSamples();
+	drwav_uint64 getTotalSamples();
 
 	ALCdevice* device{ nullptr };
 	ALCcontext* context{ nullptr };
@@ -25,6 +25,7 @@ private:
 	ALuint monoSoundBuffer;
 
 	bool bAudioSourceMade{ false };
+	std::string filePath;
 
 public:
 	void ReadAudioData();

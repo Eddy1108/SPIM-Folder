@@ -14,7 +14,7 @@
 //FUNCTION_CALL;\
 //OpenAL_ErrorCheck(FUNCTION_CALL)
 
-Audio::Audio()
+Audio::Audio(std::string file) : filePath{file}
 {
 	//Get Audio Device and use it
 	const ALCchar* defaultDeviceString = alcGetString(nullptr, ALC_DEFAULT_DEVICE_SPECIFIER);
@@ -56,7 +56,7 @@ Audio::~Audio()
 	alcCloseDevice(device);
 }
 
-drwav_uint16 Audio::getTotalSamples()
+drwav_uint64 Audio::getTotalSamples()
 {
 	return totalPCMFrameCount * channels;
 }
@@ -64,8 +64,8 @@ drwav_uint16 Audio::getTotalSamples()
 void Audio::ReadAudioData()
 {
 	//Read the data from file
-	drwav_int16* pSampleData = drwav_open_file_and_read_pcm_frames_s16("../SPIM-Folder/Assets/sounds/TestSound_Mono.wav", &channels, &sampleRate, &totalPCMFrameCount, nullptr);
-	//drwav_int16* pSampleData = drwav_open_file_and_read_pcm_frames_s16("../SPIM-Folder/Assets/sounds/Vine.wav", &channels, &sampleRate, &totalPCMFrameCount, nullptr);
+	drwav_int16* pSampleData = drwav_open_file_and_read_pcm_frames_s16(filePath.c_str(), &channels, &sampleRate, &totalPCMFrameCount, nullptr);
+	//drwav_int16* pSampleData = drwav_open_file_and_read_pcm_frames_s16("../SPIM-Folder/Assets/sounds/Where.wav", &channels, &sampleRate, &totalPCMFrameCount, nullptr);
 	if (pSampleData == NULL)
 	{
 		std::cout << "FAILED TO LOAD AUDIO FILE" << std::endl;
@@ -121,16 +121,16 @@ void Audio::PlayAudio()
 	}
 
 	//Play the sound!
-	ALint sourceState;
-	alGetSourcei(monoSource, AL_SOURCE_STATE, &sourceState);
-	if (sourceState == AL_PLAYING)
-	{
-		std::cout << "\nPLAYING\n";
-	}
-	//else 
+	//ALint sourceState;
+	//alGetSourcei(monoSource, AL_SOURCE_STATE, &sourceState);
+	//if (sourceState == AL_PLAYING)
 	//{
-	//	std::cout << "\DONE PLAYING\n";
-	//	// tbd
+	//	std::cout << "\nPLAYING\n";
 	//}
+	////else 
+	////{
+	////	std::cout << "\DONE PLAYING\n";
+	////	// tbd
+	////}
 
 }

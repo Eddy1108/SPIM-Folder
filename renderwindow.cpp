@@ -124,7 +124,7 @@ void RenderWindow::init()
     //glBindTexture(GL_TEXTURE_2D, mTexture[1]->id());
 
     //Audio test
-    soundTest = new Audio();
+    soundTest = new Audio("../SPIM-Folder/Assets/sounds/Where.wav");
     soundTest->ReadAudioData();
     soundTest->PlayAudio();
 }
