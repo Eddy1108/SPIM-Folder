@@ -1,9 +1,9 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include <library_includes/AL/al.h>
-#include <library_includes/AL/alc.h>
-#include <library_includes/dr_lib/dr_wav.h>
+#include <AL/al.h>
+#include <AL/alc.h>
+#include <dr_lib/dr_wav.h>
 
 
 class Audio

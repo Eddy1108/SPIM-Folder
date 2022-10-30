@@ -86,12 +86,6 @@ HEADERS += \
     Shaders/PlainShader.h \
     Shaders/SkyBoxShader.h \
     Shaders/TextureShader.h \
-    library_includes/AL/al.h \
-    library_includes/AL/alc.h \
-    library_includes/AL/alext.h \
-    library_includes/AL/efx.h \
-    library_includes/AL/efx-creative.h \
-    library_includes/AL/efx-presets.h \
     library_includes/dr_lib/dr_wav.h \
     logger.h \
     mainwindow.h \
