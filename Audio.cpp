@@ -1,18 +1,18 @@
 #include "Audio.h"
 
-//#define OpenAL_ErrorCheck(message)\
-//{\
-//	ALenum error = alGetError();\
-//	if (error  != AL_NO_ERROR)\
-//	{\
-//		std::cerr << "OpenAL Error: " << error << " with call for " << #message << std::endl;\
-//	}\
-//
-//}\
-//
-//#define alec(FUNCTION_CALL)\
-//FUNCTION_CALL;\
-//OpenAL_ErrorCheck(FUNCTION_CALL)
+#define OpenAL_ErrorCheck(message)\
+{\
+	ALenum error = alGetError();\
+	if (error  != AL_NO_ERROR)\
+	{\
+		std::cerr << "OpenAL Error: " << error << " with call for " << #message << std::endl;\
+	}\
+}\
+
+#define alec(FUNCTION_CALL)\
+FUNCTION_CALL;\
+OpenAL_ErrorCheck(FUNCTION_CALL)
+
 
 Audio::Audio(std::string file) : filePath{file}
 {
@@ -24,6 +24,7 @@ Audio::Audio(std::string file) : filePath{file}
 		std::cout << "Failed to get the default audio device for OpenAL" << std::endl;
 	}
 	std::cout << "\nOpenAL Device: " << alcGetString(device, ALC_DEVICE_SPECIFIER) << std::endl;
+	OpenAL_ErrorCheck(device);
 
 	//Create an OpenAL audio context from device
 	context = alcCreateContext(device, nullptr /*attribute list*/);
@@ -34,17 +35,18 @@ Audio::Audio(std::string file) : filePath{file}
 		std::cout << "Failed to make the OpenAL context the current context!" << std::endl;
 		return;
 	}
+	OpenAL_ErrorCheck(context)
 
 	//Create a listener in 3d space (the player)	(Listener always exists, you can configure the data on it)
-	alListener3f(AL_POSITION, 0.f, 0.f, 0.f);
-	alListener3f(AL_VELOCITY, 0.f, 0.f, 0.f);
+	alec(alListener3f(AL_POSITION, 0.f, 0.f, 0.f));
+	alec(alListener3f(AL_VELOCITY, 0.f, 0.f, 0.f));
 	ALfloat forwardAndUpVectors[] = {
 		//forward
 		1.f, 0.f, 0.f,
 		//up
 		0.f,0.f,1.f
 	};
-	alListenerfv(AL_ORIENTATION, forwardAndUpVectors);
+	alec(alListenerfv(AL_ORIENTATION, forwardAndUpVectors));
 }
 
 Audio::~Audio()
@@ -85,24 +87,22 @@ void Audio::ReadAudioData()
 	drwav_free(pSampleData, nullptr);
 
 	//Generate buffer
-	alGenBuffers(1, &monoSoundBuffer);
-	alBufferData(monoSoundBuffer, channels > 1 ? AL_FORMAT_STEREO16 : AL_FORMAT_MONO16, pcmData.data(), pcmData.size() * 2, sampleRate);
+	alec(alGenBuffers(1, &monoSoundBuffer));
+	alec(alBufferData(monoSoundBuffer, channels > 1 ? AL_FORMAT_STEREO16 : AL_FORMAT_MONO16, pcmData.data(), pcmData.size() * 2, sampleRate));
 	
 	std::cout << "Audio Data Loaded!" << std::endl;
 }
 
 void Audio::PlayAudio()
 {
-	if (!bAudioSourceMade)
-	{
 		//Create audio source
-		alGenSources(1, &monoSource);
-		alSource3f(monoSource, AL_POSITION, 1.f, 0.f, 0.f);
-		alSource3f(monoSource, AL_VELOCITY, 0.f, 0.f, 0.f);
-		alSourcef(monoSource, AL_PITCH, 1.f);
-		alSourcef(monoSource, AL_GAIN, 1.f);
-		alSourcei(monoSource, AL_LOOPING, AL_FALSE);
-		alSourcei(monoSource, AL_BUFFER, monoSoundBuffer);
+		alec(alGenSources(1, &monoSource));
+		alec(alSource3f(monoSource, AL_POSITION, 1.f, 0.f, 0.f));
+		alec(alSource3f(monoSource, AL_VELOCITY, 0.f, 0.f, 0.f));
+		alec(alSourcef(monoSource, AL_PITCH, 1.f));
+		alec(alSourcef(monoSource, AL_GAIN, 0.5f));
+		alec(alSourcei(monoSource, AL_LOOPING, AL_FALSE));
+		alec(alSourcei(monoSource, AL_BUFFER, monoSoundBuffer));
 
 			//Stereo
 		//ALuint stereoSource;
@@ -114,23 +114,8 @@ void Audio::PlayAudio()
 		//alSourcei(stereoSource, AL_LOOPING, AL_FALSE);
 		//alSourcei(stereoSource, AL_BUFFER, monoSoundBuffer);
 
-		bAudioSourceMade = true; 
 		std::cout << "Source Generated" << std::endl;
 
-		alSourcePlay(monoSource);
-	}
-
-	//Play the sound!
-	//ALint sourceState;
-	//alGetSourcei(monoSource, AL_SOURCE_STATE, &sourceState);
-	//if (sourceState == AL_PLAYING)
-	//{
-	//	std::cout << "\nPLAYING\n";
-	//}
-	////else 
-	////{
-	////	std::cout << "\DONE PLAYING\n";
-	////	// tbd
-	////}
-
+		alec(alSourcePlay(monoSource));
+	
 }

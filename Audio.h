@@ -13,16 +13,16 @@ public:
 	~Audio();
 
 private:
-	unsigned int channels = 0;
-	unsigned int sampleRate = 0;
-	drwav_uint64 totalPCMFrameCount = 0;
+	unsigned int channels{ 0 };
+	unsigned int sampleRate{ 0 };
+	drwav_uint64 totalPCMFrameCount{ 0 };
 	std::vector<uint16_t> pcmData;
 	drwav_uint64 getTotalSamples();
 
 	ALCdevice* device{ nullptr };
 	ALCcontext* context{ nullptr };
-	ALuint monoSource;
-	ALuint monoSoundBuffer;
+	ALuint monoSource{ 0 };
+	ALuint monoSoundBuffer{ 0 };
 
 	bool bAudioSourceMade{ false };
 	std::string filePath;
