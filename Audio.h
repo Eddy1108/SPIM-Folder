@@ -4,7 +4,7 @@
 #include <AL/al.h>
 #include <AL/alc.h>
 #include <dr_lib/dr_wav.h>
-
+#include "glm/glm.hpp"
 
 class Audio
 {
@@ -29,6 +29,9 @@ private:
 
 public:
 	void ReadAudioData();
-	void PlayAudio();
+	//void PlayAudio();
+	void PlayAudio(float gain = 1.f, float pitch = 1.f, bool loop = 1, glm::vec3 pos = glm::vec3{0.f,0.f,0.f}, glm::vec3 velocity = glm::vec3{0.f,0.f,0.f});
+	void UpdateAudio(float gain = 1.f, float pitch = 1.f, glm::vec3 pos = glm::vec3{ 0.f,0.f,0.f }, glm::vec3 velocity = glm::vec3{ 0.f,0.f,0.f });
+	void UpdateListener(glm::vec3 CamPos, glm::vec3 CamVel, glm::vec3 CamUpVector, glm::vec3 CamForwardVector);
 };
 
