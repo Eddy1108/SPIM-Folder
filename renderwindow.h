@@ -11,9 +11,8 @@
 
 #include "Core/Camera.h"
 #include "Core/texture.h"
-#include "Core/Audio.h"
 #include "Light/Light.h"
-#include "mesh/Kube.h"
+#include "Mesh/Kube.h"
 
 #include "Shaders/PlainShader.h"
 #include "Shaders/TextureShader.h"
@@ -23,8 +22,7 @@
 
 #include <chrono>
 
-
-
+class Audio;
 class QOpenGLContext;
 class Shader;
 class MainWindow;

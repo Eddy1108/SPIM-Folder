@@ -6,7 +6,7 @@ CONFIG      += c++17
 TARGET      = 3D-programmering
 
 SOURCES += main.cpp \
-    Audio.cpp \
+    Core/Audio.cpp \
     Core/Camera.cpp \
     Core/CollisionShapes.cpp \
     Core/Vertex.cpp \
