@@ -24,9 +24,8 @@ Audio::Audio(std::string file) : filePath{file}
 		std::cout << "Failed to get the default audio device for OpenAL" << std::endl;
 	}
 	std::cout << "\nOpenAL Device: " << alcGetString(device, ALC_DEVICE_SPECIFIER) << std::endl;
-	OpenAL_ErrorCheck(device);
 
-	//Create an OpenAL audio context from device
+	//Create an OpenAL audio context with device
 	context = alcCreateContext(device, nullptr /*attribute list*/);
 
 	//Activate the context
@@ -35,9 +34,8 @@ Audio::Audio(std::string file) : filePath{file}
 		std::cout << "Failed to make the OpenAL context the current context!" << std::endl;
 		return;
 	}
-	OpenAL_ErrorCheck(context)
 
-	//Create a listener in 3d space (the player)	(Listener always exists, you can configure the data on it)
+	//Create a listener in 3d space (the player)	(Listener always exists, you can configure the data on it anywhere)
 	alec(alListener3f(AL_POSITION, 0.f, 0.f, 0.f));
 	alec(alListener3f(AL_VELOCITY, 0.f, 0.f, 0.f));
 	ALfloat forwardAndUpVectors[] = {
@@ -47,6 +45,9 @@ Audio::Audio(std::string file) : filePath{file}
 		0.f,0.f,1.f
 	};
 	alec(alListenerfv(AL_ORIENTATION, forwardAndUpVectors));
+
+	OpenAL_ErrorCheck(device);
+	OpenAL_ErrorCheck(context)
 
 	ReadAudioData();
 

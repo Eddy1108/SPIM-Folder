@@ -15,9 +15,11 @@ public:
 private:
 	unsigned int channels{ 0 };
 	unsigned int sampleRate{ 0 };
+
 	drwav_uint64 totalPCMFrameCount{ 0 };
-	std::vector<uint16_t> pcmData;
 	drwav_uint64 getTotalSamples();
+	
+	std::vector<uint16_t> pcmData;
 
 	ALCdevice* device{ nullptr };
 	ALCcontext* context{ nullptr };
