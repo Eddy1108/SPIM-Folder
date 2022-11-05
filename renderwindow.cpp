@@ -124,13 +124,11 @@ void RenderWindow::init()
     //glBindTexture(GL_TEXTURE_2D, mTexture[1]->id());
 
     //Audio test
-    soundTest = new Audio("../SPIM-Folder/Assets/sounds/TestSound_Mono.wav");
-    soundTest->ReadAudioData();
-    soundTest->PlayAudio(0.1f);
+    //soundTest = new Audio("../SPIM-Folder/Assets/sounds/TestSound_Mono.wav");
+    //soundTest->PlayAudio(0.1f);
 
-    soundTest2 = new Audio("../SPIM-Folder/Assets/sounds/WhereMono.wav");
-    soundTest2->ReadAudioData();
-    soundTest2->PlayAudio(0.1f);
+    //soundTest2 = new Audio("../SPIM-Folder/Assets/sounds/WhereMono.wav");
+    //soundTest2->PlayAudio(0.1f);
 }
 
 
@@ -166,15 +164,15 @@ void RenderWindow::render()
 
 
     //Sound Testing
-    static glm::vec3 test{ 0.f,0.f,0.f };
-    test.x += 0.1f;
-    soundTest->UpdateAudio(1.f, 1.f, test);
-    soundTest->UpdateListener(mCurrentCamera->getPos(), glm::vec3{ 0.f,0.f,0.f }, mCurrentCamera->GetUp(), mCurrentCamera->GetForward());
+    //static glm::vec3 test{ 0.f,0.f,0.f };
+    //test.x += 0.1f;
+    //soundTest->UpdateAudio(1.f, 1.f, test);
+    //soundTest->UpdateListener(mCurrentCamera->getPos(), glm::vec3{ 0.f,0.f,0.f }, mCurrentCamera->GetUp(), mCurrentCamera->GetForward());
 
-    static glm::vec3 test2{ 0.f,0.f,0.f };
-    test2.z += 0.1f;
-    soundTest2->UpdateAudio(1.f, 1.f, test2);
-    soundTest2->UpdateListener(mCurrentCamera->getPos(), glm::vec3{ 0.f,0.f,0.f }, mCurrentCamera->GetUp(), mCurrentCamera->GetForward());
+    //static glm::vec3 test2{ 0.f,0.f,0.f };
+    //test2.z += 0.1f;
+    //soundTest2->UpdateAudio(1.f, 1.f, test2);
+    //soundTest2->UpdateListener(mCurrentCamera->getPos(), glm::vec3{ 0.f,0.f,0.f }, mCurrentCamera->GetUp(), mCurrentCamera->GetForward());
 
 }
 

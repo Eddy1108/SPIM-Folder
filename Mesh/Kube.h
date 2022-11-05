@@ -16,4 +16,5 @@ public:
 	~Kube() override;
 	void init() override;
 	void draw() override;
+	void LoadAudio() override;
 };

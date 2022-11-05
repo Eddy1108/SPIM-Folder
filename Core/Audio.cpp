@@ -47,6 +47,11 @@ Audio::Audio(std::string file) : filePath{file}
 		0.f,0.f,1.f
 	};
 	alec(alListenerfv(AL_ORIENTATION, forwardAndUpVectors));
+
+	ReadAudioData();
+
+	//TODO
+	//add bool for starting instantly from creation or later
 }
 
 Audio::~Audio()
