@@ -91,6 +91,11 @@ HEADERS += \
     mainwindow.h \
     renderwindow.h \
 # external libs
+    library_includes/Lua/lua.hpp \
+    library_includes/Lua/lua.h \
+    library_includes/Lua/luaconf.h \
+    library_includes/Lua/lualib.h \
+    library_includes/Lua/lauxlib.h \
 #    stb_image/stb_image.h \
     glm/glm.hpp
 
@@ -118,3 +123,16 @@ INCLUDEPATH += $$PWD/build_libraries/debug/OpenAL
 DEPENDPATH += $$PWD/build_libraries/debug/OpenAL
 
 INCLUDEPATH += $$PWD/library_includes
+#Dynamic
+win32: LIBS += -L$$PWD/library_includes/Lua/ -lluac
+
+INCLUDEPATH += $$PWD/library_includes/Lua
+DEPENDPATH += $$PWD/library_includes/Lua
+
+win32: LIBS += -L$$PWD/library_includes/Lua/ -lluac
+#Static
+INCLUDEPATH += $$PWD/library_includes/Lua
+DEPENDPATH += $$PWD/library_includes/Lua
+
+win32:!win32-g++: PRE_TARGETDEPS += $$PWD/library_includes/Lua/luac.lib
+else:win32-g++: PRE_TARGETDEPS += $$PWD/library_includes/Lua/libluac.a
