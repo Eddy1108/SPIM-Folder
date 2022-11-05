@@ -14,6 +14,9 @@ Scene0::Scene0(std::unordered_map<std::string, Shader*> shaders)
         //Untextured Objects
     mObjects.push_back(temp = new XYZ(*mShaderPrograms["plain"]));
     temp->setName("XYZ");
+
+    mObjects.push_back(temp = new Kube(*mShaderPrograms["plain"]));
+    temp->setName("Kube");
     
     ///Textured Objects
 //Use mObjects2!

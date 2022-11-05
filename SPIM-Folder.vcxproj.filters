@@ -164,10 +164,10 @@
     <ClCompile Include="Core\texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Audio.cpp">
+    <ClCompile Include="Core\dr_wav.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\dr_wav.cpp">
+    <ClCompile Include="Core\Audio.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -289,7 +289,7 @@
     <ClInclude Include="Core\texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Audio.h">
+    <ClInclude Include="Core\Audio.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

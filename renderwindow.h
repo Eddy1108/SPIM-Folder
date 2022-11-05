@@ -5,14 +5,15 @@
 #include <QOpenGLFunctions_4_1_Core>
 #include <QTimer>
 #include <QElapsedTimer>
-#include "Core/texture.h"
 
 #include "Scenes/SceneSwitcher.h"
 #include "Scenes/Scene.h"
-#include "Core/Camera.h"
 
+#include "Core/Camera.h"
+#include "Core/texture.h"
+#include "Core/Audio.h"
 #include "Light/Light.h"
-#include "Mesh/Kube.h"
+#include "mesh/Kube.h"
 
 #include "Shaders/PlainShader.h"
 #include "Shaders/TextureShader.h"
@@ -22,8 +23,8 @@
 
 #include <chrono>
 
-//#include "Audio.h"
-class Audio;
+
+
 class QOpenGLContext;
 class Shader;
 class MainWindow;
@@ -53,6 +54,8 @@ public:
 
     inline static float mDeltaTime{ 0 };
 
+    inline static Camera* mCurrentCamera{ nullptr };
+
 private slots:
     void render();          //the actual render - function
 
@@ -65,7 +68,6 @@ private:
     //Shader Storage
     std::unordered_map<std::string, Shader*> mShaderPrograms;
 
-    Camera* mCurrentCamera{ nullptr };
 
     GLuint mVAO;                        //OpenGL reference to our VAO
     GLuint mVBO;                        //OpenGL reference to our VBO

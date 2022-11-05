@@ -1,7 +1,7 @@
 #pragma once
 #include "Scene.h"
 
-//#include "mesh/Kube.h"
+#include "mesh/Kube.h"
 //#include "mesh/Graph.h"
 //#include "mesh/OctahedronBall.h"
 //#include "mesh/Disc.h"

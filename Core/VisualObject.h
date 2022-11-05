@@ -10,6 +10,7 @@
 #include "vertex.h"
 #include "shader.h"
 #include "Core/CollisionShapes.h"
+#include "Core/Audio.h"
 
 class RenderWindow;
 
@@ -52,7 +53,6 @@ protected:
 	GLuint mVBO{ 0 };
 	GLuint mEAB{ 0 }; 
 
-
 	GLint mMatrixUniform{ 0 };
 
 	glm::mat4 mRotation{ 1 };
@@ -60,4 +60,10 @@ protected:
 	glm::vec3 mVelocity;
 
 	std::string mName;
+
+	std::vector<Audio*> AudioVec;
+
+	virtual void LoadAudio() { ; }
+	void StartAudio();
+	void UpdateAudio();
 };

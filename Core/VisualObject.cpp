@@ -1,4 +1,5 @@
 #include "VisualObject.h"
+#include "renderwindow.h"
 
 
 VisualObject::VisualObject(Shader& shader)
@@ -113,6 +114,9 @@ void VisualObject::initTexture()
 	glEnableVertexAttribArray(2);
 
 	glBindVertexArray(0);	//release
+
+	//init Components here
+	StartAudio();
 }
 
 void VisualObject::draw()
@@ -120,6 +124,9 @@ void VisualObject::draw()
 	glBindVertexArray(mVAO);
 	glUniformMatrix4fv(mShader.mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
 	glDrawArrays(GL_TRIANGLES, 0, mVertices.size());
+
+	//Render Components here
+	UpdateAudio();
 }
 
 void VisualObject::move(float x, float y, float z)
@@ -155,5 +162,28 @@ void VisualObject::setName(std::string name)
 std::string VisualObject::getName() const
 {
 	return mName;
+}
+
+void VisualObject::StartAudio()
+{
+	if (AudioVec.size() > 0)
+	{
+		for (int i = 0; i < AudioVec.size(); i++)
+		{
+			AudioVec[i]->PlayAudio(1.f,1.f,true, mPosition);
+		}
+	}
+}
+
+void VisualObject::UpdateAudio()
+{
+	if (AudioVec.size() > 0)
+	{
+		for (int i = 0; i < AudioVec.size(); i++)
+		{
+			AudioVec[i]->UpdateAudio(1.f, 1.f, mPosition);
+			AudioVec[i]->UpdateListener(RenderWindow::mCurrentCamera->getPos(), glm::vec3{ 0.f,0.f,0.f }, RenderWindow::mCurrentCamera->GetUp(), RenderWindow::mCurrentCamera->GetForward());
+		}
+	}
 }
 
