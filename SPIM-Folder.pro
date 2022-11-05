@@ -5,6 +5,7 @@ CONFIG      += c++17
 
 TARGET      = 3D-programmering
 
+
 SOURCES += main.cpp \
     Core/Audio.cpp \
     Core/Camera.cpp \
@@ -49,7 +50,7 @@ SOURCES += main.cpp \
     renderwindow.cpp
 
 HEADERS += \
-    Audio.h \
+    Core/Audio.h \
     Core/Camera.h \
     Core/CollisionShapes.h \
     Core/Vertex.h \
@@ -96,7 +97,13 @@ HEADERS += \
     library_includes/Lua/luaconf.h \
     library_includes/Lua/lualib.h \
     library_includes/Lua/lauxlib.h \
-#    stb_image/stb_image.h \
+    Lua_files/funksjoner.h \
+    Lua_files/test0.lua \
+    Lua_files/test1.out \
+    Lua_files/test1.lua \
+    Lua_files/test2.lua \
+    Lua_files/test3.lua \
+    #stb_image/stb_image.h \
     glm/glm.hpp
 
 FORMS += \
@@ -115,7 +122,8 @@ DISTFILES += \
     Shaders/textureshader.frag \
     Shaders/textureshader.vert
 
-
+#INCLUDEPATH += $(LUA_HOME)\\include
+#LIBS *= $(LUA_HOME)\\libs\\lua5.4.3-static.lib
 
 win32: LIBS += -L$$PWD/build_libraries/debug/OpenAL/ -lOpenAL32
 
@@ -123,14 +131,19 @@ INCLUDEPATH += $$PWD/build_libraries/debug/OpenAL
 DEPENDPATH += $$PWD/build_libraries/debug/OpenAL
 
 INCLUDEPATH += $$PWD/library_includes
-#Dynamic
-win32: LIBS += -L$$PWD/library_includes/Lua/ -lluac
+
+#Lua
+win32: LIBS += -L$$PWD/library_includes/Lua/ -llua5.4.3-static
 
 INCLUDEPATH += $$PWD/library_includes/Lua
 DEPENDPATH += $$PWD/library_includes/Lua
 
+win32:!win32-g++: PRE_TARGETDEPS += $$PWD/library_includes/Lua/lua5.4.3-static.lib
+else:win32-g++: PRE_TARGETDEPS += $$PWD/library_includes/Lua/liblua5.4.3-static.a
+
+#Luac
 win32: LIBS += -L$$PWD/library_includes/Lua/ -lluac
-#Static
+
 INCLUDEPATH += $$PWD/library_includes/Lua
 DEPENDPATH += $$PWD/library_includes/Lua
 
