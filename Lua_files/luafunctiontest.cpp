@@ -104,6 +104,29 @@ void LuaFunctionTest::RunLua()
     luaL_dofile(lua_vm, "../SPIM-Folder/Lua_files/test4.lua");
     std::cout << std::endl;
 
+    //Lua must be closed at the end:
+    lua_close(lua_vm);
+}
+
+std::string LuaFunctionTest::GetName()
+{
+    //Starts Lua:
+    lua_State* lua_vm = luaL_newstate();
+
+    //Tests if everything went alright, stops if not...
+    if (lua_vm == NULL)
+    {
+        std::cout << "Lua state not generated!\n";
+        return "Missing";
+    }
+
+    //Script file test4: // for compulsory 1
+    std::cout << std::endl;
+    luaL_dofile(lua_vm, "../SPIM-Folder/Lua_files/test4.lua");
+
+    lua_getglobal(lua_vm, "name");	//Gets added into the stack
+    //Uses -1 as second parameter. Which returns the top of the stack:
+    return lua_tostring(lua_vm, -1); // Gets name
 
     //Lua must be closed at the end:
     lua_close(lua_vm);

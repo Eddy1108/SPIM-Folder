@@ -7,7 +7,9 @@
 #include "renderwindow.h"
 #include "logger.h"
 
-#include "Scenes/Scene0.h"
+//#include "Scenes/Scene0.h"
+
+#include "Lua_files/luafunctiontest.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::MainWindow)
@@ -74,7 +76,14 @@ void MainWindow::init()
     mRenderWindowContainer->setFocus();
 
     //feed in MainWindow to the logger - has to be done, else logger will crash program
-    Logger::getInstance()->setMainWindow(this);;
+    Logger::getInstance()->setMainWindow(this);
+
+
+    //Change text box
+    std::string text = "My name is ";
+    text += LuaFunctionTest::GetName();
+    QString tempText = QString::fromUtf8( text.data(), text.size() );
+    ui->textBox->setText(tempText);
 }
 
 //Example of a slot called from the button on the top of the program.
