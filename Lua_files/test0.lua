@@ -39,4 +39,4 @@ if index == NULL then
 end
 
 --hent variabel:
-pille = 3.14159
+pi = 3.14159

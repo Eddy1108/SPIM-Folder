@@ -46,6 +46,7 @@ SOURCES += main.cpp \
     Shaders/SkyBoxShader.cpp \
     Shaders/TextureShader.cpp \
     logger.cpp \
+    Lua_files/luafunctiontest.cpp \
     mainwindow.cpp \
     renderwindow.cpp
 
@@ -89,6 +90,7 @@ HEADERS += \
     Shaders/TextureShader.h \
     library_includes/dr_lib/dr_wav.h \
     logger.h \
+    Lua_files/luafunctiontest.h \
     mainwindow.h \
     renderwindow.h \
 # external libs
@@ -103,6 +105,7 @@ HEADERS += \
     Lua_files/test1.lua \
     Lua_files/test2.lua \
     Lua_files/test3.lua \
+    Lua_files/test4.lua \
     #stb_image/stb_image.h \
     glm/glm.hpp
 
@@ -143,9 +146,6 @@ else:win32-g++: PRE_TARGETDEPS += $$PWD/library_includes/Lua/liblua5.4.3-static.
 
 #Luac
 win32: LIBS += -L$$PWD/library_includes/Lua/ -lluac
-
-INCLUDEPATH += $$PWD/library_includes/Lua
-DEPENDPATH += $$PWD/library_includes/Lua
 
 win32:!win32-g++: PRE_TARGETDEPS += $$PWD/library_includes/Lua/luac.lib
 else:win32-g++: PRE_TARGETDEPS += $$PWD/library_includes/Lua/libluac.a

@@ -21,8 +21,7 @@
 #include "logger.h"
 
 #include "Core/Audio.h"
-//#include "lua.hpp"
-#include "Lua_files/funksjoner.h"
+#include "Lua_files/luafunctiontest.h"
 
 RenderWindow::RenderWindow(const QSurfaceFormat& format, MainWindow* mainWindow)
     : mContext(nullptr), mInitialized(false), mMainWindow(mainWindow)
@@ -57,8 +56,9 @@ RenderWindow::~RenderWindow()
 // Sets up the general OpenGL stuff and the buffers needed to render a triangle
 void RenderWindow::init()
 {
-    RunLua();
     mLogger = Logger::getInstance();
+
+    LuaFunctionTest::RunLua();
 
     //Connect the gameloop timer to the render function:
     //This makes our render loop
@@ -234,103 +234,6 @@ void RenderWindow::DrawLine(const glm::vec3& start, const glm::vec3& end, const 
     glBindVertexArray(0);
 }
 
-void RenderWindow::RunLua()
-{
-    std::cout << "Vi er igang med Lua!\n\n";
-
-    //Starter Lua:
-    lua_State* lua_vm = luaL_newstate();
-
-    //tester om det gikk bra; stopper hvis ikke...
-    if (lua_vm == NULL)
-    {
-        std::cout << "Lua state ikke generert!\n";
-        return;
-    }
-
-    //åpner basebibliotekene:
-    luaL_openlibs(lua_vm);
-
-    /***** Lua skal nå være klar til å brukes *******/
-
-    // 0. tester sending og mottaking av parametre:***************
-
-    //sender variabel:
-    lua_pushnumber(lua_vm, 3);
-    //setter variabelnavn:
-    lua_setglobal(lua_vm, "index");
-
-    //kjører en scriptfil:
-    luaL_dofile(lua_vm, "../SPIM-Folder/Lua_files/test0.lua");
-
-    //henter ut variabelen:
-    lua_getglobal(lua_vm, "fin");	//blir lagt på stacken
-    int i = lua_gettop(lua_vm);			//henter toppindexen
-    const char* p = lua_tostring(lua_vm, i);	//henter den ut
-
-    //viser resultat:
-    std::cout << "0. - " << p << std::endl << std::endl;
-
-    // 1. - å hente en varabel fra Lua gjøres altså slik:
-
-    //henter ut variabelen (må ha kjørt script-fila først):
-    lua_getglobal(lua_vm, "pille");	//blir lagt på stacken
-    //bruker -1 som parameter 2. Det gir også toppen av stacken:
-    p = lua_tostring(lua_vm, -1);	//henter den ut
-
-    std::cout << "1. - " << p << std::endl << std::endl;
-
-    //2. simpelt script gitt i en string:
-    std::cout << "2. - ";
-    std::string strScript = "a = 2 + 5;\n print(a);\n";
-    luaL_dostring(lua_vm, strScript.c_str());
-    std::cout << std::endl;
-
-    //3. kjør en scriptfil:
-    std::cout << "3. - ";
-    std::cout << "ren script-fil: ";
-    luaL_dofile(lua_vm, "../SPIM-Folder/Lua_files/test1.lua");
-    std::cout << std::endl;
-
-    //kjører den samme scriptfila, men denne er kompilert med luac.exe
-    std::cout << "Kompilert version:\n";
-    luaL_dofile(lua_vm, "../SPIM-Folder/Lua_files/test1.out");
-    std::cout << "Ferdig med kompilert\n";
-    std::cout << std::endl;
-
-    //4. kjører en annen scriptfil som inneholder en funksjon vi vil kalle:
-    //   (se i fila funksjoner.h for besvergelser for å få dette til)
-    std::cout << "4. - ";
-    luaL_dofile(lua_vm, "../SPIM-Folder/Lua_files/test2.lua");
-
-    //kaller C++funksjonen som kaller lua-funksjonen
-    double res = luaFunction(lua_vm, 6.0, 2.0);
-
-    std::cout << res << std::endl;
-    std::cout << std::endl;
-
-      //5. kjører en c-funksjon fra lua:
-      //   (c-funksjonen ligger i funksjoner.h)
-
-    std::cout << "5. - ";
-    //må registrere funksjonen i Lua:
-    //pusher selve funksjonen
-    lua_pushcfunction(lua_vm, test_Lua);
-    //gir den et navn i Lua
-    lua_setglobal(lua_vm, "c_funksjon");
-
-    luaL_dofile(lua_vm, "../SPIM-Folder/Lua_files/test3.lua");
-
-    lua_getglobal(lua_vm, "Res1");
-    int j = lua_gettop(lua_vm);
-    double s = lua_tonumber(lua_vm, j); //igjen, vi kunne brukt -1 her
-
-    std::cout << std::endl;
-    std::cout << "C-programmet sier at funksjonen kalt fra Lua gav resultatet: " << s << std::endl;
-
-    //lua må avsluttes:
-    lua_close(lua_vm);
-}
 
 
 void RenderWindow::calculateFramerate()

@@ -1,7 +1,7 @@
 --kommentar! begynner med --
 --Dette scriptet lager to tall, legger dem isammen og skriver dem ut!
 
-X = 50;
+X = 70;
 Y = 30;
 Z = X + Y;
 

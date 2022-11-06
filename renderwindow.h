@@ -94,7 +94,6 @@ private:
     Audio* soundTest2{ nullptr };
 
 protected:
-    void RunLua();
 
     void mousePressEvent(QMouseEvent* event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
