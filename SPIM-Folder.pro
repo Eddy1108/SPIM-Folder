@@ -93,7 +93,7 @@ HEADERS += \
     Lua_files/luafunctiontest.h \
     mainwindow.h \
     renderwindow.h \
-# external libs
+# external Lua files
     library_includes/Lua/lua.hpp \
     library_includes/Lua/lua.h \
     library_includes/Lua/luaconf.h \

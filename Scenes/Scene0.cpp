@@ -1,5 +1,7 @@
 #include "Scene0.h"
 
+#include "Mesh/ObjLoader.h"
+
 Scene0::Scene0(std::unordered_map<std::string, Shader*> shaders)
     : Scene(shaders)
 {
@@ -14,6 +16,9 @@ Scene0::Scene0(std::unordered_map<std::string, Shader*> shaders)
         //Untextured Objects
     mObjects.push_back(temp = new XYZ(*mShaderPrograms["plain"]));
     temp->setName("XYZ");
+
+    mObjects.push_back(temp = new ObjLoader(*mShaderPrograms["plain"], "../SPIM-Folder/Assets/models/crew.obj"));
+    temp->setName("Jabbo");
 
     mObjects.push_back(temp = new Kube(*mShaderPrograms["plain"]));
     temp->setName("Kube");
