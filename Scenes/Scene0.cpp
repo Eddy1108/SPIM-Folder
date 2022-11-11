@@ -18,7 +18,7 @@ Scene0::Scene0(std::unordered_map<std::string, Shader*> shaders)
     temp->setName("XYZ");
 
     mObjects.push_back(temp = new ObjLoader(*mShaderPrograms["plain"], "../SPIM-Folder/Assets/models/crew.obj"));
-    temp->setName("Jabbo");
+    temp->setName("Amongus");
 
     mObjects.push_back(temp = new Kube(*mShaderPrograms["plain"]));
     temp->setName("Kube");
