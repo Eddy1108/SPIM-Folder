@@ -47,6 +47,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Audio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Math\Barycentric.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -89,12 +92,6 @@
     <ClCompile Include="Mesh\OctahedronBall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Shaders\PhongShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shaders\PlainShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Mesh\Player\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -122,9 +119,6 @@
     <ClCompile Include="Math\SortCoords.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Shaders\TextureShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Mesh\Triangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -140,16 +134,43 @@
     <ClCompile Include="Core\XYZ.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Core\dr_wav.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\inputmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Mesh\line.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Lua_files\luafunctiontest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="mainwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\materialcubemap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\materiallist.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\materialphong.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\materialplain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\materialtexture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Core\quadtree.cpp">
@@ -164,14 +185,11 @@
     <ClCompile Include="Core\texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\dr_wav.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Audio.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Audio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Math\Barycentric.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -214,12 +232,6 @@
     <ClInclude Include="Mesh\OctahedronBall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shaders\PhongShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\PlainShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Mesh\Player\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -247,9 +259,6 @@
     <ClInclude Include="Math\SortCoords.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shaders\TextureShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Mesh\Triangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -265,7 +274,19 @@
     <ClInclude Include="Core\XYZ.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="library_includes\dr_lib\dr_wav.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua_files\funksjoner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="glm\glm.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\inputmanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="library_includes\Lua\lauxlib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Mesh\line.h">
@@ -274,9 +295,42 @@
     <ClInclude Include="logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="library_includes\Lua\lua.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="library_includes\Lua\lua.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="library_includes\Lua\luaconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua_files\luafunctiontest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="library_includes\Lua\lualib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <QtMoc Include="mainwindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <ClInclude Include="Core\material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\materialcubemap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\materiallist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\materialphong.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\materialplain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\materialtexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Core\quadtree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -286,11 +340,32 @@
     <ClInclude Include="Core\shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\texture.h">
+    <ClInclude Include="stb_image\stb_image.cpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Audio.h">
-      <Filter>Generated Files</Filter>
+    <ClInclude Include="stb_image\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua_files\test0.lua">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua_files\test1.lua">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua_files\test1.out">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua_files\test2.lua">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua_files\test3.lua">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua_files\test4.lua">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\texture.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -307,13 +382,25 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\tex\heightmap.bmp">
+    <None Include="Assets\Texture\skybox\back.jpg">
       <Filter>Distribution Files</Filter>
     </None>
-    <None Include="Assets\tex\hund.bmp">
+    <None Include="Assets\Texture\skybox\bottom.jpg">
       <Filter>Distribution Files</Filter>
     </None>
-    <None Include="Assets\tex\linus.bmp">
+    <None Include="Assets\Texture\skybox\front.jpg">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="Assets\Texture\heightmap.bmp">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="Assets\Texture\hund.bmp">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="Assets\Texture\skybox\left.jpg">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="Assets\Texture\linus.bmp">
       <Filter>Distribution Files</Filter>
     </None>
     <None Include="Shaders\phongshader.frag">
@@ -334,10 +421,22 @@
     <None Include="Shaders\plainshaderChad.vert">
       <Filter>Distribution Files</Filter>
     </None>
+    <None Include="Assets\Texture\skybox\right.jpg">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="Shaders\skyboxshader.frag">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="Shaders\skyboxshader.vert">
+      <Filter>Distribution Files</Filter>
+    </None>
     <None Include="Shaders\textureshader.frag">
       <Filter>Distribution Files</Filter>
     </None>
     <None Include="Shaders\textureshader.vert">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="Assets\Texture\skybox\top.jpg">
       <Filter>Distribution Files</Filter>
     </None>
   </ItemGroup>
