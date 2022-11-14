@@ -8,7 +8,7 @@ class Light : public VisualObject
 {
 public:
     ///Light class with mesh and light parameters
-    Light(Shader& shader);
+    Light(std::string materialName);
     ~Light();
     virtual void init() override;
     virtual void draw() override;

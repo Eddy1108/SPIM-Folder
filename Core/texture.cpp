@@ -148,5 +148,20 @@ void Texture::makeDummyTexture()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_UNSIGNED_BYTE,
-        reinterpret_cast<const GLvoid*>(pixels));
+                 reinterpret_cast<const GLvoid*>(pixels));
+}
+
+float Texture::GetHeightFromIndex(int i)
+{
+    if (i > mColumns * mRows || i < 0)
+        return 0;
+
+
+    int r = mBitmap[i*3];
+    int g = mBitmap[i*3+1];
+    int b = mBitmap[i*3+2];
+
+    float height = (r+g+b)/3.f;
+
+    return height;
 }

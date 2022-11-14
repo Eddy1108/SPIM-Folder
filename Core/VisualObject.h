@@ -11,18 +11,25 @@
 #include "shader.h"
 #include "Core/CollisionShapes.h"
 #include "Core/Audio.h"
+#include "material.h"
 
 class RenderWindow;
+class MaterialList;
 
 class VisualObject : public QOpenGLFunctions_4_1_Core {
 public:
 
 	VisualObject() = delete;
-	VisualObject(Shader& shader);
+    VisualObject(std::string materialName);
 	~VisualObject();
 	virtual void init();
 	virtual void initTexture();
 	virtual void draw();
+
+    void setMaterial(std::string materialName);
+    //void setMaterial(MaterialList* materialList);
+    //void setMaterial(Material &material)
+
 	virtual void move(float x, float y, float z);
 	virtual void move(float dt) { ; }
 	virtual bool activate(float f = 0) { return false; };
@@ -34,8 +41,9 @@ public:
 	std::string getName() const;
 
 	glm::mat4 mMatrix{ 1 };
-	Shader& mShader;
-	float mx, my, mz; // position
+    //Shader& mShader;
+    std::string mMaterialName;
+    float mx{0.f}, my{0.f}, mz{0.f}; // position
 
 	CollisionShape* mBShape{ nullptr };
 
@@ -47,13 +55,14 @@ public:
 
 	bool bPlay{ true };
 
+
+
 protected:
+    Material* mMaterial{nullptr};
 
 	GLuint mVAO{ 0 };
 	GLuint mVBO{ 0 };
-	GLuint mEAB{ 0 }; 
-
-	GLint mMatrixUniform{ 0 };
+    GLuint mEBO{ 0 };
 
 	glm::mat4 mRotation{ 1 };
 	glm::mat4 mScale{ 1 };

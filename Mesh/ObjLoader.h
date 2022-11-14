@@ -8,7 +8,7 @@
 class ObjLoader : public VisualObject
 {
 public:
-	ObjLoader(Shader& shader, const std::string objfiledir, std::string texfiledir);
+    ObjLoader(std::string materialName, const std::string objfiledir, std::string texfiledir = "");
 	~ObjLoader();
 
 	void init() override;

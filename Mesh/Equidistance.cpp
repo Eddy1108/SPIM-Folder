@@ -1,11 +1,11 @@
 #include "Mesh/Equidistance.h"
 
-Equidistance::Equidistance(Shader& shader) : VisualObject(shader)
+Equidistance::Equidistance(std::string materialName) : VisualObject(materialName)
 {
     mMatrix1.setToIdentity();
 }
 
-Equidistance::Equidistance(Shader& shader, QVector3D a, QVector3D b) : VisualObject(shader)
+Equidistance::Equidistance(std::string materialName, QVector3D a, QVector3D b) : VisualObject(materialName)
 {
 
     mVertices.push_back(Vertex{ a.x(), a.y(), a.z(),1,1,1 });
@@ -50,8 +50,8 @@ void Equidistance::init()
 
 void Equidistance::draw()
 {
+    mMaterial->UpdateUniforms(&mMatrix);
     glBindVertexArray(mVAO);
-    glUniformMatrix4fv(mShader.mMatrixUniform, 1, GL_FALSE, mMatrix1.constData());
     glDrawArrays(GL_LINES, 0, mVertices.size());
     glBindVertexArray(0);
 }

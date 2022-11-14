@@ -6,7 +6,7 @@ class Heightmap;
 class InteractiveObject : public VisualObject
 {
 public:
-	InteractiveObject(Shader& shader);
+    InteractiveObject(std::string materialName);
 	~InteractiveObject();
 
 	virtual void init() override;

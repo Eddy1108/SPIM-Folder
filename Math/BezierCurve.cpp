@@ -1,7 +1,7 @@
 #include "Math/BezierCurve.h"
 
-BezierCurve::BezierCurve(Shader& shader)
-	:VisualObject(shader)
+BezierCurve::BezierCurve(std::string materialName)
+    :VisualObject(materialName)
 {
 	//mControlPoints.push_back(glm::vec3{ 0.f,0.f,0.f });
 	//mControlPoints.push_back(glm::vec3{ 1.f,3.f,0.f });
@@ -96,9 +96,9 @@ void BezierCurve::init()
 
 void BezierCurve::draw()
 {
+    mMaterial->UpdateUniforms(&mMatrix);
 
-	glBindVertexArray(mVAO);
-	glUniformMatrix4fv(mShader.mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
+    glBindVertexArray(mVAO);
 	glDrawArrays(GL_LINE_STRIP, 0, mVertices.size());
 
 	for (int i = 0; i < mCubes.size(); i++)
@@ -112,7 +112,7 @@ void BezierCurve::construct()
 	//Construct the Cubes to visualize the Control Points
 	for (int i = 0; i < mControlPoints.size(); i++)
 	{
-		mCubes.push_back(new Kube(mShader, 0.1f, mControlPoints[i].x, mControlPoints[i].y, mControlPoints[i].z));
+        mCubes.push_back(new Kube("materialplain", 0.1f, mControlPoints[i].x, mControlPoints[i].y, mControlPoints[i].z));
 	}
 
 	glm::vec3 color{ 1.f, 0.f, 0.f };

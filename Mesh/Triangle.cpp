@@ -1,7 +1,7 @@
 #include "Triangle.h"
 
-Triangle::Triangle(Shader& shader)
-	:VisualObject(shader)
+Triangle::Triangle(std::string materialName)
+    :VisualObject(materialName)
 {
 
 	mVertices.push_back(Vertex{ 0.f, 0.f, 0.f,   0,0,0, 0,0 }); // A
@@ -72,11 +72,13 @@ void Triangle::init()
 
 void Triangle::draw()
 {
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, mTexture->id());
+    //glActiveTexture(GL_TEXTURE1);
+    //glBindTexture(GL_TEXTURE_2D, mTexture->id());
+
+    mMaterial->UpdateUniforms(&mMatrix);
 
 	glBindVertexArray(mVAO);
-	glUniformMatrix4fv(mShader.mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
+    //glUniformMatrix4fv(mShader.mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
 	glDrawArrays(GL_TRIANGLES, 0, mVertices.size());
 	glBindVertexArray(0);
 }

@@ -23,7 +23,7 @@
 //! - n is the recursion level (number of repeated subdivisions)
 
 
-OctahedronBall::OctahedronBall(Shader& shader, int n) : m_rekursjoner(n), m_indeks(0), VisualObject(shader)
+OctahedronBall::OctahedronBall(std::string materialName, int n) : m_rekursjoner(n), m_indeks(0), VisualObject(materialName)
 {
 	mVertices.reserve(3 * 8 * pow(4,m_rekursjoner));
 	oktaederUnitBall();
@@ -139,8 +139,9 @@ void OctahedronBall::init()
 
 void OctahedronBall::draw()
 {
+	mMaterial->UpdateUniforms(&mMatrix);
 
 	glBindVertexArray(mVAO);
-	glUniformMatrix4fv(mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
 	glDrawArrays(GL_TRIANGLES, 0, mVertices.size());
+	glBindVertexArray(0);
 }

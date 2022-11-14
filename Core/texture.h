@@ -16,15 +16,16 @@ public:
 
     unsigned char* getBitmap();
 
+    ///The width of the image, in pixels
+    int mColumns;
+    ///The height of the image, in pixels
+    int mRows;
 private:
     GLubyte pixels[16];     // For the standard texture from the no-parameter constructor
     GLuint mId{ 0 };          //Texture ID that OpenGL makes when glGenTextures is called
     ///Pointer to the pixels in the bitmap, starting at lower, left corner
     unsigned char* mBitmap{ nullptr };
-    ///The width of the image, in pixels
-    int mColumns;
-    ///The height of the image, in pixels
-    int mRows;
+
     ///Number of bytes describing each pixel. Have to be 3 or 4.
     int mBytesPrPixel;
     ///Does this image use alpha channel?
@@ -71,4 +72,7 @@ private:
         ODWORD biClrImportant;
     };
     void makeDummyTexture();
+
+public:
+    float GetHeightFromIndex(int i);
 };

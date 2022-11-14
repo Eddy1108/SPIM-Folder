@@ -7,7 +7,7 @@ class Heightmap : public VisualObject
 {
 public:
 
-	Heightmap(Shader& shader);
+    Heightmap(std::string materialName, Texture* heightMapTexture);
 	~Heightmap();
 	void init() override;
 	void draw() override;
@@ -21,8 +21,8 @@ protected:
 
 	GLuint mEBO{ 0 };
 
-	Texture* mTexture;
-	Texture* mHeightmap;
+    Texture* mTexture{nullptr};
+    Texture* mHeightmap{nullptr};
 
 	int mHeight{ 0 };
 	int mWidth{ 0 };

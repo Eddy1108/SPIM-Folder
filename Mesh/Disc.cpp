@@ -1,15 +1,15 @@
 #include "Disc.h"
 
 
-Disc::Disc(Shader& shader)
-	:VisualObject(shader)
+Disc::Disc(std::string materialName)
+    :VisualObject(materialName)
 {
 	construct();
 	mMatrix = glm::mat4(1.0f);
 }
 
-Disc::Disc(Shader& shader, std::string filename)
-	:VisualObject(shader)
+Disc::Disc(std::string materialName, std::string filename)
+    :VisualObject(materialName)
 {
 }
 
@@ -58,10 +58,10 @@ void Disc::init()
 void Disc::draw() 
 {
 	initializeOpenGLFunctions();
+    mMaterial->UpdateUniforms(&mMatrix);
 
 	glBindVertexArray(mVAO);
-	//GL_FALSE for QMatrix4x4
-	glUniformMatrix4fv(mShader.mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
+    //GL_FALSE for QMatrix4x4
 	glDrawElements(GL_TRIANGLE_FAN, mVertices.size(), GL_UNSIGNED_INT, reinterpret_cast<const void*>(0)); //mVertices.size();
 }
 

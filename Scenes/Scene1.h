@@ -7,9 +7,10 @@
 class Scene1 : public Scene
 {
 public:
-	Scene1(std::unordered_map<std::string, Shader*> shaders);
+    Scene1();
 	~Scene1();
 
+    void objects() override;
 	//void init() override;
 	//void draw() override;
 

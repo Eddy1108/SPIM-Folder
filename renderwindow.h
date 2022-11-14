@@ -9,6 +9,8 @@
 #include "Scenes/SceneSwitcher.h"
 #include "Scenes/Scene.h"
 
+#include "Core/materiallist.h"
+
 #include "Core/Camera.h"
 #include "Core/texture.h"
 #include "Light/Light.h"
@@ -22,6 +24,7 @@
 
 #include <chrono>
 
+class MaterialList;
 class Audio;
 class QOpenGLContext;
 class Shader;
@@ -54,6 +57,8 @@ public:
 
     inline static Camera* mCurrentCamera{ nullptr };
 
+    inline static MaterialList* mMaterialList{nullptr};
+
 private slots:
     void render();          //the actual render - function
 
@@ -64,7 +69,7 @@ private:
     bool mInitialized{false};
 
     //Shader Storage
-    std::unordered_map<std::string, Shader*> mShaderPrograms;
+    //std::unordered_map<std::string, Shader*> mShaderPrograms;
 
 
     GLuint mVAO;                        //OpenGL reference to our VAO

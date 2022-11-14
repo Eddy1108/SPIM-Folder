@@ -1,31 +1,33 @@
 #include "Scene1.h"
 
-Scene1::Scene1(std::unordered_map<std::string, Shader*> shaders)
-    : Scene(shaders)
+Scene1::Scene1()
+    : Scene()
 {
     mCamera = new Camera();
+}
 
+Scene1::~Scene1()
+{
+}
+
+void Scene1::objects()
+{
     VisualObject* temp;
-
     //Untextured Objects
-    mObjects.push_back(temp = new XYZ(*mShaderPrograms["plain"]));
+    mObjects.push_back(temp = new XYZ("materialplain"));
     temp->setName("XYZ");
-    mObjects.push_back(temp = new InteractiveObject(*mShaderPrograms["plain"]));
+    mObjects.push_back(temp = new InteractiveObject("materialplain"));
     temp->setName("mia");
 
 
     //Textured Objects
-    mObjects2.push_back(temp = new TriangleSurface(*mShaderPrograms["textured"]));
+    mObjects.push_back(temp = new TriangleSurface("materialtexture"));
     temp->setName("TriangleSurface");
 
 
     for (auto it = mObjects.begin(); it != mObjects.end(); it++)
     {
         mMap.insert(std::pair<std::string, VisualObject*>{(*it)->getName(), * it});
-    }
-    for (auto it = mObjects2.begin(); it != mObjects2.end(); it++)
-    {
-        mMap2.insert(std::pair<std::string, VisualObject*>{(*it)->getName(), * it});
     }
 
     //Make Quadtree
@@ -36,12 +38,4 @@ Scene1::Scene1(std::unordered_map<std::string, Shader*> shaders)
     {
         mQuadTre->insert((*it));
     }
-    for (auto it = mObjects2.begin(); it != mObjects2.end(); it++)
-    {
-        mQuadTre->insert((*it));
-    }
-}
-
-Scene1::~Scene1()
-{
 }

@@ -17,11 +17,14 @@
 #include "Scenes/Scene1.h"
 
 #include "Core/shader.h"
+#include "Core/materiallist.h"
 #include "mainwindow.h"
 #include "logger.h"
 
 #include "Core/Audio.h"
-#include "library_includes/Lua/lua.h"
+#include "Lua_files/luafunctiontest.h"
+
+#define STB_IMAGE_IMPLEMENTATION
 
 RenderWindow::RenderWindow(const QSurfaceFormat& format, MainWindow* mainWindow)
     : mContext(nullptr), mInitialized(false), mMainWindow(mainWindow)
@@ -51,14 +54,15 @@ RenderWindow::~RenderWindow()
     //cleans up the GPU memory
     glDeleteVertexArrays( 1, &mVAO );
     glDeleteBuffers( 1, &mVBO );
+    delete mMaterialList;
 }
 
 // Sets up the general OpenGL stuff and the buffers needed to render a triangle
 void RenderWindow::init()
 {
-
     mLogger = Logger::getInstance();
 
+    //LuaFunctionTest::RunLua();
     //Connect the gameloop timer to the render function:
     //This makes our render loop
     connect(mRenderTimer, SIGNAL(timeout()), this, SLOT(render()));
@@ -98,13 +102,19 @@ void RenderWindow::init()
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
 
     //Set up Shaders
-    mShaderPrograms.insert(std::pair<std::string, Shader*>("plain", new PlainShader("../SPIM-Folder/Shaders/plainshader.vert", "../SPIM-Folder/Shaders/plainshader.frag")));
-    mShaderPrograms.insert(std::pair<std::string, Shader*>("textured", new TextureShader("../SPIM-Folder/Shaders/textureshader.vert", "../SPIM-Folder/Shaders/textureshader.frag")));
-    mShaderPrograms.insert(std::pair<std::string, Shader*>("phong", new PhongShader("../SPIM-Folder/Shaders/phongshader.vert", "../SPIM-Folder/Shaders/phongshader.frag")));
-    mShaderPrograms.insert(std::pair<std::string, Shader*>("skybox", new SkyBoxShader("../SPIM-Folder/Shaders/skyboxShader.vert", "../SPIM-Folder/Shaders/skyboxShader.frag")));
+    //mShaderPrograms.insert(std::pair<std::string, Shader*>("plain", new PlainShader("../SPIM-Folder/Shaders/plainshader.vert", "../SPIM-Folder/Shaders/plainshader.frag")));
+    //mShaderPrograms.insert(std::pair<std::string, Shader*>("textured", new TextureShader("../SPIM-Folder/Shaders/textureshader.vert", "../SPIM-Folder/Shaders/textureshader.frag")));
+    //mShaderPrograms.insert(std::pair<std::string, Shader*>("phong", new PhongShader("../SPIM-Folder/Shaders/phongshader.vert", "../SPIM-Folder/Shaders/phongshader.frag")));
+    //mShaderPrograms.insert(std::pair<std::string, Shader*>("skybox", new SkyBoxShader("../SPIM-Folder/Shaders/skyboxShader.vert", "../SPIM-Folder/Shaders/skyboxShader.frag")));
+
+
+    //----------Create material list-----------
+    if(!mMaterialList)
+        mMaterialList = new MaterialList;
+
 
     //Set up Scene(s)
-    Scenes.push_back(new Scene0(mShaderPrograms));
+    Scenes.push_back(new Scene0());
 
 
     ///Initialize all the scenes
@@ -186,34 +196,35 @@ void RenderWindow::exposeEvent(QExposeEvent *)
 //Debug method
 void RenderWindow::DrawLine(const glm::vec3& start, const glm::vec3& end, const glm::vec4& color)
 {
-    static uint32_t VAO{};
-    static uint32_t VBO{};
-    glm::vec3 data[] = { start, end };
-    if (VAO == 0)
-    {
-        glGenVertexArrays(1, &VAO);
-        glBindVertexArray(VAO);
-        glGenBuffers(1, &VBO);
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(data), data, GL_DYNAMIC_DRAW);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
-        glEnableVertexAttribArray(0);
-    }
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(data), data);
-    glUseProgram(mShaderPrograms[0]->getProgram());
-    auto location = glGetUniformLocation(mShaderPrograms["plain"]->getProgram(), "colorIn");
-    glUniform4f(location, color.x, color.y, color.z, color.w);
+//    static uint32_t VAO{};
+//    static uint32_t VBO{};
+//    glm::vec3 data[] = { start, end };
+//    if (VAO == 0)
+//    {
+//        glGenVertexArrays(1, &VAO);
+//        glBindVertexArray(VAO);
+//        glGenBuffers(1, &VBO);
+//        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+//        glBufferData(GL_ARRAY_BUFFER, sizeof(data), data, GL_DYNAMIC_DRAW);
+//        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
+//        glEnableVertexAttribArray(0);
+//    }
+//    glBindVertexArray(VAO);
+//    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+//    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(data), data);
+//    glUseProgram(mShaderPrograms[0]->getProgram());
+//    auto location = glGetUniformLocation(mShaderPrograms["plain"]->getProgram(), "colorIn");
+//    glUniform4f(location, color.x, color.y, color.z, color.w);
 
-    static constexpr glm::mat4 identity(1.f);
+//    static constexpr glm::mat4 identity(1.f);
 
-    location = glGetUniformLocation(mShaderPrograms["plain"]->getProgram(), "model");
-    glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(identity));
+//    location = glGetUniformLocation(mShaderPrograms["plain"]->getProgram(), "model");
+//    glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(identity));
 
-    glDrawArrays(GL_LINES, 0, 2);
-    glBindVertexArray(0);
+//    glDrawArrays(GL_LINES, 0, 2);
+//    glBindVertexArray(0);
 }
+
 
 
 void RenderWindow::calculateFramerate()

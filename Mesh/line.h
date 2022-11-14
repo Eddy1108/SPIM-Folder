@@ -7,7 +7,7 @@
 class Line : public VisualObject
 {
 public:
-    Line(const glm::vec3& direction, const glm::mat4& positionMatrix, glm::vec3 color, Shader& shader);
+    Line(const glm::vec3& direction, const glm::mat4& positionMatrix, glm::vec3 color, std::string materialName);
     void init() override;
     void draw() override;
     void scale(float s);

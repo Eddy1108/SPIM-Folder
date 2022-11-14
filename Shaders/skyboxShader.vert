@@ -1,16 +1,20 @@
 #version 410 core
-layout (location = 0) in vec3 aPos;
+layout(location = 0) in vec3 positionIn;
+layout(location = 1) in vec3 colorIn;
+layout(location = 2) in vec2 vertexUV;
 
-out vec3 texCoords;
+out vec3 TexCoords;
 
-uniform mat4 rotMatrix;	//rotate the skybox
-uniform mat4 mMatrix;
+uniform mat4 rotMatrix; //Used to rotate the cubemap
 uniform mat4 pMatrix;
 uniform mat4 vMatrix;
 
 void main()
 {
-	vec4 pos = pMatrix * vMatrix * rotMatrix * vec4(aPos, 1.0f);
-	gl_Position = pos.xyww;
-	texCoords = aPos.xyz;
+    TexCoords = positionIn;
+    mat4 view = mat4(mat3(vMatrix));
+
+    //vec4 pos = pMatrix * view * rotMatrix * vec4(positionIn, 1.0);
+    gl_Position = pMatrix * view * rotMatrix * vec4(positionIn, 1.0);
+    //gl_Position = pos.xyww;
 }

@@ -1,6 +1,6 @@
 #include "line.h"
 
-Line::Line(const glm::vec3& direction, const glm::mat4& positionMatrix, glm::vec3 color, Shader& shader) : VisualObject(shader)
+Line::Line(const glm::vec3& direction, const glm::mat4& positionMatrix, glm::vec3 color, std::string materialName) : VisualObject(materialName)
 {
     mMatrix = glm::mat4(1.0f);
 
@@ -50,8 +50,9 @@ void Line::draw()
 
     mMatrix = *mObjPosition * mScale;
 
+    mMaterial->UpdateUniforms(&mMatrix);
+
     glBindVertexArray( mVAO );
-    glUniformMatrix4fv( mMatrixUniform, 1, GL_TRUE, glm::value_ptr(mMatrix));
     glDrawArrays(GL_LINES, 0, mVertices.size());
 }
 

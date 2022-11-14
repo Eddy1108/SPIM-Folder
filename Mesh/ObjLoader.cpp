@@ -1,7 +1,7 @@
 #include "ObjLoader.h"
 
-ObjLoader::ObjLoader(Shader& shader, const std::string objfiledir, std::string texfiledir)
-	: VisualObject(shader)
+ObjLoader::ObjLoader(std::string materialName, const std::string objfiledir, std::string texfiledir)
+    : VisualObject(materialName)
 {
 	ReadFile(objfiledir);
 

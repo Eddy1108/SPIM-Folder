@@ -1,7 +1,7 @@
 #include "SceneSwitcher.h"
 
-SceneSwitcher::SceneSwitcher(Shader& shader, float size, float x, float y, float z)
-	:VisualObject(shader)
+SceneSwitcher::SceneSwitcher(std::string materialName, float size, float x, float y, float z)
+    :VisualObject(materialName)
 {
 	if (size < 0.01f)
 	{

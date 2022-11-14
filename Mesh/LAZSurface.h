@@ -22,7 +22,7 @@ struct SquareWHeights {
 class LAZSurface : public VisualObject
 {
 public:
-    LAZSurface(const std::string txtFileName, PointCloud* cloud, const QVector2D mGridSize, Shader& shader, const QVector3D offset = QVector3D(0.f, 0.f, 0.f), const float scale = 1);
+    LAZSurface(const std::string txtFileName, PointCloud* cloud, const QVector2D mGridSize, std::string materialName, const QVector3D offset = QVector3D(0.f, 0.f, 0.f), const float scale = 1);
     void construct(const std::string txtFileName);
     void readFile(const std::string txtFileName);
     void init() override;

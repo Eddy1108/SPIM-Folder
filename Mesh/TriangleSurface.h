@@ -4,8 +4,8 @@
 class TriangleSurface : public VisualObject
 {
 public:
-	TriangleSurface(Shader& shader);
-	TriangleSurface(std::string filename, Shader& shader);
+    TriangleSurface(std::string materialName);
+    TriangleSurface(std::string filename, std::string materialName);
 	~TriangleSurface();
 
 	void readFile(std::string filename);

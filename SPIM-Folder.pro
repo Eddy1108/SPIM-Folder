@@ -5,7 +5,11 @@ CONFIG      += c++17
 
 TARGET      = 3D-programmering
 
+
 SOURCES += main.cpp \
+    #Core/stb_image.cpp \
+    Core/materiallist.cpp \
+    Core/material.cpp \
     Core/Audio.cpp \
     Core/Camera.cpp \
     Core/CollisionShapes.cpp \
@@ -39,17 +43,25 @@ SOURCES += main.cpp \
     Scenes/Scene.cpp \
     Scenes/Scene0.cpp \
     Scenes/Scene1.cpp \
+    Materials/materialcubemap.cpp \
+    Materials/materialphong.cpp \
+    Materials/materialplain.cpp \
+    Materials/materialtexture.cpp \
     Scenes/SceneSwitcher.cpp \
     Shaders/PhongShader.cpp \
     Shaders/PlainShader.cpp \
     Shaders/SkyBoxShader.cpp \
     Shaders/TextureShader.cpp \
     logger.cpp \
+    Lua_files/luafunctiontest.cpp \
     mainwindow.cpp \
     renderwindow.cpp
 
 HEADERS += \
-    Audio.h \
+    #Core/stb_image.h \
+    Core/materiallist.h \
+    Core/material.h \
+    Core/Audio.h \
     Core/Camera.h \
     Core/CollisionShapes.h \
     Core/Vertex.h \
@@ -82,30 +94,53 @@ HEADERS += \
     Scenes/Scene0.h \
     Scenes/Scene1.h \
     Scenes/SceneSwitcher.h \
+    Materials/materialcubemap.h \
+    Materials/materialphong.h \
+    Materials/materialplain.h \
+    Materials/materialtexture.h \
     Shaders/PhongShader.h \
     Shaders/PlainShader.h \
     Shaders/SkyBoxShader.h \
     Shaders/TextureShader.h \
     library_includes/dr_lib/dr_wav.h \
     logger.h \
+    Lua_files/luafunctiontest.h \
     mainwindow.h \
     renderwindow.h \
-# external libs
+# external Lua files
     library_includes/Lua/lua.hpp \
     library_includes/Lua/lua.h \
     library_includes/Lua/luaconf.h \
     library_includes/Lua/lualib.h \
     library_includes/Lua/lauxlib.h \
-#    stb_image/stb_image.h \
+    Lua_files/funksjoner.h \
+    Lua_files/test0.lua \
+    Lua_files/test1.out \
+    Lua_files/test1.lua \
+    Lua_files/test2.lua \
+    Lua_files/test3.lua \
+    Lua_files/test4.lua \
+    #image loader
+    stb_image/stb_image.h \
+    stb_image/stb_image.cpp\
     glm/glm.hpp
 
 FORMS += \
     mainwindow.ui
 
 DISTFILES += \
-    Assets/tex/heightmap.bmp \
-    Assets/tex/hund.bmp \
-    Assets/tex/linus.bmp \
+    #images
+    Assets/Texture/heightmap.bmp \
+    Assets/Texture/hund.bmp \
+    Assets/Texture/linus.bmp \
+    #skybox
+    Assets/Texture/skybox/right.jpg \
+    Assets/Texture/skybox/left.jpg \
+    Assets/Texture/skybox/top.jpg \
+    Assets/Texture/skybox/bottom.jpg \
+    Assets/Texture/skybox/front.jpg \
+    Assets/Texture/skybox/back.jpg \
+    #shaders
     Shaders/phongshader.frag \
     Shaders/phongshader.vert \
     Shaders/plainshader.frag \
@@ -113,9 +148,12 @@ DISTFILES += \
     Shaders/plainshaderChad.frag \
     Shaders/plainshaderChad.vert \
     Shaders/textureshader.frag \
-    Shaders/textureshader.vert
+    Shaders/textureshader.vert \
+    Shaders/skyboxshader.frag \
+    Shaders/skyboxshader.vert
 
-
+#INCLUDEPATH += $(LUA_HOME)\\include
+#LIBS *= $(LUA_HOME)\\libs\\lua5.4.3-static.lib
 
 win32: LIBS += -L$$PWD/build_libraries/debug/OpenAL/ -lOpenAL32
 
@@ -123,16 +161,18 @@ INCLUDEPATH += $$PWD/build_libraries/debug/OpenAL
 DEPENDPATH += $$PWD/build_libraries/debug/OpenAL
 
 INCLUDEPATH += $$PWD/library_includes
-#Dynamic
-win32: LIBS += -L$$PWD/library_includes/Lua/ -lluac
+
+#Lua
+win32: LIBS += -L$$PWD/library_includes/Lua/ -llua5.4.3-static
 
 INCLUDEPATH += $$PWD/library_includes/Lua
 DEPENDPATH += $$PWD/library_includes/Lua
 
+win32:!win32-g++: PRE_TARGETDEPS += $$PWD/library_includes/Lua/lua5.4.3-static.lib
+else:win32-g++: PRE_TARGETDEPS += $$PWD/library_includes/Lua/liblua5.4.3-static.a
+
+#Luac
 win32: LIBS += -L$$PWD/library_includes/Lua/ -lluac
-#Static
-INCLUDEPATH += $$PWD/library_includes/Lua
-DEPENDPATH += $$PWD/library_includes/Lua
 
 win32:!win32-g++: PRE_TARGETDEPS += $$PWD/library_includes/Lua/luac.lib
 else:win32-g++: PRE_TARGETDEPS += $$PWD/library_includes/Lua/libluac.a
