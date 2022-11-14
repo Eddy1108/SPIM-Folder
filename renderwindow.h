@@ -94,9 +94,6 @@ private:
     void startOpenGLDebugger();
 
     void DrawLine(const glm::vec3 &start, const glm::vec3 &end, const glm::vec4 &color);
-
-    Audio* soundTest{ nullptr };
-    Audio* soundTest2{ nullptr };
 protected:
 
     void mousePressEvent(QMouseEvent* event) override;
