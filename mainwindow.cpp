@@ -80,10 +80,10 @@ void MainWindow::init()
 
 
     //Change text box
-    std::string text = "My name is ";
-    text += LuaFunctionTest::GetName();
-    QString tempText = QString::fromUtf8( text.data(), text.size() );
-    ui->textBox->setText(tempText);
+    //std::string text = "My name is ";
+    //text += LuaFunctionTest::GetName();
+    //QString tempText = QString::fromUtf8( text.data(), text.size() );
+    //ui->textBox->setText(tempText);
 }
 
 //Example of a slot called from the button on the top of the program.

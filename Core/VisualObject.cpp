@@ -1,11 +1,11 @@
 #include "VisualObject.h"
+#include "materiallist.h"
 #include "renderwindow.h"
 
 
-VisualObject::VisualObject(Shader& shader)
-	: mx{ 0.0f }, my{ 0.0f }, mz{ 0.0f }, mShader{ shader }
+VisualObject::VisualObject(std::string materialName)
 {
-
+    setMaterial(materialName);
 }
 
 VisualObject::~VisualObject() {
@@ -26,8 +26,8 @@ void VisualObject::init()
 	glBindBuffer(GL_ARRAY_BUFFER, mVBO);
 
 	//EBO
-	glGenBuffers(1, &mEAB);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEAB);
+    glGenBuffers(1, &mEBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mIndices.size() * sizeof(GLuint), mIndices.data(), GL_STATIC_DRAW);
 
 	glBufferData(GL_ARRAY_BUFFER,      //what buffer type
@@ -121,13 +121,54 @@ void VisualObject::initTexture()
 
 void VisualObject::draw()
 {
-	glBindVertexArray(mVAO);
-	glUniformMatrix4fv(mShader.mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
+    mMaterial->UpdateUniforms(&mMatrix);
+    //glUniformMatrix4fv(mShader.mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
+    glBindVertexArray(mVAO);
 	glDrawArrays(GL_TRIANGLES, 0, mVertices.size());
 
+
 	//Render Components here
-	UpdateAudio();
+    UpdateAudio();
 }
+
+void VisualObject::setMaterial(std::string materialName)
+{
+    MaterialList* matList = RenderWindow::mMaterialList;
+    if(!matList){
+        std::cout << "Error, materialList was never compiled in renderWindow!\n";
+        return;
+    }
+    for(int i = 0; i < matList->mMaterialSize; i++){
+        if(matList->mMaterial[i].first == materialName && !materialName.empty()){
+            mMaterial = matList->mMaterial[i].second;
+            break;
+        }
+    }
+}
+
+/*void VisualObject::setMaterial(MaterialList *materialList)
+{
+    //Gets material lsit
+    MaterialList* matList = RenderWindow::mMaterialList;
+    if(!matList){
+        std::cout << "Error, materialList was never compiled in renderWindow!\n";
+        return;
+    }
+    //Sets material
+    for(int i = 0; i < materialList->mMaterialSize; i++){
+        if(matList->mMaterial[i].first == mMaterialName && !mMaterialName.empty()){
+            mMaterial = materialList->mMaterial[i].second;
+            break;
+        }
+    }
+    if(!mMaterial)
+        std::cout << "Error: VisualObject's ShaderProgram is not found! mShaderProgramName might be spelled incorrect or not given";
+}
+
+void VisualObject::setMaterial(Material &material)
+{
+    mMaterial = &material;
+}*/
 
 void VisualObject::move(float x, float y, float z)
 {

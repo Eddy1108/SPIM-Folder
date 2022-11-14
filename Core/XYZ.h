@@ -12,7 +12,7 @@ private:
 
 
 public:
-	XYZ(Shader& shader);
+    XYZ(std::string materialName);
 	~XYZ() override;
 	void init() override;
 	void draw() override;

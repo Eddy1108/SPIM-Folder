@@ -2,8 +2,8 @@
 
 #include "mesh/Heightmap.h"
 
-InteractiveObject::InteractiveObject(Shader& shader)
-	:VisualObject(shader)
+InteractiveObject::InteractiveObject(std::string materialName)
+    :VisualObject(materialName)
 {
 
 	float a = 0.5f;
@@ -165,9 +165,9 @@ void InteractiveObject::move(float x, float y, float z)
 	mMatrix = glm::translate(mMatrix, pos);
 	mPosition = pos;
 
-
 	if (mBShape)
 	{
 		mBShape->mPosition = mPosition;
 	}
+
 }

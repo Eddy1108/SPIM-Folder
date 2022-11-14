@@ -11,8 +11,8 @@ private:
 
 
 public:
-	Kube(Shader& shader);
-	Kube(Shader& shader, float size, float x, float y, float z);
+    Kube(std::string materialName);
+    Kube(std::string materialName, float size, float x, float y, float z);
 	~Kube() override;
 	void init() override;
 	void draw() override;

@@ -8,8 +8,8 @@ class Billboard : public VisualObject
 {
 public:
 
-	Billboard(Shader& shader, Camera* cam);
-	Billboard(Shader& shader, Camera* cam, std::string fileDir);
+    Billboard(std::string materialName, Camera* cam);
+    Billboard(std::string materialName, Camera* cam, std::string fileDir);
 	~Billboard();
 
 	void init() override;

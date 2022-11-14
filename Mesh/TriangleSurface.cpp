@@ -1,7 +1,7 @@
 #include "TriangleSurface.h"
 
-TriangleSurface::TriangleSurface(Shader& shader)
-	:VisualObject(shader)
+TriangleSurface::TriangleSurface(std::string materialName)
+    :VisualObject(materialName)
 {
 	/*                x    y     z   r g b*/
 	Vertex v0{ -20.0,-20.0,-1.0, 0,0,1, 0,0 };    mVertices.push_back(v0);
@@ -17,8 +17,8 @@ TriangleSurface::TriangleSurface(Shader& shader)
 	mMatrix = glm::mat4(1.0f);
 }
 
-TriangleSurface::TriangleSurface(std::string filnavn, Shader& shader)
-	: VisualObject(shader)
+TriangleSurface::TriangleSurface(std::string filnavn, std::string materialName)
+    : VisualObject(materialName)
 {
 	mMatrix = glm::mat4(1.0f);
 	readFile(filnavn);
@@ -106,11 +106,13 @@ void TriangleSurface::init() {
 
 void TriangleSurface::draw()
 {
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, mTexture->id());
+    //glActiveTexture(GL_TEXTURE1);
+    //glBindTexture(GL_TEXTURE_2D, mTexture->id());
+
+    mMaterial->UpdateUniforms(&mMatrix);
 
 	glBindVertexArray(mVAO);
-	glUniformMatrix4fv(mShader.mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
+    //glUniformMatrix4fv(mShader.mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
 	glDrawArrays(GL_TRIANGLES, 0, mVertices.size());
 }
 

@@ -1,13 +1,13 @@
 #include "Heightmap.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image/stb_image.h>
+//#define STB_IMAGE_IMPLEMENTATION
+//#include "stb_image/stb_image.h"
 
 #include "Math/Barycentric.h"
 #include "renderwindow.h"
 
-Heightmap::Heightmap(Shader& shader)
-	:VisualObject(shader)
+Heightmap::Heightmap(std::string materialName, Texture* heightMapTexture)
+    :VisualObject(materialName), mTexture(heightMapTexture)
 {
 }
 
@@ -17,12 +17,11 @@ Heightmap::~Heightmap()
 
 void Heightmap::init()
 {
+    initializeOpenGLFunctions();
 
-	initializeOpenGLFunctions();
-
-	//Grass texture from here: https://www.pinterest.com/pin/texture-png-seamless-tileable-grass--596867756834423269/
-	mTexture = new Texture("../3DProgExam/Assets/tex/RealGrass.bmp");
-	mHeightmap = new Texture("../3DProgExam/Assets/tex/EksamenHeightmap.bmp");
+    //Grass texture from here: https://www.pinterest.com/pin/texture-png-seamless-tileable-grass--596867756834423269/
+    //mTexture = new Texture("../SPIM-Folder/Assets/Texture/RealGrass.bmp");
+    //mHeightmap = new Texture("../SPIM-Folder/Assets/Texture/EksamenHeightmap.bmp");
 
 	constructMap();
 
@@ -87,120 +86,111 @@ void Heightmap::init()
 
 void Heightmap::draw()
 {
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, mTexture->id());
+    //glActiveTexture(GL_TEXTURE1);
+    //glBindTexture(GL_TEXTURE_2D, mTexture->id());
 
-	glBindVertexArray(mVAO);
+    mMaterial->UpdateUniforms(&mMatrix);
 
-	glUniformMatrix4fv(mShader.mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
+    glBindVertexArray(mVAO);
 	glDrawElements(GL_TRIANGLES, mIndices.size(), GL_UNSIGNED_INT, 0);
 }
 
 void Heightmap::constructMap()
 {
-
 	float mSize = .3f;
-	int width, height, nrChannels;
+    int nrChannels;
 
-	auto imageData = stbi_load("../3DProgExam/Assets/tex/EksamenHeightmap.bmp", &width, &height, &nrChannels, 1);
+    float width,height;
 
-	if (imageData)
-	{
-		mWidth = width;
-		mHeight = height;
-		mDetail = 1;
-		mScale = 0.2f;
-		offsetX = 10.f;
-		offsetY = 10.f;
+    width = mTexture->mColumns;
+    height = mTexture->mRows;
 
-		int xMin = 0, xMax = mWidth, yMin = 0, yMax = mHeight;
+    mWidth = mTexture->mColumns;
+    mHeight = mTexture->mRows;
+    mDetail = 1;
+    mScale = 0.2f;
+    offsetX = 10.f;
+    offsetY = 10.f;
 
-		//Construct surface
-		for (int y = yMin; y < yMax; y += mDetail)
-		{
-			for (int x = xMin; x < xMax; x += mDetail)
-			{
-				float u{ (float)x / (float)xMax };
-				float v{ (float)y / (float)yMax };
+    int xMin = 0, xMax = mWidth, yMin = 0, yMax = mHeight;
 
-				float z = imageData[x + (y * yMax)] * mSize; // + offset?
-				mVertices.push_back(Vertex{ ((float)x - width / 2) * mScale, ((float)y - mHeight/2) * mScale,((float)z) * mScale, 1,1,1, u,v });
-			}
-		}
+    //Construct surface
+    for (int y = yMin; y < yMax; y += mDetail)
+    {
+        for (int x = xMin; x < xMax; x += mDetail)
+        {
+            float u{ (float)x / (float)xMax };
+            float v{ (float)y / (float)yMax };
 
-		//move(-mVertices[0].m_xyz[0] - width / 2, -mVertices[0].m_xyz[1] - height / 2, -mVertices[0].m_xyz[2]);
-		//move(-mVertices[0].m_xyz[0], -mVertices[0].m_xyz[1], -mVertices[0].m_xyz[2]);
+            float z = mTexture->GetHeightFromIndex(x + (y * yMax)) * mSize;      // + offset?
+            mVertices.push_back(Vertex{ ((float)x - width / 2) * mScale, ((float)y - mHeight/2) * mScale,((float)z) * mScale, 1,1,1, u,v });
+        }
+    }
 
-		xMax /= mDetail;
-		yMax /= mDetail;
+    //move(-mVertices[0].m_xyz[0] - width / 2, -mVertices[0].m_xyz[1] - height / 2, -mVertices[0].m_xyz[2]);
+    //move(-mVertices[0].m_xyz[0], -mVertices[0].m_xyz[1], -mVertices[0].m_xyz[2]);
 
-		mWidth = xMax;
-		mHeight = yMax;
+    xMax /= mDetail;
+    yMax /= mDetail;
 
-		//Make indices
-		for (int y = yMin; y < yMax - 1; y += 1)
-		{
-			for (int x = xMin; x < xMax - 1; x += 1)
-			{
-				mIndices.push_back(x + (yMax * y));			//A
-				mIndices.push_back(((y + 1) * yMax) + x + 1);	//B
-				mIndices.push_back(x + 1 + (yMax * y));		//C
+    mWidth = xMax;
+    mHeight = yMax;
 
-				mIndices.push_back(x + (y * yMax));			//A
-				mIndices.push_back(((y + 1) * yMax) + x);		//B
-				mIndices.push_back(((y + 1) * yMax) + x + 1); //C
+    //Make indices
+    for (int y = yMin; y < yMax - 1; y += 1)
+    {
+        for (int x = xMin; x < xMax - 1; x += 1)
+        {
+            mIndices.push_back(x + (yMax * y));			//A
+            mIndices.push_back(((y + 1) * yMax) + x + 1);	//B
+            mIndices.push_back(x + 1 + (yMax * y));		//C
 
-			}
-		}
+            mIndices.push_back(x + (y * yMax));			//A
+            mIndices.push_back(((y + 1) * yMax) + x);		//B
+            mIndices.push_back(((y + 1) * yMax) + x + 1); //C
+        }
+    }
 
-		//Set up UV
-		//for (int y = 0; y < height - 2; y += 2)
-		//{
-		//	for (int x = 0; x < width - 2; x += 2)
-		//	{
-		//		mVertices[x + (height * y)].m_uv[0] = 1; mVertices[(x * width) + y].m_uv[1] = 0;
+    //Set up UV
+    //for (int y = 0; y < height - 2; y += 2)
+    //{
+    //	for (int x = 0; x < width - 2; x += 2)
+    //	{
+    //		mVertices[x + (height * y)].m_uv[0] = 1; mVertices[(x * width) + y].m_uv[1] = 0;
 
-		//		mVertices[((y + 1) * height) + x + 1].m_uv[0] = 0; mVertices[((y + 1) * height) + x + 1].m_uv[1] = 1;
+    //		mVertices[((y + 1) * height) + x + 1].m_uv[0] = 0; mVertices[((y + 1) * height) + x + 1].m_uv[1] = 1;
 
-		//		mVertices[x + 1 + (height * y)].m_uv[0] = 0; mVertices[x + 1 + (height * y)].m_uv[1] = 0;
+    //		mVertices[x + 1 + (height * y)].m_uv[0] = 0; mVertices[x + 1 + (height * y)].m_uv[1] = 0;
 
-		//		mVertices[((y + 1) * height) + x].m_uv[0] = 1; mVertices[((y + 1) * height) + x].m_uv[0] = 1;
+    //		mVertices[((y + 1) * height) + x].m_uv[0] = 1; mVertices[((y + 1) * height) + x].m_uv[0] = 1;
+    //	}
+    //}
 
-		//	}
-		//}
-
-		//calculate normals
-		for (int y = 1; y < height - 1; y += 1)
-		{
-			for (int x = 1; x < width - 1; x += 1)
-			{
-
-				glm::vec3 a(mVertices[(y * height) + x].getXYZ());
-				glm::vec3 b(mVertices[(y * height) + x + 1].getXYZ());
-				glm::vec3 c(mVertices[((y + 1) * height) + x + 1].getXYZ());
-				glm::vec3 d(mVertices[((y + 1) * height) + x].getXYZ());
-				glm::vec3 e(mVertices[(y * height) + x - 1].getXYZ());
-				glm::vec3 f(mVertices[((y - 1) * height) + x - 1].getXYZ());
-				glm::vec3 g(mVertices[((y - 1) * height) + x].getXYZ());
-
-				auto n0 = glm::cross(b - a, c - a);
-				auto n1 = glm::cross(c - a, d - a);
-				auto n2 = glm::cross(d - a, e - a);
-				auto n3 = glm::cross(e - a, f - a);
-				auto n4 = glm::cross(f - a, g - a);
-				auto n5 = glm::cross(g - a, b - a);
-
-				glm::vec3 normal = glm::normalize(n0 + n1 + n2 + n3 + n4 + n5);
-				//glm::vec3 normal(0, 0, 1);
-
-				mVertices[(y * height) + x].m_normal[0] = normal.x;
-				mVertices[(y * height) + x].m_normal[1] = normal.y;
-				mVertices[(y * height) + x].m_normal[2] = normal.z;
-			}
-		}
-
-		stbi_image_free(imageData);
-	}
+    //calculate normals
+    for (int y = 1; y < height - 1; y += 1)
+    {
+        for (int x = 1; x < width - 1; x += 1)
+        {
+            glm::vec3 a(mVertices[(y * height) + x].getXYZ());
+            glm::vec3 b(mVertices[(y * height) + x + 1].getXYZ());
+            glm::vec3 c(mVertices[((y + 1) * height) + x + 1].getXYZ());
+            glm::vec3 d(mVertices[((y + 1) * height) + x].getXYZ());
+            glm::vec3 e(mVertices[(y * height) + x - 1].getXYZ());
+            glm::vec3 f(mVertices[((y - 1) * height) + x - 1].getXYZ());
+            glm::vec3 g(mVertices[((y - 1) * height) + x].getXYZ());
+            auto n0 = glm::cross(b - a, c - a);
+            auto n1 = glm::cross(c - a, d - a);
+            auto n2 = glm::cross(d - a, e - a);
+            auto n3 = glm::cross(e - a, f - a);
+            auto n4 = glm::cross(f - a, g - a);
+            auto n5 = glm::cross(g - a, b - a);
+            glm::vec3 normal = glm::normalize(n0 + n1 + n2 + n3 + n4 + n5);
+            //glm::vec3 normal(0, 0, 1);
+            mVertices[(y * height) + x].m_normal[0] = normal.x;
+            mVertices[(y * height) + x].m_normal[1] = normal.y;
+            mVertices[(y * height) + x].m_normal[2] = normal.z;
+        }
+       }
 }
 
 bool Heightmap::IsInside(glm::vec3 pos)
@@ -215,7 +205,6 @@ bool Heightmap::IsInside(glm::vec3 pos)
 
 float Heightmap::getHeight(glm::vec3 position)
 {
-
 	if (IsInside(position))
 	{
 		int x = position.x / mScale / mDetail + mWidth / 2;
@@ -267,8 +256,8 @@ float Heightmap::getHeight(glm::vec3 position)
 			auto height = p1h + p2h + p3h;
 
 			return height;
-
 		}
 	}
 
+    return 0.f;
 }

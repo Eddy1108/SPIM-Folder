@@ -4,8 +4,8 @@
 class Disc : public VisualObject
 {
 public:
-	Disc(Shader& shader);
-	Disc(Shader& shader, std::string filename);
+    Disc(std::string materialName);
+    Disc(std::string materialName, std::string filename);
 	~Disc() override;
 	
 	void readFile(std::string filename);

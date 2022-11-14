@@ -5,7 +5,7 @@
 class SkyBox : public VisualObject
 {
 public:
-	SkyBox(Shader& shader);
+    SkyBox(std::string materialName);
 
 	void init() override;
 

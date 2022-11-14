@@ -1,7 +1,7 @@
 #include "Billboard.h"
 
-Billboard::Billboard(Shader& shader, Camera* cam)
-	:VisualObject(shader)
+Billboard::Billboard(std::string materialName, Camera* cam)
+    :VisualObject(materialName)
 {
 	mCam = cam;
 
@@ -19,8 +19,8 @@ Billboard::Billboard(Shader& shader, Camera* cam)
     mTexture = new Texture("../SPIM-Folder/Assets/tex/jacky.bmp");
 }
 
-Billboard::Billboard(Shader& shader, Camera* cam, std::string fileDir)
-	: VisualObject(shader)
+Billboard::Billboard(std::string materialName, Camera* cam, std::string fileDir)
+    : VisualObject(materialName)
 {
 
 	mVertices.push_back(Vertex(-1.f, -1.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f)); //A
@@ -57,8 +57,8 @@ void Billboard::draw()
 	//RotateToCamDirect();
 
 	//Not needed but to overwrite other textures in this slot we must do this each draw call
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, mTexture->id());
+    //glActiveTexture(GL_TEXTURE1);
+    //glBindTexture(GL_TEXTURE_2D, mTexture->id());
 
 	VisualObject::draw();
 

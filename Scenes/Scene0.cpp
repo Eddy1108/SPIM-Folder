@@ -2,57 +2,44 @@
 
 #include "Mesh/ObjLoader.h"
 
-Scene0::Scene0(std::unordered_map<std::string, Shader*> shaders)
-    : Scene(shaders)
+Scene0::Scene0()
 {
     mCamera = new Camera();
 
-    mSkybox = new SkyBox(*mShaderPrograms["skybox"]);
+    mSkybox = new SkyBox("materialskybox");
+}
 
+Scene0::~Scene0()
+{
+}
+
+void Scene0::objects()
+{
     VisualObject* temp;
 
-
     ///Create Objects
-        //Untextured Objects
-    mObjects.push_back(temp = new XYZ(*mShaderPrograms["plain"]));
+    mObjects.push_back(temp = new XYZ("materialplain"));
     temp->setName("XYZ");
 
-    mObjects.push_back(temp = new ObjLoader(*mShaderPrograms["plain"], "../SPIM-Folder/Assets/models/crew.obj"));
+    mObjects.push_back(temp = new ObjLoader("materialplain", "../SPIM-Folder/Assets/models/crew.obj"));
     temp->setName("Amongus");
 
-    mObjects.push_back(temp = new Kube(*mShaderPrograms["plain"]));
+    mObjects.push_back(temp = new Kube("materialplain"));
     temp->setName("Kube");
-    
-    ///Textured Objects
-//Use mObjects2!
 
-
-
-    ///Phong Objects (+ Texture)
-//Use mObjects3!
-
-  
-    InteractiveObject* mInteract = new Player(*mShaderPrograms["phong"]);
-    mObjects3.push_back(mInteract);
+    //mMap3?
+    InteractiveObject* mInteract = new Player("materialphong");
+    //mObjects3.push_back(mInteract);
+    mObjects.push_back(mInteract);
     mInteract->setName("mia");
     dynamic_cast<Player*>(mInteract)->mCam = mCamera;
+
 
     ///Dump it all into Unordered lists
     for (auto it = mObjects.begin(); it != mObjects.end(); it++)
     {
         mMap.insert(std::pair<std::string, VisualObject*>{(*it)->getName(), * it});
     }
-
-    for (auto it = mObjects2.begin(); it != mObjects2.end(); it++)
-    {
-        mMap2.insert(std::pair<std::string, VisualObject*>{(*it)->getName(), * it});
-    }
-
-    for (auto it = mObjects3.begin(); it != mObjects3.end(); it++)
-    {
-        mMap3.insert(std::pair<std::string, VisualObject*>{(*it)->getName(), * it});
-    }
-
 
     //Make Quadtree
     Point2D a{ -40, -40 }, b{ 40,-40 }, c{ 40,40 }, d{ -40,40 };
@@ -66,18 +53,6 @@ Scene0::Scene0(std::unordered_map<std::string, Shader*> shaders)
         }
 
     }
-
-    for (auto it = mObjects3.begin(); it != mObjects3.end(); it++)
-    {
-        if ((*it)->mBShape)
-        {
-            mQuadTre->insert((*it), (*it)->mBShape);
-        }
-    }
-}
-
-Scene0::~Scene0()
-{
 }
 
 void Scene0::init()
@@ -88,7 +63,6 @@ void Scene0::init()
 void Scene0::draw()
 {
     Scene::draw();
-
 }
 
 void Scene0::mousePressEvent(QMouseEvent *event)
@@ -199,7 +173,7 @@ void Scene0::keyReleaseEvent(QKeyEvent *event)
             mCamera->AMove = false;
         }
         else
-            static_cast<InteractiveObject*>(mMap3["mia"])->AMove = false;
+            static_cast<InteractiveObject*>(mMap["mia"])->AMove = false;
 
     }
     if (event->key() == Qt::Key_D)
@@ -209,7 +183,7 @@ void Scene0::keyReleaseEvent(QKeyEvent *event)
             mCamera->DMove = false;
         }
         else
-            static_cast<InteractiveObject*>(mMap3["mia"])->DMove = false;
+            static_cast<InteractiveObject*>(mMap["mia"])->DMove = false;
 
     }
 
@@ -220,7 +194,7 @@ void Scene0::keyReleaseEvent(QKeyEvent *event)
             mCamera->SMove = false;
         }
         else
-            static_cast<InteractiveObject*>(mMap3["mia"])->SMove = false;
+            static_cast<InteractiveObject*>(mMap["mia"])->SMove = false;
 
     }
     if (event->key() == Qt::Key_W)
@@ -230,7 +204,7 @@ void Scene0::keyReleaseEvent(QKeyEvent *event)
             mCamera->WMove = false;
         }
         else
-        static_cast<InteractiveObject*>(mMap3["mia"])->WMove = false;
+        static_cast<InteractiveObject*>(mMap["mia"])->WMove = false;
 
     }
 
@@ -241,7 +215,7 @@ void Scene0::keyReleaseEvent(QKeyEvent *event)
             mCamera->QMove = false;
         }
         else
-            static_cast<InteractiveObject*>(mMap3["mia"])->QMove = false;
+            static_cast<InteractiveObject*>(mMap["mia"])->QMove = false;
     }
 
     if (event->key() == Qt::Key_E)
@@ -251,6 +225,6 @@ void Scene0::keyReleaseEvent(QKeyEvent *event)
              mCamera->EMove = false;
         }
         else
-            static_cast<InteractiveObject*>(mMap3["mia"])->EMove = false;
+            static_cast<InteractiveObject*>(mMap["mia"])->EMove = false;
     }
 }

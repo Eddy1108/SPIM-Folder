@@ -4,12 +4,13 @@
 #include "glm/gtx/rotate_vector.hpp"
 #include "glm/gtx/vector_angle.hpp"
 
-Player::Player(Shader& shader)
-	: InteractiveObject(shader)
+
+Player::Player(std::string materialName)
+    : InteractiveObject(materialName)
 {
 	//Player model from here : https://sketchfab.com/3d-models/among-us-428bb9a3637e458c8336e4a7aefd4e3d
-    PlayerModel = new ObjLoader(shader, "../SPIM-Folder/Assets/models/crew.obj", "../SPIM-Folder/Assets/tex/pew.bmp");
-    CameraModel = new ObjLoader(shader, "../SPIM-Folder/Assets/models/camera2.obj", "../SPIM-Folder/Assets/tex/gray.bmp");
+    PlayerModel = new ObjLoader("plainshader", "../SPIM-Folder/Assets/models/crew.obj", "../SPIM-Folder/Assets/tex/pew.bmp");
+    CameraModel = new ObjLoader("plainshader", "../SPIM-Folder/Assets/models/camera2.obj", "../SPIM-Folder/Assets/tex/gray.bmp");
 
 	mBShape = new AABB();
 }
@@ -89,7 +90,7 @@ void Player::move(float x, float y, float z)
 
 		mMatrix[3].x = mPosition.x;
 		mMatrix[3].y = mPosition.y;
-		mMatrix[3].z = mPosition.z;
+        mMatrix[3].z = mPosition.z;
 
 		mForward = glm::rotate(mForward, glm::radians(rotate), mUp);
 
@@ -113,7 +114,7 @@ void Player::move(float x, float y, float z)
 
 		//Reset is player is blocked;
 		bBlocked = false;
-	}
+    }
 }
 
 void Player::updateFakeCam()
@@ -141,12 +142,12 @@ void Player::CheckWinLose()
 	{
 		if (WinState == 1)
 		{
-			StatusScreen = new Billboard(mShader, mCam, "../3DProgExam/Assets/tex/win.bmp");
+            StatusScreen = new Billboard("materialtexture", mCam, "../3DProgExam/Assets/tex/win.bmp");
 			StatusScreen->init();
 		}
 		else if (WinState == 2)
 		{
-			StatusScreen = new Billboard(mShader, mCam, "../3DProgExam/Assets/tex/lost.bmp");
+            StatusScreen = new Billboard("materialtexture", mCam, "../3DProgExam/Assets/tex/lost.bmp");
 			StatusScreen->init();
 		}
 

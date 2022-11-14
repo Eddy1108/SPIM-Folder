@@ -11,7 +11,7 @@ class PointCloud : public VisualObject
 {
 public:
 
-	PointCloud(Shader& shader);
+    PointCloud(std::string materialName);
 	~PointCloud();
 
 	void init() override;

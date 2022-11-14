@@ -1,7 +1,7 @@
 #include "light.h"
 
-Light::Light(Shader& shader)
-    : VisualObject(shader)
+Light::Light(std::string materialName)
+    : VisualObject(materialName)
 {
     mVertices.insert(mVertices.end(),
         {
@@ -54,8 +54,8 @@ void Light::init()
     glEnableVertexAttribArray(2);
 
     //Second buffer - holds the indices (Element Array Buffer - EAB):
-    glGenBuffers(1, &mEAB);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEAB);
+    glGenBuffers(1, &mEBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, mIndices.size() * sizeof(GLuint), mIndices.data(), GL_STATIC_DRAW);
 
     glBindVertexArray(0);
@@ -71,8 +71,9 @@ void Light::draw()
     mMatrix = glm::translate(mMatrix, moveStep);
     mPosition += moveStep;
 
+    mMaterial->UpdateUniforms(&mMatrix);
+
     glBindVertexArray(mVAO);
-    glUniformMatrix4fv(mShader.mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
     glDrawElements(GL_TRIANGLES, mIndices.size(), GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
 }

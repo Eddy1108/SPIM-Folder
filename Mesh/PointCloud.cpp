@@ -5,7 +5,7 @@
 
 #include "renderwindow.h"
 
-PointCloud::PointCloud(Shader& shader) : VisualObject{shader}
+PointCloud::PointCloud(std::string materialName) : VisualObject(materialName)
 {
 	mName = "PointCloud";
 }
@@ -102,9 +102,10 @@ void PointCloud::draw()
 	//glPointSize(20);
 
 	//if (RenderWindow::bDrawRealPointCloud)
-	//{
-		glBindVertexArray(mVAO);
-		glUniformMatrix4fv(mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
+    //{
+
+        mMaterial->UpdateUniforms(&mMatrix);
+        glBindVertexArray(mVAO);
 		glDrawArrays(GL_POINTS, 0, mVertices.size());
 		glBindVertexArray(0);
 	//}

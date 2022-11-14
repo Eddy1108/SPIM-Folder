@@ -7,6 +7,9 @@ TARGET      = 3D-programmering
 
 
 SOURCES += main.cpp \
+    #Core/stb_image.cpp \
+    Core/materiallist.cpp \
+    Core/material.cpp \
     Core/Audio.cpp \
     Core/Camera.cpp \
     Core/CollisionShapes.cpp \
@@ -40,6 +43,10 @@ SOURCES += main.cpp \
     Scenes/Scene.cpp \
     Scenes/Scene0.cpp \
     Scenes/Scene1.cpp \
+    Materials/materialcubemap.cpp \
+    Materials/materialphong.cpp \
+    Materials/materialplain.cpp \
+    Materials/materialtexture.cpp \
     Scenes/SceneSwitcher.cpp \
     Shaders/PhongShader.cpp \
     Shaders/PlainShader.cpp \
@@ -51,6 +58,9 @@ SOURCES += main.cpp \
     renderwindow.cpp
 
 HEADERS += \
+    #Core/stb_image.h \
+    Core/materiallist.h \
+    Core/material.h \
     Core/Audio.h \
     Core/Camera.h \
     Core/CollisionShapes.h \
@@ -84,6 +94,10 @@ HEADERS += \
     Scenes/Scene0.h \
     Scenes/Scene1.h \
     Scenes/SceneSwitcher.h \
+    Materials/materialcubemap.h \
+    Materials/materialphong.h \
+    Materials/materialplain.h \
+    Materials/materialtexture.h \
     Shaders/PhongShader.h \
     Shaders/PlainShader.h \
     Shaders/SkyBoxShader.h \
@@ -106,16 +120,27 @@ HEADERS += \
     Lua_files/test2.lua \
     Lua_files/test3.lua \
     Lua_files/test4.lua \
-    #stb_image/stb_image.h \
+    #image loader
+    stb_image/stb_image.h \
+    stb_image/stb_image.cpp\
     glm/glm.hpp
 
 FORMS += \
     mainwindow.ui
 
 DISTFILES += \
-    Assets/tex/heightmap.bmp \
-    Assets/tex/hund.bmp \
-    Assets/tex/linus.bmp \
+    #images
+    Assets/Texture/heightmap.bmp \
+    Assets/Texture/hund.bmp \
+    Assets/Texture/linus.bmp \
+    #skybox
+    Assets/Texture/skybox/right.jpg \
+    Assets/Texture/skybox/left.jpg \
+    Assets/Texture/skybox/top.jpg \
+    Assets/Texture/skybox/bottom.jpg \
+    Assets/Texture/skybox/front.jpg \
+    Assets/Texture/skybox/back.jpg \
+    #shaders
     Shaders/phongshader.frag \
     Shaders/phongshader.vert \
     Shaders/plainshader.frag \
@@ -123,7 +148,9 @@ DISTFILES += \
     Shaders/plainshaderChad.frag \
     Shaders/plainshaderChad.vert \
     Shaders/textureshader.frag \
-    Shaders/textureshader.vert
+    Shaders/textureshader.vert \
+    Shaders/skyboxshader.frag \
+    Shaders/skyboxshader.vert
 
 #INCLUDEPATH += $(LUA_HOME)\\include
 #LIBS *= $(LUA_HOME)\\libs\\lua5.4.3-static.lib

@@ -24,11 +24,12 @@ class Scene0 : public Scene
 {
 
 public:
-	Scene0(std::unordered_map<std::string, Shader*> shaders);
+    Scene0();
 	~Scene0();
 
+    void objects() override;
 	void init() override;
-	void draw() override;
+    void draw() override;
 
     //Input Events
     void mousePressEvent(QMouseEvent* event) override;

@@ -4,7 +4,7 @@
 class Triangle : public VisualObject
 {
 public:
-	Triangle(Shader& shader);
+    Triangle(std::string materialName);
 	~Triangle() override;
 	void init() override;
 	void draw() override;

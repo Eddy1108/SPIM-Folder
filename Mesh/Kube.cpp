@@ -2,8 +2,8 @@
 
 
 
-Kube::Kube(Shader& shader)
-	:VisualObject(shader)
+Kube::Kube(std::string materialName)
+    :VisualObject(materialName)
 {
 	//float min = 0.5f, max = -0.5;
 
@@ -70,8 +70,8 @@ Kube::Kube(Shader& shader)
 	move(1.f, 1.f, 0.f);
 }
 
-Kube::Kube(Shader& shader, float size, float x, float y, float z)
-	:VisualObject(shader)
+Kube::Kube(std::string materialName, float size, float x, float y, float z)
+    :VisualObject(materialName)
 {
 	if (size < 0.01f)
 	{

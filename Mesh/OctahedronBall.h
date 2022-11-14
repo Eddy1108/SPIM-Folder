@@ -12,7 +12,7 @@ private:
 	void oktaederUnitBall();
 
 public:
-	OctahedronBall(Shader& shader, int n = 0);
+    OctahedronBall(std::string materialName, int n = 0);
 	~OctahedronBall();
 
 	void init() override;

@@ -5,7 +5,7 @@ class SceneSwitcher : public VisualObject
 {
 public:
 
-	SceneSwitcher(Shader& shader, float size = 1.f, float x = 1.f, float y = 1.f, float z = 1.f);
+    SceneSwitcher(std::string materialName, float size = 1.f, float x = 1.f, float y = 1.f, float z = 1.f);
 	~SceneSwitcher();
 
 	void init() override;

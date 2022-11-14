@@ -1,7 +1,7 @@
 #include "XYZ.h"
 
-XYZ::XYZ(Shader& shader)
-	:VisualObject(shader)
+XYZ::XYZ(std::string materialName)
+    :VisualObject(materialName)
 {
 	mVertices.push_back(Vertex{ 0,0,0,1,0,0 });
 	mVertices.push_back(Vertex{ 3,0,0,1,0,0 });
@@ -60,12 +60,11 @@ void XYZ::init() {
 void XYZ::draw()
 {
 	if (bDraw)	//When in editor mode, draw XYZ!
-	{
-		mShader.use();
-
-		glBindVertexArray(mVAO);
-		glUniformMatrix4fv(mShader.mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
+    {
+        mMaterial->UpdateUniforms(&mMatrix);
+        glBindVertexArray(mVAO);
 		glDrawArrays(GL_LINES, 0, mVertices.size());
+        glBindVertexArray(0);
 	}
 }
 

@@ -23,13 +23,14 @@
 class Scene : protected QOpenGLFunctions_4_1_Core
 {
 public:
-    Scene(std::unordered_map<std::string, Shader*> shaders);
+    Scene();
 	~Scene();
 
 	virtual void init();
 	virtual void draw();
 	virtual void drawCollision();
 	virtual void checkCollision();
+    virtual void objects();
 
 
 	void DrawAABB(glm::vec3 position, glm::vec3 extent);
@@ -40,12 +41,12 @@ public:
 	std::unordered_map<std::string, VisualObject*> mMap;
 
 	//Textured Objects
-	std::vector<VisualObject*> mObjects2;
-	std::unordered_map<std::string, VisualObject*> mMap2;
+    //std::vector<VisualObject*> mObjects2;
+    //std::unordered_map<std::string, VisualObject*> mMap2;
 
 	//Phong affected Objects
-	std::vector<VisualObject*> mObjects3;
-	std::unordered_map<std::string, VisualObject*> mMap3;
+    //std::vector<VisualObject*> mObjects3;
+    //std::unordered_map<std::string, VisualObject*> mMap3;
 
 	QuadTre* mQuadTre{nullptr};
 
@@ -55,7 +56,7 @@ public:
 	Light* mLight{ nullptr };
 
 	//Shader Storage
-	std::unordered_map<std::string, Shader*> mShaderPrograms;
+    //std::unordered_map<std::string, Shader*> mShaderPrograms;
 
 	bool bPlayMode{ false };
 

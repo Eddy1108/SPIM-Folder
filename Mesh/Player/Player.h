@@ -8,7 +8,7 @@
 class Player : public InteractiveObject
 {
 public:
-	Player(Shader& shader);
+    Player(std::string materialName);
 
 	void init() override;
 	void draw() override;

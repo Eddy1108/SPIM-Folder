@@ -2,7 +2,7 @@
 #include <iomanip> //for std::setprecision
 #include "equidistance.h"
 
-LAZSurface::LAZSurface(const std::string txtFileName, PointCloud* cloud, const QVector2D gridSize, Shader& shader, const QVector3D offset, const float scale) : mScale(scale), mCloud(cloud), mOffset(offset), mGridSizeX(gridSize.x()), mGridSizeY(gridSize.y()), VisualObject(shader)
+LAZSurface::LAZSurface(const std::string txtFileName, PointCloud* cloud, const QVector2D gridSize, std::string materialName, const QVector3D offset, const float scale) : mScale(scale), mCloud(cloud), mOffset(offset), mGridSizeX(gridSize.x()), mGridSizeY(gridSize.y()), VisualObject(materialName)
 {
     construct(txtFileName);
     mMatrix = glm::mat4(1.f);
@@ -200,8 +200,8 @@ void LAZSurface::init()
     //glEnableVertexAttribArray(2);
 
     //Second buffer - holds the indices (Element Array Buffer - EAB):
-    glGenBuffers(1, &mEAB);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEAB);
+    glGenBuffers(1, &mEBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, mIndices.size() * sizeof(GLuint), mIndices.data(), GL_STATIC_DRAW);
 
     glBindVertexArray(0);
@@ -217,14 +217,15 @@ void LAZSurface::draw()
 
     //if (RenderWindow::bDrawPointCloud)
     //{
-        glBindVertexArray(mVAO);
-        glUniformMatrix4fv(mShader.mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
-        glDrawElements(GL_POINTS, mIndices.size(), GL_UNSIGNED_INT, nullptr);
-        glBindVertexArray(0);
+        //glBindVertexArray(mVAO);
+        //glUniformMatrix4fv(mShader.mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
+        //glDrawElements(GL_POINTS, mIndices.size(), GL_UNSIGNED_INT, nullptr);
+        //glBindVertexArray(0);
     //}
     //else {
+        mMaterial->UpdateUniforms(&mMatrix);
+
         glBindVertexArray(mVAO);
-        glUniformMatrix4fv(mShader.mMatrixUniform, 1, GL_FALSE, glm::value_ptr(mMatrix));
         glDrawElements(GL_TRIANGLES, mIndices.size(), GL_UNSIGNED_INT, nullptr);
         glBindVertexArray(0);
     //}
@@ -258,7 +259,7 @@ Equidistance* LAZSurface::constructEquidistance()
     }
 
     QVector3D offset(0, 0, 0.001);
-    mEquiLines = new Equidistance(mShader);
+    mEquiLines = new Equidistance("plainshader");
     drawEquidistanceLines = true;
     // Do a check for each triangle (double for loop)
     for(int i = 0; i < mIndices.size(); i+=3){

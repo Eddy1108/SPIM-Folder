@@ -7,8 +7,8 @@
 class Equidistance : public VisualObject
 {
 public:
-    Equidistance(Shader& shader);
-    Equidistance(Shader& shader, QVector3D a, QVector3D b);
+    Equidistance(std::string materialName);
+    Equidistance(std::string materialName, QVector3D a, QVector3D b);
     void insertLine(QVector3D a, QVector3D b);
     void init() override;
     void draw() override;

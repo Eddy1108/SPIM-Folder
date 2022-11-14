@@ -8,7 +8,7 @@ class BezierCurve : public VisualObject
 {
 public:
 
-	BezierCurve(Shader& shader);
+    BezierCurve(std::string materialName);
 	~BezierCurve();
 
 	void init() override;
