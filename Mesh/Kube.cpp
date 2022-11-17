@@ -1,7 +1,5 @@
 #include "Kube.h"
 
-
-
 Kube::Kube(std::string materialName)
     :VisualObject(materialName)
 {

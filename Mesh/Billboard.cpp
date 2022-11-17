@@ -16,7 +16,7 @@ Billboard::Billboard(std::string materialName, Camera* cam)
 	mMatrix = glm::mat4(1.0f);
 	mPosition = glm::vec3(0.f, 0.f, 10.f);
 
-    mTexture = new Texture("../SPIM-Folder/Assets/tex/jacky.bmp");
+    mTexture = new Texture("../SPIM-Folder/Assets/Texture/jacky.bmp");
 }
 
 Billboard::Billboard(std::string materialName, Camera* cam, std::string fileDir)
@@ -45,20 +45,20 @@ Billboard::~Billboard()
 void Billboard::init()
 {
 	VisualObject::initTexture();
-
-
 }
 
 void Billboard::draw()
 {
-	move();
+	//move();
 
-	RotateToCamMatrix();
-	//RotateToCamDirect();
+	//RotateToCamMatrix();
+	RotateToCamDirect();
 
 	//Not needed but to overwrite other textures in this slot we must do this each draw call
     //glActiveTexture(GL_TEXTURE1);
     //glBindTexture(GL_TEXTURE_2D, mTexture->id());
+
+	//mMaterial->UpdateUniforms(&mMatrix);
 
 	VisualObject::draw();
 
@@ -85,6 +85,7 @@ void Billboard::RotateToCamMatrix()
 	mMatrix[1] = upVectorY;
 	mMatrix[2] = forwardVectorZ;
 
+	//std::cout << "Cam Pos: " << mCam->getPos().x << ", " << mCam->getPos().y << ", " << mCam->getPos().z << std::endl;
 }
 
 void Billboard::RotateToCamDirect()

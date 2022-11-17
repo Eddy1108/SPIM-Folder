@@ -16,11 +16,11 @@
 #include "Light/Light.h"
 #include "Mesh/Kube.h"
 
-#include "Shaders/PlainShader.h"
-#include "Shaders/TextureShader.h"
-#include "Shaders/PhongShader.h"
+//#include "Shaders/PlainShader.h"
+//#include "Shaders/TextureShader.h"
+//#include "Shaders/PhongShader.h"
 #include "Shaders/SkyBoxShader.h"
-#include "Shaders/BillboardShader.h"
+//#include "Shaders/BillboardShader.h"
 
 #include <chrono>
 

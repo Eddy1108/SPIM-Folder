@@ -9,8 +9,8 @@ Player::Player(std::string materialName)
     : InteractiveObject(materialName)
 {
 	//Player model from here : https://sketchfab.com/3d-models/among-us-428bb9a3637e458c8336e4a7aefd4e3d
-    PlayerModel = new ObjLoader("plainshader", "../SPIM-Folder/Assets/models/crew.obj", "../SPIM-Folder/Assets/tex/pew.bmp");
-    CameraModel = new ObjLoader("plainshader", "../SPIM-Folder/Assets/models/camera2.obj", "../SPIM-Folder/Assets/tex/gray.bmp");
+    PlayerModel = new ObjLoader("plainshader", "../SPIM-Folder/Assets/models/crew.obj", "../SPIM-Folder/Assets/Texture/pew.bmp");
+    CameraModel = new ObjLoader("plainshader", "../SPIM-Folder/Assets/models/camera2.obj", "../SPIM-Folder/Assets/Texture/gray.bmp");
 
 	mBShape = new AABB();
 }

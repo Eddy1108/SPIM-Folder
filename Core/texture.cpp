@@ -54,7 +54,7 @@ bool Texture::readBitmap(const std::string& filename)
 
         if (bmFileHeader.bfType != 19778)
         {
-            std::cout << "ERROR: File is not a propper BMP file - no BM as first bytes" << std::endl;
+            std::cout << "\nERROR: File is not a propper BMP file - no BM as first bytes" << std::endl;
             makeDummyTexture();
             return false;
         }
@@ -67,7 +67,7 @@ bool Texture::readBitmap(const std::string& filename)
 
         if (mBytesPrPixel < 3)    //we only support 24 or 32 bit images
         {
-            std::cout << "ERROR: Image not 24 or 32 bit RBG or RBGA";
+            std::cout << "ERROR: Image not 24 or 32 bit RBG or RBGA" << std::endl;
             makeDummyTexture();
             return false;
         }
@@ -104,7 +104,7 @@ void Texture::setTexture()
     glBindTexture(GL_TEXTURE_2D, mId);
 
     std::cout << "Texture " + textureFilename + " successfully read | id = " + std::to_string(mId) +
-        "| bytes pr pixel: " + std::to_string(mBytesPrPixel) + " | using alpha:" + std::to_string(mAlphaUsed);
+        "| bytes pr pixel: " + std::to_string(mBytesPrPixel) + " | using alpha:" + std::to_string(mAlphaUsed) << std::endl;
 
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -144,7 +144,7 @@ void Texture::makeDummyTexture()
 
     glGenTextures(1, &mId);
     glBindTexture(GL_TEXTURE_2D, mId);
-    std::cout << "Texture id:" + std::to_string(mId);
+    std::cout << "Texture id:" + std::to_string(mId) << std::endl;
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_UNSIGNED_BYTE,

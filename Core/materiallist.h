@@ -13,7 +13,7 @@ public:
     ~MaterialList();
 
     // Try not to have these two variables set to anything above 32, due to lack of slots. Future alternative method might be needed.
-    const static int mShaderProgramSize{5};
+    const static int mShaderProgramSize{6};
     const static int mTextureSize{10};
     //
     const static int mMaterialSize{10};

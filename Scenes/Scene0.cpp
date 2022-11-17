@@ -27,6 +27,9 @@ void Scene0::objects()
     mObjects.push_back(temp = new Kube("materialplain"));
     temp->setName("Kube");
 
+
+    mObjects.push_back(temp = new Billboard("materialbillboard", mCamera,"../SPIM-Folder/Assets/Texture/jacky.bmp"));
+
     //mMap3?
     InteractiveObject* mInteract = new Player("materialphong");
     //mObjects3.push_back(mInteract);

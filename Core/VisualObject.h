@@ -40,7 +40,7 @@ public:
 	void setName(std::string name);
 	std::string getName() const;
 
-	glm::mat4 mMatrix{ 1 };
+	glm::mat4 mMatrix = glm::mat4{ 1.0f };
     //Shader& mShader;
     std::string mMaterialName;
     float mx{0.f}, my{0.f}, mz{0.f}; // position

@@ -166,7 +166,7 @@
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
       <OutputFile>$(OutDir)\3D-programmering.exe</OutputFile>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Link>
     <Midl>
@@ -193,6 +193,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\Audio.cpp" />
+    <ClCompile Include="Materials\materialbillboard.cpp" />
     <ClCompile Include="Math\Barycentric.cpp" />
     <ClCompile Include="Math\BezierCurve.cpp" />
     <ClCompile Include="Mesh\Billboard.cpp" />
@@ -241,6 +242,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Audio.h" />
+    <ClInclude Include="Materials\materialbillboard.h" />
     <ClInclude Include="Math\Barycentric.h" />
     <ClInclude Include="Math\BezierCurve.h" />
     <ClInclude Include="Mesh\Billboard.h" />
@@ -333,6 +335,8 @@
     <None Include="Assets\Texture\hund.bmp" />
     <None Include="Assets\Texture\skybox\left.jpg" />
     <None Include="Assets\Texture\linus.bmp" />
+    <None Include="Shaders\billboardShader.frag" />
+    <None Include="Shaders\billboardShader.vert" />
     <None Include="Shaders\phongshader.frag" />
     <None Include="Shaders\phongshader.vert" />
     <None Include="Shaders\plainshader.frag" />

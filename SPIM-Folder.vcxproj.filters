@@ -185,6 +185,9 @@
     <ClCompile Include="Core\texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Materials\materialbillboard.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Audio.h">
@@ -367,6 +370,9 @@
     <ClInclude Include="Core\texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Materials\materialbillboard.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -439,5 +445,7 @@
     <None Include="Assets\Texture\skybox\top.jpg">
       <Filter>Distribution Files</Filter>
     </None>
+    <None Include="Shaders\billboardShader.frag" />
+    <None Include="Shaders\billboardShader.vert" />
   </ItemGroup>
 </Project>
