@@ -120,6 +120,8 @@ HEADERS += \
     Lua_files/test2.lua \
     Lua_files/test3.lua \
     Lua_files/test4.lua \
+    #Noise
+    library_includes/Noise/FastNoiseLite.h \
     #image loader
     stb_image/stb_image.h \
     stb_image/stb_image.cpp\
