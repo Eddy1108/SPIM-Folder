@@ -183,7 +183,7 @@ Shader::Shader(const std::string &vertexPath, const std::string &fragmentPath)
     }
     else
     {
-       std::cout << "GLSL shader " + shadername + " was successfully compiled";
+        std::cout << "GLSL shader " + shadername + " was successfully compiled" << std::endl;
     }
     // Delete the shaders as they're linked into our program now and no longer needed
     // The shader program is now on the GPU and we reference it by using the mProgram variable

@@ -28,7 +28,7 @@ void main()
 
 
 
-//   colorOut = colorIn;
-//   UV = vertexUV;
-//   gl_Position = pMatrix * vMatrix * mMatrix * positionIn;
+   colorOut = colorIn;
+   UV = vertexUV;
+   gl_Position = pMatrix * vMatrix * mMatrix * positionIn;
 }

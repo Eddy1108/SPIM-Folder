@@ -14,9 +14,9 @@ Billboard::Billboard(std::string materialName, Camera* cam)
 	mVertices.push_back(Vertex(1.f, 1.f, 0.f, 0.f, 0.f, 1.f, 1.f, 1.f)); //D
 
 	mMatrix = glm::mat4(1.0f);
-	mPosition = glm::vec3(0.f, 0.f, 10.f);
+	mPosition = glm::vec3(0.f, 0.f, 3.f);
 
-    mTexture = new Texture("../SPIM-Folder/Assets/Texture/jacky.bmp");
+    //mTexture = new Texture("../SPIM-Folder/Assets/Texture/jacky.bmp");
 }
 
 Billboard::Billboard(std::string materialName, Camera* cam, std::string fileDir)
@@ -32,7 +32,7 @@ Billboard::Billboard(std::string materialName, Camera* cam, std::string fileDir)
 	mVertices.push_back(Vertex(1.f, 1.f, 0.f, 0.f, 0.f, 1.f, 1.f, 1.f)); //D
 
 	mMatrix = glm::mat4(1.0f);
-	mPosition = glm::vec3(0.f, 0.f, 10.f);
+	mPosition = glm::vec3(0.f, 0.f, 2.f);
 
 	mCam = cam;
 	mTexture = new Texture(fileDir);
@@ -49,10 +49,10 @@ void Billboard::init()
 
 void Billboard::draw()
 {
-	//move();
+	move();
 
-	//RotateToCamMatrix();
-	RotateToCamDirect();
+	RotateToCamMatrix();
+	//RotateToCamDirect();
 
 	//Not needed but to overwrite other textures in this slot we must do this each draw call
     //glActiveTexture(GL_TEXTURE1);
