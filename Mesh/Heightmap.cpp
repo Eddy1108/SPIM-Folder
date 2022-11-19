@@ -46,7 +46,6 @@ void Heightmap::init()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mIndices.size() * sizeof(GLuint), mIndices.data(), GL_STATIC_DRAW);
 	
-	
 	// 1st attribute buffer : vertices
 	glBindBuffer(GL_ARRAY_BUFFER, mVBO);
 	glVertexAttribPointer(

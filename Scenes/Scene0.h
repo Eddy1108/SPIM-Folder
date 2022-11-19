@@ -37,5 +37,8 @@ public:
     void mouseMoveEvent(QMouseEvent* event) override;
     void keyPressEvent(QKeyEvent* event) override;
     void keyReleaseEvent(QKeyEvent* event) override;
+
+private:
+    class ProceduralTerrain* myTerrain;
 };
 

@@ -64,7 +64,6 @@ void VisualObject::init()
 void VisualObject::initTexture()
 {
 	///Init set up for textures
-
 	initializeOpenGLFunctions();
 
 	//Vertex Array Object - VAO

@@ -1,6 +1,7 @@
 #include "Scene0.h"
 
 #include "Mesh/ObjLoader.h"
+#include "Terrain/proceduralterrain.h"
 
 Scene0::Scene0()
 {
@@ -21,8 +22,8 @@ void Scene0::objects()
     mObjects.push_back(temp = new XYZ("materialplain"));
     temp->setName("XYZ");
 
-    mObjects.push_back(temp = new ObjLoader("materialplain", "../SPIM-Folder/Assets/models/crew.obj"));
-    temp->setName("Amongus");
+    //mObjects.push_back(temp = new ObjLoader("materialplain", "../SPIM-Folder/Assets/models/crew.obj"));
+    //temp->setName("Amongus");
 
     mObjects.push_back(temp = new Kube("materialplain"));
     temp->setName("Kube");
@@ -30,7 +31,12 @@ void Scene0::objects()
     mObjects.push_back(temp = new Billboard("materialbillboard", mCamera));
     temp->setName("Billboard");
 
-    //mMap3?
+    //ProceduralTerrain* my = new ProceduralTerrain();
+
+    mObjects.push_back(temp = new ProceduralTerrain());
+    temp->setName("Terrain");
+
+
     InteractiveObject* mInteract = new Player("materialphong");
     //mObjects3.push_back(mInteract);
     mObjects.push_back(mInteract);

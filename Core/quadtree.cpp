@@ -1,13 +1,13 @@
 #include "quadtree.h"
 
 
-bool QuadTre::isLeaf() const
+bool QuadTree::isLeaf() const
 {
     return m_sw == nullptr && m_se == nullptr && m_ne == nullptr && m_nw == nullptr;
 }
 
 
-void QuadTre::traverse_all(std::vector<VisualObject*>& all_Objects)
+void QuadTree::traverse_all(std::vector<VisualObject*>& all_Objects)
 {
     for (auto it = m_Objects.begin(); it != m_Objects.end(); it++)
     {
@@ -33,7 +33,7 @@ void QuadTre::traverse_all(std::vector<VisualObject*>& all_Objects)
 
 
 
-QuadTre::QuadTre() : m_sw{ nullptr }, m_se{ nullptr }, m_ne{ nullptr }, m_nw{ nullptr }
+QuadTree::QuadTree() : m_sw{ nullptr }, m_se{ nullptr }, m_ne{ nullptr }, m_nw{ nullptr }
 {
     mShape = new AABB();
 
@@ -46,7 +46,7 @@ QuadTre::QuadTre() : m_sw{ nullptr }, m_se{ nullptr }, m_ne{ nullptr }, m_nw{ nu
 }
 
 
-QuadTre::QuadTre(const Point2D& v1, const Point2D& v2, const Point2D& v3, const Point2D& v4) : m_a{ v1 }, m_b{ v2 }, m_c{ v3 }, m_d{ v4 },
+QuadTree::QuadTree(const Point2D& v1, const Point2D& v2, const Point2D& v3, const Point2D& v4) : m_a{ v1 }, m_b{ v2 }, m_c{ v3 }, m_d{ v4 },
 m_sw{ nullptr }, m_se{ nullptr }, m_ne{ nullptr }, m_nw{ nullptr }
 {
     mShape = new AABB();
@@ -59,7 +59,7 @@ m_sw{ nullptr }, m_se{ nullptr }, m_ne{ nullptr }, m_nw{ nullptr }
     mShape->mPosition = glm::vec3{ mid.x, mid.y, 0.f };
 }
 
-QuadTre::~QuadTre()
+QuadTree::~QuadTree()
 {
     if (m_sw)
         delete m_sw;
@@ -76,12 +76,12 @@ QuadTre::~QuadTre()
 }
 
 
-void QuadTre::init(const Point2D& v1, const Point2D& v2, const Point2D& v3, const Point2D& v4)
+void QuadTree::init(const Point2D& v1, const Point2D& v2, const Point2D& v3, const Point2D& v4)
 {
     m_a = v1; m_b = v2; m_c = v3; m_d = v4;
 }
 
-void QuadTre::subDivide(int n)
+void QuadTree::subDivide(int n)
 {
     if (n > 0)
     {
@@ -93,18 +93,18 @@ void QuadTre::subDivide(int n)
         Point2D v4 = Point2D{ (m_d.first + m_a.first) / 2, (m_d.second + m_a.second) / 2 };
         Point2D middle = Point2D{ (m_a.first + m_c.first) / 2, (m_a.second + m_c.second) / 2 };
 
-        m_sw = new QuadTre(m_a, v1, middle, v4);
+        m_sw = new QuadTree(m_a, v1, middle, v4);
         m_sw->subDivide(n - 1);
-        m_se = new QuadTre(v1, m_b, v2, middle);
+        m_se = new QuadTree(v1, m_b, v2, middle);
         m_se->subDivide(n - 1);
-        m_ne = new QuadTre(middle, v2, m_c, v3);
+        m_ne = new QuadTree(middle, v2, m_c, v3);
         m_ne->subDivide(n - 1);
-        m_nw = new QuadTre(v4, middle, v3, m_d);
+        m_nw = new QuadTree(v4, middle, v3, m_d);
         m_nw->subDivide(n - 1);
     }
 }
 
-void QuadTre::print()
+void QuadTree::print()
 {
     //Point2D c = Point2D((m_a.first + m_c.first) / 2, (m_a.second + m_c.second) / 2);
 
@@ -121,7 +121,7 @@ void QuadTre::print()
 
 }
 
-void QuadTre::print_all()
+void QuadTree::print_all()
 { 
     print();
 
@@ -132,7 +132,7 @@ void QuadTre::print_all()
 
 }
 
-void QuadTre::collisionCheck(glm::vec2 pos, std::string name)
+void QuadTree::collisionCheck(glm::vec2 pos, std::string name)
 {
     auto subtre = find(pos);
     int nameSize = name.size();
@@ -156,7 +156,7 @@ void QuadTre::collisionCheck(glm::vec2 pos, std::string name)
     subtre->print();
 }
 
-void QuadTre::removeEmpty()
+void QuadTree::removeEmpty()
 {
     //um wtf
 
@@ -176,7 +176,7 @@ void QuadTre::removeEmpty()
     //    delete this;
 }
 
-QuadTre* QuadTre::insert(VisualObject* gameObject)
+QuadTree* QuadTree::insert(VisualObject* gameObject)
 {
     if (isLeaf())
     {
@@ -204,7 +204,7 @@ QuadTre* QuadTre::insert(VisualObject* gameObject)
     }
 }
 
-QuadTre* QuadTre::insert(VisualObject* gameObject, CollisionShape* shape)
+QuadTree* QuadTree::insert(VisualObject* gameObject, CollisionShape* shape)
 {
     if (isLeaf())
     {
@@ -244,7 +244,7 @@ QuadTre* QuadTre::insert(VisualObject* gameObject, CollisionShape* shape)
 }
 
 
-QuadTre* QuadTre::find(const glm::vec2 p)
+QuadTree* QuadTree::find(const glm::vec2 p)
 {
     if (isLeaf())
         return this;
@@ -270,7 +270,7 @@ QuadTre* QuadTre::find(const glm::vec2 p)
     }
 }
 
-VisualObject* QuadTre::find(const std::string name)
+VisualObject* QuadTree::find(const std::string name)
 {
     if (isLeaf() && m_Objects.size() > 0)
     {

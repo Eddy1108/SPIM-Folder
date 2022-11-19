@@ -5,7 +5,7 @@
 
 Scene::Scene()
 {
-    mQuadTre = new QuadTre();
+    mQuadTre = new QuadTree();
 }
 
 Scene::~Scene()
@@ -48,31 +48,6 @@ void Scene::draw()
     if(mSkybox){
         mSkybox->draw();
     }
-    //    if (mSkybox)
-    //    {
-    //        //glDisable(GL_CULL_FACE);
-    //        glDepthFunc(GL_LEQUAL);
-
-    //        glUseProgram(mShaderPrograms["skybox"]->getProgram());
-
-
-    //        GLint tempPMatrix = mShaderPrograms["skybox"]->mPMatrixUniform;
-    //        GLint tempVMatrix = mShaderPrograms["skybox"]->mVMatrixUniform;
-
-    //        glm::mat4 view = glm::mat4(glm::mat3(mCamera->mVMatrix));
-
-    //        glm::mat4 rotMatrix = glm::mat4(1.0f);
-    //        rotMatrix = glm::rotate(glm::radians(90.f), glm::vec3(1.0f, 0.0f, 0.0f));
-
-    //        glUniformMatrix4fv(glGetUniformLocation(mShaderPrograms["skybox"]->getProgram(), "rotMatrix"), 1, GL_FALSE, glm::value_ptr(rotMatrix)); //i have z as up, so need to rotate skybox 90 degrees
-    //        glUniformMatrix4fv(tempVMatrix, 1, GL_FALSE, glm::value_ptr(view));
-    //        glUniformMatrix4fv(tempPMatrix, 1, GL_FALSE, glm::value_ptr(mCamera->mPMatrix));
-
-    //        mSkybox->draw();
-
-    //        glDepthFunc(GL_LESS);
-    //    }
-
 
 //    //Draw Plain Objects
     if (mMap.size() > 0 || mSkybox)

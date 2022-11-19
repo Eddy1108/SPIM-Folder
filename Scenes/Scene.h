@@ -48,7 +48,7 @@ public:
     //std::vector<VisualObject*> mObjects3;
     //std::unordered_map<std::string, VisualObject*> mMap3;
 
-	QuadTre* mQuadTre{nullptr};
+	QuadTree* mQuadTre{nullptr};
 
 	Camera* mCamera{nullptr};
 

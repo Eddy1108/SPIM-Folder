@@ -12,7 +12,7 @@
 
 	typedef std::pair<double, double> Point2D;
 
-    class QuadTre
+    class QuadTree
     {
     private:
 
@@ -36,15 +36,15 @@
 
         AABB* mShape{ nullptr };
 
-        QuadTre* m_sw;
-        QuadTre* m_se;
-        QuadTre* m_ne;
-        QuadTre* m_nw;
+        QuadTree* m_sw;
+        QuadTree* m_se;
+        QuadTree* m_ne;
+        QuadTree* m_nw;
 
 
-        QuadTre();
-        QuadTre(const Point2D& v1, const Point2D& v2, const Point2D& v3, const Point2D& v4);
-        ~QuadTre();
+        QuadTree();
+        QuadTree(const Point2D& v1, const Point2D& v2, const Point2D& v3, const Point2D& v4);
+        ~QuadTree();
 
         void init(const Point2D& v1, const Point2D& v2, const Point2D& v3, const Point2D& v4);
         void subDivide(int n);
@@ -56,9 +56,9 @@
         //void printCorners() const;
         //void printAllLeaves() const;
         //Point2D findCenter() const;
-        QuadTre* insert(VisualObject* gameObject);
-        QuadTre* insert(VisualObject* gameObject, CollisionShape* shape);
-        QuadTre* find(const glm::vec2 p);
+        QuadTree* insert(VisualObject* gameObject);
+        QuadTree* insert(VisualObject* gameObject, CollisionShape* shape);
+        QuadTree* find(const glm::vec2 p);
         VisualObject* find(const std::string name);
 
         typename std::vector<VisualObject*>::iterator begin() 

@@ -5,6 +5,7 @@
 #include "Materials/materialtexture.h"
 #include "Materials/materialphong.h"
 #include "Materials/materialcubemap.h" // Used for skybox
+#include "Materials/materialbillboard.h"
 
 #include "stb_image/stb_image.h"
 
@@ -78,31 +79,23 @@ void MaterialList::CompileTextures()
     //Default texture (Always slot 0). DO NOT CHANGE
     mTexture[texIndex].first = "default";
     mTexture[texIndex].second = new Texture();
-    texIndex++;
     //Texture Paths (textures goes here)
     // IMPORTANT: All images must be within the "Assets" folder and be .bmp files.
 
     //1
-    mTexture[texIndex].first = "linus.bmp";
-    texIndex++;
+    mTexture[texIndex++].first = "linus.bmp";
     //2
-    mTexture[texIndex].first = "EksamenHeightmap.bmp";
-    texIndex++;
+    mTexture[texIndex++].first = "EksamenHeightmap.bmp";
     //3
-    mTexture[texIndex].first = "hund.bmp";
-    texIndex++;
+    mTexture[texIndex++].first = "hund.bmp";
     //4
-    mTexture[texIndex].first = "RealGrass.bmp";
-    texIndex++;
+    mTexture[texIndex++].first = "RealGrass.bmp";
     //5
-    mTexture[texIndex].first = "pew.bmp";
-    texIndex++;
+    mTexture[texIndex++].first = "pew.bmp";
     //6
-    mTexture[texIndex].first = "win.bmp";
-    texIndex++;
+    mTexture[texIndex++].first = "win.bmp";
     //7
-    mTexture[texIndex].first = "fire.png";
-    texIndex++;
+    mTexture[texIndex++].first = "fire.png";
 
     //For loop that constructs all the Textures based of the paths given.
     for(int i = 1; i < mTextureSize; i++){
@@ -219,11 +212,6 @@ void MaterialList::CompileMaterials()
     // Other materials
     mMaterial[matIndex].first = "materialphongplayer";
     mMaterial[matIndex].second = new MaterialPhong(mShaderProgram[2].second->getProgram(), 5);
-    mMaterial[matIndex].second->SetupUniforms();
-    matIndex++;
-
-    mMaterial[matIndex].first = "materialbillboardWin";
-    mMaterial[matIndex].second = new MaterialTexture(mShaderProgram[1].second->getProgram(), 6);
     mMaterial[matIndex].second->SetupUniforms();
     matIndex++;
 

@@ -103,9 +103,6 @@ void RenderWindow::init()
 
     //Set up Shaders
     //mShaderPrograms.insert(std::pair<std::string, Shader*>("plain", new PlainShader("../SPIM-Folder/Shaders/plainshader.vert", "../SPIM-Folder/Shaders/plainshader.frag")));
-    //mShaderPrograms.insert(std::pair<std::string, Shader*>("textured", new TextureShader("../SPIM-Folder/Shaders/textureshader.vert", "../SPIM-Folder/Shaders/textureshader.frag")));
-    //mShaderPrograms.insert(std::pair<std::string, Shader*>("phong", new PhongShader("../SPIM-Folder/Shaders/phongshader.vert", "../SPIM-Folder/Shaders/phongshader.frag")));
-    //mShaderPrograms.insert(std::pair<std::string, Shader*>("skybox", new SkyBoxShader("../SPIM-Folder/Shaders/skyboxShader.vert", "../SPIM-Folder/Shaders/skyboxShader.frag")));
 
 
     //----------Create material list-----------

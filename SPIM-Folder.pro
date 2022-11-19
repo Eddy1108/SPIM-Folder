@@ -47,14 +47,13 @@ SOURCES += main.cpp \
     Materials/materialphong.cpp \
     Materials/materialplain.cpp \
     Materials/materialtexture.cpp \
+    Materials/materialbillboard.cpp \
     Scenes/SceneSwitcher.cpp \
-    Shaders/PhongShader.cpp \
-    Shaders/PlainShader.cpp \
-    Shaders/SkyBoxShader.cpp \
-    Shaders/TextureShader.cpp \
+    Terrain/terrainbasechunk.cpp \
     logger.cpp \
     Lua_files/luafunctiontest.cpp \
     mainwindow.cpp \
+    Terrain/proceduralterrain.cpp \
     renderwindow.cpp
 
 HEADERS += \
@@ -98,14 +97,13 @@ HEADERS += \
     Materials/materialphong.h \
     Materials/materialplain.h \
     Materials/materialtexture.h \
-    Shaders/PhongShader.h \
-    Shaders/PlainShader.h \
-    Shaders/SkyBoxShader.h \
-    Shaders/TextureShader.h \
+    Materials/materialbillboard.h \
+    Terrain/terrainbasechunk.h \
     library_includes/dr_lib/dr_wav.h \
     logger.h \
     Lua_files/luafunctiontest.h \
     mainwindow.h \
+    Terrain/proceduralterrain.h \
     renderwindow.h \
 # external Lua files
     library_includes/Lua/lua.hpp \
