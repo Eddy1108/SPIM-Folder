@@ -2,21 +2,93 @@
 #include "Noise/FastNoiseLite.h"
 
 
-enum BiomeType
-{
-    Mountains,
-    Desert
-};
 
 TerrainBaseChunk::TerrainBaseChunk(const int seed,
                                    glm::vec2 coords,
+                                   BiomeType biomeType,
                                    const float chunkSize,
                                    const unsigned int chunkComplexity,
                                    std::string materialName )
-    : VisualObject(materialName), mSeed(seed), mChunkSize(chunkSize), mChunkComplexity(chunkComplexity)
+    : VisualObject(materialName), mCoords(coords), mSeed(seed), mBiomeType(biomeType), mChunkSize(chunkSize), mChunkComplexity(chunkComplexity)
 {
+    generateFastNoise();
     generateChunk(coords);
 }
+
+void TerrainBaseChunk::generateFastNoise()
+{
+    // ---- Get coordinates ----
+    // These coords are used when generating all noises
+    glm::vec2 noiseCoords = glm::vec2( (mCoords.x / mChunkSize) * (mChunkComplexity -1),
+                           (mCoords.y / mChunkSize) * (mChunkComplexity-1) );
+
+    std::cout << "noiseCoords: " << noiseCoords.x << ", "<< noiseCoords.y << "\n";
+
+    // -- Continental Noise --
+    // Create and configure FastNoise object
+    if(!mNoiseContinental) {
+        mNoiseContinental = new FastNoiseLite(mSeed);
+        noiseContinentalnessTransformation();
+        mNoiseContinentalData = getNoiseData(mNoiseContinental, noiseCoords,
+                                             mChunkComplexity, mChunkComplexity);
+    }
+
+    // -- Height Offset Noise --
+    // Create and configure FastNoise object
+    //if(!mNoiseHeightOffset) {
+    //    mNoiseHeightOffset = new FastNoiseLite(mSeed);
+    //    noiseContinentalnessTransformation();
+    //mNoiseHeightOffsetData = getNoiseData(mNoiseHeightOffset, noiseCoords, mChunkComplexity, mChunkComplexity);
+
+    //}
+}
+
+void TerrainBaseChunk::noiseContinentalnessTransformation()
+{
+    // Noise Settings
+    switch(mBiomeType){
+    case Mountains:
+        mNoiseContinental->SetNoiseType(FastNoiseLite::NoiseType_OpenSimplex2);
+        mNoiseContinental->SetFractalType(FastNoiseLite::FractalType_Ridged);
+        mNoiseContinental->SetFrequency(0.005f);
+        mNoiseContinental->SetFractalOctaves(8);
+        mNoiseContinental->SetFractalLacunarity(2);
+        mHeightIntensity = 4;
+        break;
+
+    case Desert:
+        mNoiseContinental->SetNoiseType(FastNoiseLite::NoiseType_OpenSimplex2);
+        mNoiseContinental->SetFractalType(FastNoiseLite::FractalType_Ridged);
+        mNoiseContinental->SetFrequency(0.006f);
+        mNoiseContinental->SetFractalOctaves(8);
+        mNoiseContinental->SetFractalLacunarity(2);
+        mNoiseContinental->SetFractalGain(0.0f);
+        mHeightIntensity = 1.f;
+        break;
+
+    case Hills:
+        mNoiseContinental->SetNoiseType(FastNoiseLite::NoiseType_Perlin);
+        mNoiseContinental->SetFractalType(FastNoiseLite::FractalType_FBm);
+        mNoiseContinental->SetFrequency(0.01f);
+        mNoiseContinental->SetFractalOctaves(4);
+        mNoiseContinental->SetFractalLacunarity(2);
+        mNoiseContinental->SetFractalGain(0.4f);
+        mHeightIntensity = 2;
+        break;
+    }
+
+}
+
+void TerrainBaseChunk::noiseHeightOffsetTransformation()
+{
+    mNoiseHeightOffset->SetNoiseType(FastNoiseLite::NoiseType_Perlin);
+    mNoiseHeightOffset->SetFractalType(FastNoiseLite::FractalType_None);
+    mNoiseHeightOffset->SetFrequency(0.002f);
+    mNoiseHeightOffset->SetFractalOctaves(1);
+    mNoiseHeightOffset->SetFractalLacunarity(0);
+    mNoiseHeightOffset->SetFractalGain(0);
+}
+
 
 void TerrainBaseChunk::generateChunk(glm::vec2 coords)
 {
@@ -26,14 +98,9 @@ void TerrainBaseChunk::generateChunk(glm::vec2 coords)
     }
 
     //Gets noise data for the chunk
-    glm::vec2 noiseCoords = glm::vec2( (coords.x / mChunkSize) * (mChunkComplexity -1),
-                           (coords.y / mChunkSize) * (mChunkComplexity-1) );
-
-
-    glm::vec2 noiseCoords1 = glm::vec2( coords.x,
-                           (coords.y / mChunkSize) * (mChunkComplexity-1) );
-
-    std::vector<float> noiseData = generateNoiseData(noiseCoords, mChunkComplexity, mChunkComplexity);
+    //glm::vec2 noiseCoords = glm::vec2( (coords.x / mChunkSize) * (mChunkComplexity -1),
+    //                       (coords.y / mChunkSize) * (mChunkComplexity-1) );
+    //std::vector<float> noiseData = generateNoiseData(noiseCoords, mChunkComplexity, mChunkComplexity);
 
     // ---- Create Vertices ----
     float x{0},y{0},z{0}, r{0},g{0.5f},b{0}, u{0},v{0};
@@ -56,14 +123,14 @@ void TerrainBaseChunk::generateChunk(glm::vec2 coords)
             //XYZ - XZ
             x = coords.x + i * delta;
             // Get Z height from NoiseData
-            z = noiseData[i + j * mChunkComplexity];
+            z = getHeight(i, j);
 
             //UV - U - Currently expected that each chunk has their own texture
             u = i/mChunkComplexity;
 
             //debug colors
-            r = z;
-            b = -z;
+            r = z/2;
+            b = -z/2;
 
             // Create Vertex
             mVertices.push_back(Vertex{ x, y, z, r, g, b, u,v });
@@ -95,28 +162,33 @@ void TerrainBaseChunk::generateChunk(glm::vec2 coords)
 }
 
 
-std::vector<float> TerrainBaseChunk::generateNoiseData(glm::vec2 coords, int width, int height)
+float TerrainBaseChunk::getHeight(int i, int j)
 {
-    std::cout << "seed: " << mSeed << "\n";
-    // Create and configure FastNoise object
-    FastNoiseLite mNoise(mSeed);
-    // Noise Settings
-    mNoise.SetNoiseType(FastNoiseLite::NoiseType_OpenSimplex2);
-    mNoise.SetFractalType(FastNoiseLite::FractalType_Ridged);
-    mNoise.SetFrequency(0.005f);
-    mNoise.SetFractalOctaves(8);
-    mNoise.SetFractalLacunarity(2);
-    //mNoise.SetFractalGain(0.f);
 
+    // ---- Gather noise data ----
+    // ---- Add together ----
+    float z = mNoiseContinentalData[i + j * mChunkComplexity];
+    z *= mHeightIntensity;
+    ///Should be done last
+    z += mHeightOffset;
+
+    return z;
+}
+
+std::vector<float> TerrainBaseChunk::getNoiseData(FastNoiseLite* fastNoise, glm::vec2 coords, int width, int height)
+{
     // Gather noise data
     std::vector<float> noiseData(width * height);
     int index = 0;
 
+
+    std::cout << "noiseData: ";
     for (int y = (int)coords.y; y < (int)coords.y + height; y++)
     {
         for (int x = coords.x; x < coords.x + width; x++)
         {
-            noiseData[index++] = mNoise.GetNoise((float)x, (float)y);
+            noiseData[index++] = fastNoise->GetNoise((float)x, (float)y);
+            std::cout << noiseData[index - 1] << ", ";
         }
     }
 
@@ -126,10 +198,6 @@ std::vector<float> TerrainBaseChunk::generateNoiseData(glm::vec2 coords, int wid
 void TerrainBaseChunk::init()
 {
     initializeOpenGLFunctions();
-
-    //Grass texture from here: https://www.pinterest.com/pin/texture-png-seamless-tileable-grass--596867756834423269/
-    //mTexture = new Texture("../SPIM-Folder/Assets/Texture/RealGrass.bmp");
-    //mHeightmap = new Texture("../SPIM-Folder/Assets/Texture/EksamenHeightmap.bmp");
 
     //Vertex Array Object - VAO
     glGenVertexArrays(1, &mVAO);

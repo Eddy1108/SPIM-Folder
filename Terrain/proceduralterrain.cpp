@@ -15,9 +15,17 @@ ProceduralTerrain::ProceduralTerrain(std::string materialName) : VisualObject(ma
     //        mChunks.push_back(chunk);
     //
 
-    TerrainBaseChunk* chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*0,mChunkSize*0), mChunkSize, mChunkComplexity, materialName);
+    TerrainBaseChunk* chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*0,mChunkSize*0), BiomeType::Hills, mChunkSize, mChunkComplexity, materialName);
     mChunks.push_back(chunk);
 
+    chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*1,mChunkSize*0), BiomeType::Desert, mChunkSize, mChunkComplexity, materialName);
+    mChunks.push_back(chunk);
+
+    chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*0,mChunkSize*1), BiomeType::Mountains, mChunkSize, mChunkComplexity, materialName);
+    mChunks.push_back(chunk);
+
+    //chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*1,mChunkSize*1), BiomeType::Hills, mChunkSize, mChunkComplexity, materialName);
+    //mChunks.push_back(chunk);
 }
 
 ProceduralTerrain::~ProceduralTerrain()
