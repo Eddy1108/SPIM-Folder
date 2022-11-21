@@ -2,7 +2,6 @@
 #define MATERIAL_H
 
 #include "shader.h"
-#include "texture.h"
 
 #include <QMatrix4x4>
 #include <unordered_map>
@@ -28,7 +27,6 @@ public:
 
     GLuint mShaderProgram;
     std::vector<int> mTextureIndex;
-    //Texture* mTexture{nullptr};
 
     std::unordered_map<std::string, GLuint> mUniform;
 protected:

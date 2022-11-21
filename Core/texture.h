@@ -16,6 +16,8 @@ public:
 
     unsigned char* getBitmap();
 
+    void stbi_texture();
+
     ///The width of the image, in pixels
     int mColumns;
     ///The height of the image, in pixels
@@ -34,6 +36,7 @@ private:
     bool readBitmap(const std::string& filename);
     ///Loads the image into GPU memory, and set up its parameters.
     void setTexture();
+    void setTextureSTBI();
 
     ///Utility class Logger to write to Output Log in the application.
     class Logger* mLogger{ nullptr };

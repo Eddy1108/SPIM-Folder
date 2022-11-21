@@ -28,12 +28,12 @@ void Scene0::objects()
     mObjects.push_back(temp = new Kube("materialplain"));
     temp->setName("Kube");
 
-    mObjects.push_back(temp = new Billboard("materialbillboard", mCamera));
+    mObjects.push_back(temp = new Billboard("materialtexture", mCamera));
     temp->setName("Billboard");
 
     //ProceduralTerrain* my = new ProceduralTerrain();
 
-    mObjects.push_back(temp = new ProceduralTerrain());
+    mObjects.push_back(temp = new ProceduralTerrain("materialtexture"));
     temp->setName("Terrain");
 
 

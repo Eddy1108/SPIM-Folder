@@ -13,6 +13,9 @@ TerrainBaseChunk::TerrainBaseChunk(const int seed,
 {
     generateFastNoise();
     generateChunk(coords);
+
+    mNoiseContinentalData.clear();
+    mNoiseHeightOffsetData.clear();
 }
 
 void TerrainBaseChunk::generateFastNoise()
@@ -21,8 +24,6 @@ void TerrainBaseChunk::generateFastNoise()
     // These coords are used when generating all noises
     glm::vec2 noiseCoords = glm::vec2( (mCoords.x / mChunkSize) * (mChunkComplexity -1),
                            (mCoords.y / mChunkSize) * (mChunkComplexity-1) );
-
-    std::cout << "noiseCoords: " << noiseCoords.x << ", "<< noiseCoords.y << "\n";
 
     // -- Continental Noise --
     // Create and configure FastNoise object
@@ -35,12 +36,12 @@ void TerrainBaseChunk::generateFastNoise()
 
     // -- Height Offset Noise --
     // Create and configure FastNoise object
-    //if(!mNoiseHeightOffset) {
-    //    mNoiseHeightOffset = new FastNoiseLite(mSeed);
-    //    noiseContinentalnessTransformation();
-    //mNoiseHeightOffsetData = getNoiseData(mNoiseHeightOffset, noiseCoords, mChunkComplexity, mChunkComplexity);
-
-    //}
+    if(!mNoiseHeightOffset) {
+        mNoiseHeightOffset = new FastNoiseLite(mSeed);
+        noiseContinentalnessTransformation();
+        mNoiseHeightOffsetData = getNoiseData(mNoiseHeightOffset, noiseCoords,
+                                              mChunkComplexity, mChunkComplexity);
+    }
 }
 
 void TerrainBaseChunk::noiseContinentalnessTransformation()
@@ -50,7 +51,8 @@ void TerrainBaseChunk::noiseContinentalnessTransformation()
     case Mountains:
         mNoiseContinental->SetNoiseType(FastNoiseLite::NoiseType_OpenSimplex2);
         mNoiseContinental->SetFractalType(FastNoiseLite::FractalType_Ridged);
-        mNoiseContinental->SetFrequency(0.005f);
+        //mNoiseContinental->SetFrequency(0.005f);
+        mNoiseContinental->SetFrequency(0.002f);
         mNoiseContinental->SetFractalOctaves(8);
         mNoiseContinental->SetFractalLacunarity(2);
         mHeightIntensity = 4;
@@ -97,11 +99,6 @@ void TerrainBaseChunk::generateChunk(glm::vec2 coords)
         return;
     }
 
-    //Gets noise data for the chunk
-    //glm::vec2 noiseCoords = glm::vec2( (coords.x / mChunkSize) * (mChunkComplexity -1),
-    //                       (coords.y / mChunkSize) * (mChunkComplexity-1) );
-    //std::vector<float> noiseData = generateNoiseData(noiseCoords, mChunkComplexity, mChunkComplexity);
-
     // ---- Create Vertices ----
     float x{0},y{0},z{0}, r{0},g{0.5f},b{0}, u{0},v{0};
     int indicesOffset = mVertices.size();
@@ -116,7 +113,7 @@ void TerrainBaseChunk::generateChunk(glm::vec2 coords)
         //XYZ - Y
         y = coords.y + j * delta;
         //UV - V Currently expected that each chunk has their own texture
-        v = j/mChunkComplexity;
+        v = (float)j/mChunkComplexity;
 
         for(int i = 0; i < mChunkComplexity; i++)
         {
@@ -126,11 +123,12 @@ void TerrainBaseChunk::generateChunk(glm::vec2 coords)
             z = getHeight(i, j);
 
             //UV - U - Currently expected that each chunk has their own texture
-            u = i/mChunkComplexity;
+            u = (float)i/mChunkComplexity;
 
             //debug colors
-            r = z/2;
-            b = -z/2;
+            r = z;
+            g = z+1;
+            //b = -z/2;
 
             // Create Vertex
             mVertices.push_back(Vertex{ x, y, z, r, g, b, u,v });
@@ -164,11 +162,16 @@ void TerrainBaseChunk::generateChunk(glm::vec2 coords)
 
 float TerrainBaseChunk::getHeight(int i, int j)
 {
-
+    int dataIndex = i + j * mChunkComplexity;
     // ---- Gather noise data ----
+    float valContinental = mNoiseContinentalData[dataIndex];
+    float valHeightOffset = mNoiseHeightOffsetData[dataIndex];
     // ---- Add together ----
-    float z = mNoiseContinentalData[i + j * mChunkComplexity];
+    float z = valContinental;
     z *= mHeightIntensity;
+
+    //z += std::clamp(valHeightOffset, 0.0f, 1.f);
+    z+= valHeightOffset;
     ///Should be done last
     z += mHeightOffset;
 
@@ -182,13 +185,13 @@ std::vector<float> TerrainBaseChunk::getNoiseData(FastNoiseLite* fastNoise, glm:
     int index = 0;
 
 
-    std::cout << "noiseData: ";
+    //std::cout << "noiseData: ";
     for (int y = (int)coords.y; y < (int)coords.y + height; y++)
     {
         for (int x = coords.x; x < coords.x + width; x++)
         {
             noiseData[index++] = fastNoise->GetNoise((float)x, (float)y);
-            std::cout << noiseData[index - 1] << ", ";
+            //std::cout << noiseData[index - 1] << ", ";
         }
     }
 

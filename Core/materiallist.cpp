@@ -78,7 +78,7 @@ void MaterialList::CompileTextures()
     int texIndex{0};
     //Default texture (Always slot 0). DO NOT CHANGE
     mTexture[texIndex].first = "default";
-    mTexture[texIndex].second = new Texture();
+    mTexture[texIndex++].second = new Texture();
     //Texture Paths (textures goes here)
     // IMPORTANT: All images must be within the "Assets" folder and be .bmp files.
 
@@ -91,11 +91,13 @@ void MaterialList::CompileTextures()
     //4
     mTexture[texIndex++].first = "RealGrass.bmp";
     //5
-    mTexture[texIndex++].first = "pew.bmp";
+    mTexture[texIndex++].first = "Sand.jpg";
     //6
-    mTexture[texIndex++].first = "win.bmp";
+    mTexture[texIndex++].first = "pew.bmp";
     //7
-    mTexture[texIndex++].first = "fire.png";
+    mTexture[texIndex++].first = "win.bmp";
+    //8
+    //mTexture[texIndex++].first = "fire.png";
 
     //For loop that constructs all the Textures based of the paths given.
     for(int i = 1; i < mTextureSize; i++){
@@ -200,7 +202,7 @@ void MaterialList::CompileMaterials()
     matIndex++;
 
     mMaterial[matIndex].first = "materialtexture";
-    mMaterial[matIndex].second = new MaterialTexture(mShaderProgram[1].second->getProgram(), 0);
+    mMaterial[matIndex].second = new MaterialTexture(mShaderProgram[1].second->getProgram(), 5);
     mMaterial[matIndex].second->SetupUniforms();
     matIndex++;
 

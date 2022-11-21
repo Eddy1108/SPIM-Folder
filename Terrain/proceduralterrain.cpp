@@ -9,20 +9,20 @@ ProceduralTerrain::ProceduralTerrain(std::string materialName) : VisualObject(ma
     //generateChunk(glm::vec2(0,0));
     //generateChunk(glm::vec2(0,0));
 
-    //for(int i = 0; i < 2; i++)
-    //    for(int j = 0; j < 2; j++) {
-    //        TerrainBaseChunk* chunk = new TerrainBaseChunk(mSeed, glm::vec2(i*mChunkSize,j*mChunkSize));
-    //        mChunks.push_back(chunk);
-    //
+    for(int j = 0; j < 3; j++)
+        for(int i = 0; i < 3; i++) {
+                TerrainBaseChunk* chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*i,mChunkSize*j), BiomeType::Desert, mChunkSize, mChunkComplexity, materialName);
+                mChunks.push_back(chunk);
+    }
 
-    TerrainBaseChunk* chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*0,mChunkSize*0), BiomeType::Hills, mChunkSize, mChunkComplexity, materialName);
-    mChunks.push_back(chunk);
-
-    chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*1,mChunkSize*0), BiomeType::Desert, mChunkSize, mChunkComplexity, materialName);
-    mChunks.push_back(chunk);
-
-    chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*0,mChunkSize*1), BiomeType::Mountains, mChunkSize, mChunkComplexity, materialName);
-    mChunks.push_back(chunk);
+//    TerrainBaseChunk* chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*0,mChunkSize*0), BiomeType::Hills, mChunkSize, mChunkComplexity, materialName);
+//    mChunks.push_back(chunk);
+//
+//    chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*1,mChunkSize*0), BiomeType::Desert, mChunkSize, mChunkComplexity, materialName);
+//    mChunks.push_back(chunk);
+//
+//    chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*0,mChunkSize*1), BiomeType::Mountains, mChunkSize, mChunkComplexity, materialName);
+//    mChunks.push_back(chunk);
 
     //chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*1,mChunkSize*1), BiomeType::Hills, mChunkSize, mChunkComplexity, materialName);
     //mChunks.push_back(chunk);

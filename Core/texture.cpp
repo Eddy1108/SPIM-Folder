@@ -3,6 +3,7 @@
 #include <string>
 
 #include "texture.h"
+#include "stb_image.h"
 
 Texture::Texture()
 {
@@ -22,9 +23,15 @@ Texture::Texture(const std::string& filename) : QOpenGLFunctions_4_1_Core()
     //Have to do this, else program will crash (or you have to put in nullptr tests...)
     textureFilename = filename;
     initializeOpenGLFunctions();
-    bool success = readBitmap(filename);       //reads the BMP into memory
-    if (success)
-        setTexture();               //set texture up for OpenGL
+
+    if(textureFilename.find(".bmp") != std::string::npos){
+        bool success = readBitmap(filename);       //reads the BMP into memory
+        if (success)
+            setTexture();               //set texture up for OpenGL
+    }
+    else {
+        stbi_texture();
+    }
 }
 
 GLuint Texture::id() const
@@ -35,6 +42,27 @@ GLuint Texture::id() const
 unsigned char* Texture::getBitmap()
 {
     return mBitmap;
+}
+
+void Texture::stbi_texture()
+{
+    int width, height, nrChannels;
+    //Unable to load png's
+    unsigned char *data = stbi_load(textureFilename.c_str(), &width, &height, &nrChannels, 0);
+    if (data)
+    {
+        mBitmap = data;
+        mColumns = width;
+        mRows = height;
+
+        setTextureSTBI();
+        stbi_image_free(data);
+    }
+    else
+    {
+        stbi_image_free(data);
+    }
+
 }
 
 bool Texture::readBitmap(const std::string& filename)
@@ -106,12 +134,12 @@ void Texture::setTexture()
     std::cout << "Texture " + textureFilename + " successfully read | id = " + std::to_string(mId) +
         "| bytes pr pixel: " + std::to_string(mBytesPrPixel) + " | using alpha:" + std::to_string(mAlphaUsed) << std::endl;
 
-
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    if (mAlphaUsed == false)                     //no alpha in this bmp
+
+    if (mAlphaUsed == false)                     // No alpha in bmp
         glTexImage2D(
             GL_TEXTURE_2D,
             0,                  //mipmap level
@@ -127,6 +155,47 @@ void Texture::setTexture()
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, mColumns, mRows, 0, GL_BGRA, GL_UNSIGNED_BYTE, mBitmap);
 
     glGenerateMipmap(GL_TEXTURE_2D);
+}
+
+void Texture::setTextureSTBI()
+{
+    glGenTextures(1, &mId);
+    glBindTexture(GL_TEXTURE_2D, mId);
+
+    std::cout << "Texture " + textureFilename + " successfully read | id = " + std::to_string(mId) +
+        "| bytes pr pixel: " + std::to_string(mBytesPrPixel) + " | using alpha:" + std::to_string(mAlphaUsed) << std::endl;
+
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+    if(textureFilename.find("fire") != std::string::npos){
+        mAlphaUsed = true;
+        int a = 2;
+        a += 2541;
+        a += a;
+    }
+
+    if (mAlphaUsed == false)                     //no alpha in this bmp
+        glTexImage2D(
+            GL_TEXTURE_2D,
+            0,                  //mipmap level
+            GL_RGB,             //internal format - what format should OpenGL use
+            mColumns,
+            mRows,
+            0,                  //always 0
+            GL_RGB,             //format of data from texture file -  jpg uses RGB
+            GL_UNSIGNED_BYTE,   //size of each color channel
+            mBitmap);           //pointer to texture in memory
+
+    else                                //alpha is present, so we set up an alpha channel
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, mColumns, mRows, 0, GL_RGBA, GL_UNSIGNED_BYTE, mBitmap);
+
+    glGenerateMipmap(GL_TEXTURE_2D);
+
 }
 
 void Texture::makeDummyTexture()
