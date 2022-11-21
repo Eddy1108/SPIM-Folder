@@ -2,6 +2,8 @@
 
 #include "Mesh/ObjLoader.h"
 
+#include "Particles/ParticleSystem.h"
+
 Scene0::Scene0()
 {
     mCamera = new Camera();
@@ -21,14 +23,23 @@ void Scene0::objects()
     mObjects.push_back(temp = new XYZ("materialplain"));
     temp->setName("XYZ");
 
-    mObjects.push_back(temp = new ObjLoader("materialplain", "../SPIM-Folder/Assets/models/crew.obj"));
-    temp->setName("Amongus");
+    //mObjects.push_back(temp = new ObjLoader("materialplain", "../SPIM-Folder/Assets/models/crew.obj"));
+    //temp->setName("Amongus");
+
+    //mObjects.push_back(temp = new ObjLoader("materialplain", "../SPIM-Folder/Assets/models/crew.obj"));
+    //temp->setName("Amongus2");
+    //temp->move(2, 2, 0);
 
     mObjects.push_back(temp = new Kube("materialplain"));
     temp->setName("Kube");
+    
+    mObjects.push_back(temp = new ParticleSystem("materialparticle", mCamera));
+    temp->setName("ParticleSystem");
+    
+    //mObjects.push_back(temp = new Billboard("materialbillboard", mCamera));
+    //temp->setName("Billboard");
 
-    mObjects.push_back(temp = new Billboard("materialbillboard", mCamera));
-    temp->setName("Billboard");
+
 
     //mMap3?
     InteractiveObject* mInteract = new Player("materialphong");

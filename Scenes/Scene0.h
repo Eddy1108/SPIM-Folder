@@ -20,6 +20,8 @@
 //#include "Mesh/LAZSurface.h"
 //#include "Mesh/rollingball.h"
 
+class ParticleSystem;
+
 class Scene0 : public Scene
 {
 

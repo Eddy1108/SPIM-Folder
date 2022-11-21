@@ -19,6 +19,7 @@ public:
     Material(GLuint shaderProgram, int textureIndex);
 
     virtual void Init();
+    virtual void UpdateUniforms() { ; };
     virtual void UpdateUniforms(glm::mat4* mMatrix){;};
     virtual void UpdateUniforms(unsigned int VAO){;};
     virtual void UpdateUniforms(glm::mat4* mMatrix, glm::vec3* v1, glm::vec3* v2){;};
