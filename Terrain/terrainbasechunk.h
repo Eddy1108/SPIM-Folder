@@ -16,11 +16,13 @@ class FastNoiseLite;
 class TerrainBaseChunk : public VisualObject
 {
 public:
-    TerrainBaseChunk(const int seed, glm::vec2 coords, BiomeType biomeType, const float chunkSize = 20, const unsigned int chunkComplexity = 128, std::string materialName = "materialplane");
+    TerrainBaseChunk(const int seed, glm::vec2 position, BiomeType biomeType, const float chunkSize = 20, const unsigned int chunkComplexity = 128, std::string materialName = "materialplane");
 
     void init() override;
     void draw() override;
 
+    glm::vec2 getCoords();
+    glm::vec2 getPos();
 private:
     void generateFastNoise();
     void noiseContinentalnessTransformation();
@@ -32,13 +34,13 @@ private:
 
 
 private:
+    glm::vec2 mPos; //Corner XY coordinates of the chunk
+
     const int mSeed{20};
     const float mChunkSize{20}; // The lenght and width of each chunk in worldspace.
-    const unsigned int mChunkComplexity{128}; // The amount of vertices along the width & length of the chunk.
+    unsigned int mChunkComplexity{128}; // The amount of vertices along the width & length of the chunk.
     float mHeightOffset{0};
     float mHeightIntensity{1};
-
-    glm::vec2 mCoords; //Corner XY coordinates of the chunk
 
     BiomeType mBiomeType{Mountains};
 

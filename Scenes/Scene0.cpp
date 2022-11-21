@@ -3,9 +3,12 @@
 #include "Mesh/ObjLoader.h"
 #include "Terrain/proceduralterrain.h"
 
+#include "renderwindow.h"
+
 Scene0::Scene0()
 {
     mCamera = new Camera();
+    RenderWindow::mCurrentCamera = mCamera;
 
     mSkybox = new SkyBox("materialskybox");
 }
@@ -33,7 +36,7 @@ void Scene0::objects()
 
     //ProceduralTerrain* my = new ProceduralTerrain();
 
-    mObjects.push_back(temp = new ProceduralTerrain("materialtexture"));
+    mObjects.push_back(temp = new ProceduralTerrain(mCamera, "materialplain"));
     temp->setName("Terrain");
 
 

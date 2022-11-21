@@ -53,6 +53,8 @@ public:
 
 	bool bPlay{ true };
 
+    std::string mMaterialName;
+
 
 
 protected:

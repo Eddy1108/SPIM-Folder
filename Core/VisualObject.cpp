@@ -3,7 +3,7 @@
 #include "renderwindow.h"
 
 
-VisualObject::VisualObject(std::string materialName)
+VisualObject::VisualObject(std::string materialName) : mMaterialName(materialName)
 {
     setMaterial(materialName);
 }

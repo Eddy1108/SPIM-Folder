@@ -4,15 +4,15 @@
 
 
 TerrainBaseChunk::TerrainBaseChunk(const int seed,
-                                   glm::vec2 coords,
+                                   glm::vec2 position,
                                    BiomeType biomeType,
                                    const float chunkSize,
                                    const unsigned int chunkComplexity,
                                    std::string materialName )
-    : VisualObject(materialName), mCoords(coords), mSeed(seed), mBiomeType(biomeType), mChunkSize(chunkSize), mChunkComplexity(chunkComplexity)
+    : VisualObject(materialName), mPos(position), mSeed(seed), mBiomeType(biomeType), mChunkSize(chunkSize), mChunkComplexity(chunkComplexity)
 {
     generateFastNoise();
-    generateChunk(coords);
+    generateChunk(position);
 
     mNoiseContinentalData.clear();
     mNoiseHeightOffsetData.clear();
@@ -22,8 +22,8 @@ void TerrainBaseChunk::generateFastNoise()
 {
     // ---- Get coordinates ----
     // These coords are used when generating all noises
-    glm::vec2 noiseCoords = glm::vec2( (mCoords.x / mChunkSize) * (mChunkComplexity -1),
-                           (mCoords.y / mChunkSize) * (mChunkComplexity-1) );
+    glm::vec2 noiseCoords = glm::vec2( (mPos.x / mChunkSize) * (mChunkComplexity -1),
+                           (mPos.y / mChunkSize) * (mChunkComplexity-1) );
 
     // -- Continental Noise --
     // Create and configure FastNoise object
@@ -55,7 +55,8 @@ void TerrainBaseChunk::noiseContinentalnessTransformation()
         mNoiseContinental->SetFrequency(0.002f);
         mNoiseContinental->SetFractalOctaves(8);
         mNoiseContinental->SetFractalLacunarity(2);
-        mHeightIntensity = 4;
+        mHeightIntensity = 8;
+        mHeightOffset = 3;
         break;
 
     case Desert:
@@ -71,7 +72,7 @@ void TerrainBaseChunk::noiseContinentalnessTransformation()
     case Hills:
         mNoiseContinental->SetNoiseType(FastNoiseLite::NoiseType_Perlin);
         mNoiseContinental->SetFractalType(FastNoiseLite::FractalType_FBm);
-        mNoiseContinental->SetFrequency(0.01f);
+        mNoiseContinental->SetFrequency(0.005f);
         mNoiseContinental->SetFractalOctaves(4);
         mNoiseContinental->SetFractalLacunarity(2);
         mNoiseContinental->SetFractalGain(0.4f);
@@ -102,6 +103,7 @@ void TerrainBaseChunk::generateChunk(glm::vec2 coords)
     // ---- Create Vertices ----
     float x{0},y{0},z{0}, r{0},g{0.5f},b{0}, u{0},v{0};
     int indicesOffset = mVertices.size();
+    float xOffset = -mChunkSize/2, yOffset = -mChunkSize/2;
 
     //Normal / Color
     //r = 1;
@@ -125,13 +127,13 @@ void TerrainBaseChunk::generateChunk(glm::vec2 coords)
             //UV - U - Currently expected that each chunk has their own texture
             u = (float)i/mChunkComplexity;
 
-            //debug colors
-            r = z;
-            g = z+1;
-            //b = -z/2;
+            //<<debug colors>>
+            r = z/(mHeightIntensity);
+            //g = z+1;
+            b = -z/(mHeightIntensity);
 
             // Create Vertex
-            mVertices.push_back(Vertex{ x, y, z, r, g, b, u,v });
+            mVertices.push_back(Vertex{ x + xOffset, y + yOffset, z, r, g, b, u,v });
             //std::cout << "x: " << x << ", y: " << y << ", z: " << z << "\n";
         }
     }
@@ -150,13 +152,6 @@ void TerrainBaseChunk::generateChunk(glm::vec2 coords)
 
         }
     }
-
-    //for(int i = 0; i < mIndices.size(); i++){
-    //    std::cout << mIndices[i] << ", ";
-    //}
-
-    //std::cout << "vertices size: " << mVertices.size() << "\n";
-    //std::cout << "indices size: " << mIndices.size() << "\n";
 }
 
 
@@ -171,11 +166,21 @@ float TerrainBaseChunk::getHeight(int i, int j)
     z *= mHeightIntensity;
 
     //z += std::clamp(valHeightOffset, 0.0f, 1.f);
-    z+= valHeightOffset;
+    z+= valHeightOffset * 1;
     ///Should be done last
     z += mHeightOffset;
 
     return z;
+}
+
+glm::vec2 TerrainBaseChunk::getCoords()
+{
+    return mPos/mChunkSize;
+}
+
+glm::vec2 TerrainBaseChunk::getPos()
+{
+    return mPos;
 }
 
 std::vector<float> TerrainBaseChunk::getNoiseData(FastNoiseLite* fastNoise, glm::vec2 coords, int width, int height)
@@ -191,7 +196,6 @@ std::vector<float> TerrainBaseChunk::getNoiseData(FastNoiseLite* fastNoise, glm:
         for (int x = coords.x; x < coords.x + width; x++)
         {
             noiseData[index++] = fastNoise->GetNoise((float)x, (float)y);
-            //std::cout << noiseData[index - 1] << ", ";
         }
     }
 
