@@ -9,26 +9,10 @@ ProceduralTerrain::ProceduralTerrain(Camera* camera, std::string materialName) :
 {
     mQuadTree = new QuadTree();
 
-//    generateChunk(glm::vec2(0,0));
-//    generateChunk(glm::vec2(0,0));
-/*
-    for(int j = 0; j < 3; j++)
-        for(int i = 0; i < 3; i++) {
-                TerrainBaseChunk* chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*i,mChunkSize*j), BiomeType::Desert, mChunkSize, mChunkComplexity, materialName);
-                mChunks.push_back(std::pair(glm::vec2(i,j) , chunk));
-    }
-    for(int j = 3; j < 6; j++)
-        for(int i = 0; i < 3; i++) {
-                TerrainBaseChunk* chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*i,mChunkSize*j), BiomeType::Mountains, mChunkSize, mChunkComplexity, materialName);
-                mChunks.push_back(std::pair(glm::vec2(i,j) , chunk));
-    }
-    for(int j = 0; j < 3; j++)
-        for(int i = 3; i < 6; i++) {
-                TerrainBaseChunk* chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*i,mChunkSize*j), BiomeType::Hills, mChunkSize, mChunkComplexity, materialName);
-                mChunks.push_back(std::pair(glm::vec2(i,j) , chunk));
-    }
 
-*/
+    // ---- Code used for testing ----
+
+//    generateChunk(glm::vec2(0,0));
 
     //for(int j = 0; j < 6; j++)
     //    for(int i = 0; i < 6; i++) {
@@ -37,17 +21,17 @@ ProceduralTerrain::ProceduralTerrain(Camera* camera, std::string materialName) :
     //            mChunks.push_back(chunk);
     //}
 
-//    TerrainBaseChunk* chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*0,mChunkSize*0), BiomeType::Hills, mChunkSize, mChunkComplexity, materialName);
-//    mChunks.push_back(chunk);
+    //TerrainBaseChunk* chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*0,mChunkSize*0), BiomeType::Desert, mChunkSize, mChunkComplexity, materialName);
+    //mChunks.push_back(std::make_pair(glm::vec2(0,0), chunk));
 //
-//    chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*1,mChunkSize*0), BiomeType::Desert, mChunkSize, mChunkComplexity, materialName);
-//    mChunks.push_back(chunk);
+    //chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*1,mChunkSize*0), BiomeType::Desert, mChunkSize, mChunkComplexity, materialName);
+    //mChunks.push_back(std::make_pair(glm::vec2(1,0), chunk));
 //
-//    chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*0,mChunkSize*1), BiomeType::Mountains, mChunkSize, mChunkComplexity, materialName);
-//    mChunks.push_back(chunk);
-
-    //chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*1,mChunkSize*1), BiomeType::Hills, mChunkSize, mChunkComplexity, materialName);
-    //mChunks.push_back(chunk);
+    //chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*0,mChunkSize*1), BiomeType::Hills, mChunkSize, mChunkComplexity, materialName);
+    //mChunks.push_back(std::make_pair(glm::vec2(0,1), chunk));
+//
+    //chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*1,mChunkSize*1), BiomeType::Mountains, mChunkSize, mChunkComplexity, materialName);
+    //mChunks.push_back(std::make_pair(glm::vec2(1,1), chunk));
 }
 
 ProceduralTerrain::~ProceduralTerrain()
@@ -59,24 +43,23 @@ void ProceduralTerrain::init()
 {
     loadChunksWithinRadius();
 
-    for(int i = 0; i < mChunks.size(); i++){
-        mChunks[i].second->init();
+    for (auto it = mChunks.begin(); it != mChunks.end(); it++) {
+        (*it).second->init();
     }
 }
 
 void ProceduralTerrain::draw()
 {
-    loadChunksWithinRadius();
+    //loadChunksWithinRadius();
 
-
-    for(int i = 0; i < mChunks.size(); i++){
-        mChunks[i].second->draw();
+    for (auto it = mChunks.begin(); it != mChunks.end(); it++) {
+        (*it).second->draw();
     }
 }
 
 void ProceduralTerrain::loadChunksWithinRadius()
 {
-    //Should only be called when player leaves a chunk
+    //Should only update when the player moves
     //Get camera position
     if(!mCamera){
         std::cout << "Error! Camera does not exist when loading procedual chunks within radius.\n";
@@ -84,63 +67,65 @@ void ProceduralTerrain::loadChunksWithinRadius()
     }
 
     glm::vec2 camPos = mCamera->getPos();
-
     if(camPos == mCamPosOld && !mFirstLoad)
         return;
 
-    //Create / check all chunks within radius if they need to be created or not
+    // Find area of which chunks should be created within
+    float minXCoord = posToCoords(camPos.x - mRenderDistance);
+    float minYCoord = posToCoords(camPos.y - mRenderDistance);
+    float maxXCoord = posToCoords(camPos.x + mRenderDistance);
+    float maxYCoord = posToCoords(camPos.y + mRenderDistance);
 
-    float minXCoord = posToCoords(camPos.x - mRenderDistance) - 1;
-    float minYCoord = posToCoords(camPos.y - mRenderDistance) - 1;
-    float maxXCoord = posToCoords(camPos.x + mRenderDistance) + 1;
-    float maxYCoord = posToCoords(camPos.y + mRenderDistance) + 1;
 
-    for(int j = minYCoord; j <= maxYCoord; j++){
+    // ---- Delete Chunks ----
+    for(auto it = mChunks.begin(); it != mChunks.end(); it++)
+    {
+        glm::vec2 chunkPos = (*it).second->getPos();
+
+        float distance = glm::length(chunkPos - camPos);
+
+        //Check if chunks are outside of renderDistance
+        if(distance > mRenderDistance) {
+            //Delete if chunk exists
+            delete (*it).second;
+            mChunks.erase((*it).first);
+            break;
+        }
+    }
+
+    // ---- Generate Chunks ----
+    for(int j = minYCoord; j <= maxYCoord; j++) {
         for(int i = minXCoord; i <= maxXCoord; i++)
         {
-            //glm::vec2 checkLocation;
+            //Get chunk Position and Coordinates
             glm::vec2 chunkPos(i*mChunkSize,j*mChunkSize);
             glm::vec2 chunkCoords(i,j);
 
-            //Check the cam position up towards the chunk position
+            //Get the disance from camera's XY position to the chunk's position
             float distance = glm::length(chunkPos - camPos);
-            if(distance <= mRenderDistance){
-                //Chunk should be visible
-                if(!chunkExistsAtCoords(chunkCoords)){
-                    // Generate chunk if chunk at coords doesn't exist
-                    TerrainBaseChunk* chunk = new TerrainBaseChunk(mSeed,
-                                                                   glm::vec2(chunkCoords.x * mChunkSize, chunkCoords.y * mChunkSize),
-                                                                   BiomeType::Hills,
-                                                                   mChunkSize, mChunkComplexity,
-                                                                   mMaterialName);
-                    mChunks.push_back(std::pair(chunkCoords , chunk));
-                    chunk->init();
-                }
-                else{
-                    // do nothing
-                }
-            }
-            else{
-                //Chunk should not be visible
-                if(chunkExistsAtCoords(chunkCoords))
-                {
-                    //Delete if chunk exists
-                    for(int k = 0; k < mChunks.size(); k++){
-                        if (mChunks[k].first == chunkCoords){
-                            delete mChunks[k].second;
-                            mChunks.erase(mChunks.begin() + k);
-                            break;
-                        }
+            //Checks if the chunk is outside of view distance, meaning that the chunk should not be loaded
+            //if(distance <= mRenderDistance)
+            //    break;
+            for(int LOD = 0; LOD <= mipMap; LOD++){
+                if(distance <= mRenderDistance / (mipMap - LOD)){
+                    //Chunk should be visible
+                    if(!chunkExistsAtCoords(chunkCoords)){
+                        // Generate chunk if chunk at coords doesn't exist
+                        generateChunk(chunkCoords, LOD);
                     }
-                }
-                else{
-                    //Do nothing
+                    break;
                 }
             }
+
+//            if(distance <= mRenderDistance){
+//                //Chunk should be visible
+//                if(!chunkExistsAtCoords(chunkCoords)){
+//                    // Generate chunk if chunk at coords doesn't exist
+//                    generateChunk(chunkCoords, 6);
+//                }
+//            }
         }
     }
-    //Load chunks within radius
-
 }
 
 glm::vec2 ProceduralTerrain::posToCoords(glm::vec2 pos)
@@ -158,10 +143,27 @@ float ProceduralTerrain::posToCoords(float pos)
 
 bool ProceduralTerrain::chunkExistsAtCoords(glm::vec2 coords)
 {
-    for(int i = 0; i < mChunks.size(); i++){
-        if (mChunks[i].first == coords)
-            return true;
-    }
-    return false;
+    //Creates chunkID from Coords
+    std::string chunkID = std::to_string(coords.x) + "," + std::to_string(coords.y);
+    //Finds out if a chunk with given ID exists or not
+    if(mChunks.find(chunkID) != mChunks.end())
+        return true;
+    else
+        return false;
+}
+
+void ProceduralTerrain::generateChunk(glm::vec2 coords, unsigned int levelOfDetail)
+{
+    TerrainBaseChunk* chunk = new TerrainBaseChunk(mSeed,
+                                                   glm::vec2(coords.x * mChunkSize, coords.y * mChunkSize),
+                                                   BiomeType::Mountains,
+                                                   mChunkSize, mChunkComplexity,
+                                                   mMaterialName,
+                                                   levelOfDetail);
+    std::string chunkID = std::to_string(coords.x) + "," + std::to_string(coords.y);
+
+    std::pair<std::string,TerrainBaseChunk*> newChunk (chunkID, chunk);
+    mChunks.insert(newChunk);
+    chunk->init();
 }
 

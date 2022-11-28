@@ -8,9 +8,11 @@ TerrainBaseChunk::TerrainBaseChunk(const int seed,
                                    BiomeType biomeType,
                                    const float chunkSize,
                                    const unsigned int chunkComplexity,
-                                   std::string materialName )
-    : VisualObject(materialName), mPos(position), mSeed(seed), mBiomeType(biomeType), mChunkSize(chunkSize), mChunkComplexity(chunkComplexity)
+                                   std::string materialName,
+                                   const short unsigned int levelOfDetail)
+    : VisualObject(materialName), mPos(position), mSeed(seed), mBiomeType(biomeType), mChunkSize(chunkSize), mChunkComplexity(chunkComplexity), mLevelOfDetail(levelOfDetail)
 {
+
     generateFastNoise();
     generateChunk(position);
 
@@ -102,22 +104,21 @@ void TerrainBaseChunk::generateChunk(glm::vec2 coords)
 
     // ---- Create Vertices ----
     float x{0},y{0},z{0}, r{0},g{0.5f},b{0}, u{0},v{0};
-    int indicesOffset = mVertices.size();
+    int indicesStartOffset = mVertices.size(); // Currently always 0
     float xOffset = -mChunkSize/2, yOffset = -mChunkSize/2;
 
     //Normal / Color
-    //r = 1;
-    //g = 1;
-    //b = 1;
 
+
+    float iteratorIncrement = std::pow(2, mLevelOfDetail);
     float delta = mChunkSize/(mChunkComplexity-1);
-    for(int j = 0; j < mChunkComplexity; j++) {
+    for(int j = 0; j < mChunkComplexity; j += iteratorIncrement) {
         //XYZ - Y
         y = coords.y + j * delta;
         //UV - V Currently expected that each chunk has their own texture
         v = (float)j/mChunkComplexity;
 
-        for(int i = 0; i < mChunkComplexity; i++)
+        for(int i = 0; i < mChunkComplexity; i += iteratorIncrement)
         {
             //XYZ - XZ
             x = coords.x + i * delta;
@@ -137,18 +138,20 @@ void TerrainBaseChunk::generateChunk(glm::vec2 coords)
             //std::cout << "x: " << x << ", y: " << y << ", z: " << z << "\n";
         }
     }
+    std::cout << "Check: vertices size: " << mVertices.size() << ", LOD: " << mLevelOfDetail << std::endl;
 
     // ---- Create indices ----
-    for(int j = 0; j < mChunkComplexity-1; j++){
-        for(int i = 0; i < mChunkComplexity-1; i++){
+    float indicesRowOffset = (mChunkComplexity - 1 ) / (iteratorIncrement) + 1;
+    for(int j = 0; j < std::sqrt(mVertices.size())-1; j++){
+        for(int i = 0; i < std::sqrt(mVertices.size())-1; i++){
             //First triangle
-            mIndices.push_back((i) + (j) * mChunkComplexity + indicesOffset);
-            mIndices.push_back((i+1) + (j) * mChunkComplexity + indicesOffset);
-            mIndices.push_back((i) + (j+1) * mChunkComplexity + indicesOffset);
+            mIndices.push_back((i) + (j) * indicesRowOffset + indicesStartOffset);
+            mIndices.push_back((i+1) + (j) * indicesRowOffset + indicesStartOffset);
+            mIndices.push_back((i) + (j+1) * indicesRowOffset + indicesStartOffset);
             //Second triangle
-            mIndices.push_back((i) + (j+1) * mChunkComplexity + indicesOffset);
-            mIndices.push_back((i+1) + (j) * mChunkComplexity + indicesOffset);
-            mIndices.push_back((i+1) + (j+1) * mChunkComplexity + indicesOffset);
+            mIndices.push_back((i) + (j+1) * indicesRowOffset + indicesStartOffset);
+            mIndices.push_back((i+1) + (j) * indicesRowOffset + indicesStartOffset);
+            mIndices.push_back((i+1) + (j+1) * indicesRowOffset + indicesStartOffset);
 
         }
     }
@@ -181,6 +184,11 @@ glm::vec2 TerrainBaseChunk::getCoords()
 glm::vec2 TerrainBaseChunk::getPos()
 {
     return mPos;
+}
+
+int TerrainBaseChunk::getLOD()
+{
+    return mLevelOfDetail;
 }
 
 std::vector<float> TerrainBaseChunk::getNoiseData(FastNoiseLite* fastNoise, glm::vec2 coords, int width, int height)
@@ -257,8 +265,6 @@ void TerrainBaseChunk::init()
         sizeof(Vertex),
         reinterpret_cast<GLvoid*>(6 * sizeof(GLfloat)));
     glEnableVertexAttribArray(2);
-
-
 
     glBindVertexArray(0);	//release
 }

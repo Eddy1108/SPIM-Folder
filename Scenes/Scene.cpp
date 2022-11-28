@@ -80,7 +80,6 @@ void Scene::draw()
         //Move Camera, look at player
 
 
-
         // Draw objects
         for (auto it = mMap.begin(); it != mMap.end(); it++)
         {

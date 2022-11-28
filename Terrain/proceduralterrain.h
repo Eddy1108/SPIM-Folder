@@ -3,6 +3,7 @@
 
 #include "Core/VisualObject.h"
 #include "Core/quadtree.h"
+#include <unordered_map>
 //#include "Core/Camera.h"
 
 class TerrainBaseChunk;
@@ -21,6 +22,7 @@ public:
     glm::vec2 posToCoords(glm::vec2 position);
     float posToCoords(float position);
     bool chunkExistsAtCoords(glm::vec2 coords);
+    void generateChunk(glm::vec2 coords, unsigned int levelOfDetail);
 
     //void generateChunk(glm::vec2 chunkCoords);
     std::vector<float> generateNoiseMapData(glm::vec2 startingCoords, int width, int height);
@@ -28,19 +30,22 @@ public:
 private:
     const int mSeed{20};
     const float mChunkSize{20}; // The lenght and width of each chunk in worldspace.
-    const unsigned int mChunkComplexity{128}; // The amount of vertices along the width & length of the chunk.
+    //Important, must be a value of the Power of two + 1.   e.g. 33, 65, 129
+    const unsigned int mChunkComplexity{129}; // The amount of vertices along the width & length of the chunk.
+    //mipMap must be a factor of (mChunkComplexity - 1)  // 1,2,4,8,16,32,64,128.
+    int mipMap{5}; // 0 means no reduction of detail.
 
-
-    std::vector<std::pair<glm::vec2, TerrainBaseChunk*>> mChunks; // Chunk coords & chunk
+    std::unordered_map<std::string, TerrainBaseChunk*> mChunks; // Chunk coords & chunk
 
     QuadTree* mQuadTree{nullptr};
     Camera* mCamera{nullptr};
 
 
     glm::vec2 mCamPosOld{0,0};
-
     TerrainBaseChunk* mChunkWithin{nullptr};
-    float mRenderDistance{ 70 };
+    float mRenderDistance{ 170 };
+
+
 
     bool mFirstLoad = true;
 

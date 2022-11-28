@@ -28,17 +28,14 @@ void Scene0::objects()
     //mObjects.push_back(temp = new ObjLoader("materialplain", "../SPIM-Folder/Assets/models/crew.obj"));
     //temp->setName("Amongus");
 
-    mObjects.push_back(temp = new Kube("materialplain"));
-    temp->setName("Kube");
+    //mObjects.push_back(temp = new Kube("materialplain"));
+    //temp->setName("Kube");
 
-    mObjects.push_back(temp = new Billboard("materialtexture", mCamera));
-    temp->setName("Billboard");
-
-    //ProceduralTerrain* my = new ProceduralTerrain();
+//    mObjects.push_back(temp = new Billboard("materialtexture", mCamera));
+//    temp->setName("Billboard");
 
     mObjects.push_back(temp = new ProceduralTerrain(mCamera, "materialplain"));
     temp->setName("Terrain");
-
 
     InteractiveObject* mInteract = new Player("materialphong");
     //mObjects3.push_back(mInteract);
