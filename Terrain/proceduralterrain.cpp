@@ -90,16 +90,16 @@ void ProceduralTerrain::loadChunksWithinRadius()
 
             //Check if chunk has correct LOD
             float LOD = (*it).second->getLOD();
-            float a,c;
+            float minLODRadius,maxLODRadius;
 
             if(LOD != 0)
-                a = mRenderDistance / (mipMap - LOD + 2);
+                minLODRadius = mRenderDistance * (((float)LOD) / ((float)mipMap +1));
             else
-                a = -0.1;
+                minLODRadius = -0.1;
 
-            c = mRenderDistance / (mipMap - LOD + 1);
+            maxLODRadius = mRenderDistance * (((float)LOD + 1) / ((float)mipMap +1));
             //Compare
-            if(a < distance && distance <= c){
+            if(minLODRadius < distance && distance <= maxLODRadius){
                 //Chunk has correct LOD
             }
             else {
@@ -129,7 +129,8 @@ void ProceduralTerrain::loadChunksWithinRadius()
             float distance = glm::length(chunkPos - camPos);
             //Checks if the chunk is outside of view distance, meaning that the chunk should not be loaded
             for(int LOD = 0; LOD <= mipMap; LOD++){
-                if(distance <= mRenderDistance / (mipMap - LOD + 1)){
+                float LODDistMult = (((float)LOD + 1) / ((float)mipMap +1));
+                if(distance <= mRenderDistance * LODDistMult){
                     //Chunk should be visible
                     if(!chunkExistsAtCoords(chunkCoords)){
                         // Generate chunk if chunk at coords doesn't exist

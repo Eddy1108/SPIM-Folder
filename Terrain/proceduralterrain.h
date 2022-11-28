@@ -33,7 +33,7 @@ private:
     //Important, must be a value of the Power of two + 1.   e.g. 33, 65, 129
     const unsigned int mChunkComplexity{129}; // The amount of vertices along the width & length of the chunk.
     //mipMap must be a factor of (mChunkComplexity - 1)  // 1,2,4,8,16,32,64,128.
-    int mipMap{5}; // 0 means no reduction of detail.
+    const int mipMap{5}; // 0 means no reduction of detail.
 
     std::unordered_map<std::string, TerrainBaseChunk*> mChunks; // Chunk coords & chunk
 

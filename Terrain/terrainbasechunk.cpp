@@ -138,7 +138,6 @@ void TerrainBaseChunk::generateChunk(glm::vec2 coords)
             //std::cout << "x: " << x << ", y: " << y << ", z: " << z << "\n";
         }
     }
-    std::cout << "Check: vertices size: " << mVertices.size() << ", LOD: " << mLevelOfDetail << std::endl;
 
     // ---- Create indices ----
     float indicesRowOffset = (mChunkComplexity - 1 ) / (iteratorIncrement) + 1;
