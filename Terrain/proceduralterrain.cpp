@@ -50,7 +50,7 @@ void ProceduralTerrain::init()
 
 void ProceduralTerrain::draw()
 {
-    //loadChunksWithinRadius();
+    loadChunksWithinRadius();
 
     for (auto it = mChunks.begin(); it != mChunks.end(); it++) {
         (*it).second->draw();
@@ -80,13 +80,37 @@ void ProceduralTerrain::loadChunksWithinRadius()
     // ---- Delete Chunks ----
     for(auto it = mChunks.begin(); it != mChunks.end(); it++)
     {
+        //Delete chunks if they're outside of radius.
         glm::vec2 chunkPos = (*it).second->getPos();
 
         float distance = glm::length(chunkPos - camPos);
 
         //Check if chunks are outside of renderDistance
-        if(distance > mRenderDistance) {
-            //Delete if chunk exists
+        if(distance <= mRenderDistance) {
+
+            //Check if chunk has correct LOD
+            float LOD = (*it).second->getLOD();
+            float a,c;
+
+            if(LOD != 0)
+                a = mRenderDistance / (mipMap - LOD + 2);
+            else
+                a = -0.1;
+
+            c = mRenderDistance / (mipMap - LOD + 1);
+            //Compare
+            if(a < distance && distance <= c){
+                //Chunk has correct LOD
+            }
+            else {
+                //Delete chunk due to wrong LOD
+                delete (*it).second;
+                mChunks.erase((*it).first);
+                break;
+            }
+        }
+        else {
+            //Delete chunk due to it being out of render distance
             delete (*it).second;
             mChunks.erase((*it).first);
             break;
@@ -104,10 +128,8 @@ void ProceduralTerrain::loadChunksWithinRadius()
             //Get the disance from camera's XY position to the chunk's position
             float distance = glm::length(chunkPos - camPos);
             //Checks if the chunk is outside of view distance, meaning that the chunk should not be loaded
-            //if(distance <= mRenderDistance)
-            //    break;
             for(int LOD = 0; LOD <= mipMap; LOD++){
-                if(distance <= mRenderDistance / (mipMap - LOD)){
+                if(distance <= mRenderDistance / (mipMap - LOD + 1)){
                     //Chunk should be visible
                     if(!chunkExistsAtCoords(chunkCoords)){
                         // Generate chunk if chunk at coords doesn't exist
@@ -116,7 +138,7 @@ void ProceduralTerrain::loadChunksWithinRadius()
                     break;
                 }
             }
-
+            //Temporary code
 //            if(distance <= mRenderDistance){
 //                //Chunk should be visible
 //                if(!chunkExistsAtCoords(chunkCoords)){
