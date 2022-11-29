@@ -193,8 +193,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\Audio.cpp" />
-    <ClCompile Include="Materials\materialbillboard.cpp" />
     <ClCompile Include="Materials\materialparticle.cpp" />
+    <ClCompile Include="Materials\materialbillboard.cpp" />
+    <ClCompile Include="Materials\materialparticleOld.cpp" />
     <ClCompile Include="Math\Barycentric.cpp" />
     <ClCompile Include="Math\BezierCurve.cpp" />
     <ClCompile Include="Mesh\Billboard.cpp" />
@@ -212,6 +213,8 @@
     <ClCompile Include="Mesh\Player\Player.cpp" />
     <ClCompile Include="Mesh\PointCloud.cpp" />
     <ClCompile Include="Particles\ParticleSystem.cpp" />
+    <ClCompile Include="Particles\ParticleSystemOld.cpp" />
+    <ClCompile Include="Math\Random.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="Scenes\Scene0.cpp" />
     <ClCompile Include="Scenes\Scene1.cpp" />
@@ -244,8 +247,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Audio.h" />
-    <ClInclude Include="Materials\materialbillboard.h" />
     <ClInclude Include="Materials\materialparticle.h" />
+    <ClInclude Include="Materials\materialbillboard.h" />
+    <ClInclude Include="Materials\materialparticleOld.h" />
     <ClInclude Include="Math\Barycentric.h" />
     <ClInclude Include="Math\BezierCurve.h" />
     <ClInclude Include="Mesh\Billboard.h" />
@@ -263,6 +267,8 @@
     <ClInclude Include="Mesh\Player\Player.h" />
     <ClInclude Include="Mesh\PointCloud.h" />
     <ClInclude Include="Particles\ParticleSystem.h" />
+    <ClInclude Include="Particles\ParticleSystemOld.h" />
+    <ClInclude Include="Math\Random.h" />
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="Scenes\Scene0.h" />
     <ClInclude Include="Scenes\Scene1.h" />
@@ -343,6 +349,8 @@
     <None Include="Shaders\billboardShader.vert" />
     <None Include="Shaders\particleshader.frag" />
     <None Include="Shaders\particleshader.vert" />
+    <None Include="Shaders\particleshaderOld.frag" />
+    <None Include="Shaders\particleshaderOld.vert" />
     <None Include="Shaders\phongshader.frag" />
     <None Include="Shaders\phongshader.vert" />
     <None Include="Shaders\plainshader.frag" />

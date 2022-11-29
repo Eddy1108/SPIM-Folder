@@ -238,4 +238,5 @@ void MaterialList::CompileMaterials()
     mMaterial[matIndex].first = "materialparticle";
     mMaterial[matIndex].second = new MaterialParticle(mShaderProgram[5].second->getProgram(), 6);
     mMaterial[matIndex].second->SetupUniforms();
+    matIndex++;
 }

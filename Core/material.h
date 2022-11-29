@@ -22,6 +22,7 @@ public:
     virtual void UpdateUniforms() { ; };
     virtual void UpdateUniforms(glm::mat4* mMatrix){;};
     virtual void UpdateUniforms(unsigned int VAO){;};
+    virtual void UpdateUniforms(glm::mat4* mMatrix, glm::vec4* v1) { ; };
     virtual void UpdateUniforms(glm::mat4* mMatrix, glm::vec3* v1, glm::vec3* v2){;};
     virtual void UpdateCameraUniform(glm::mat4* vMatrix, glm::mat4* pMatrix);
     virtual void SetupUniforms()=0;

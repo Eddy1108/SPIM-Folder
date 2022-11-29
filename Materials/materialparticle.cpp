@@ -13,30 +13,37 @@ void MaterialParticle::UpdateUniforms()
     glUseProgram(mShaderProgram);
 
     //Update Uniform variables
-    //glUniformMatrix4fv( mUniform.find("mMatrix")->second, 1, GL_FALSE, glm::value_ptr(*mMatrix));
-    glUniform1i(mUniform.find("textureSampler")->second, mTextureIndex[0]);
     if (RenderWindow::mCurrentCamera)
     {
-        glUniform3fv(mUniform.find("CameraRight_worldspace")->second, 1, glm::value_ptr(RenderWindow::mCurrentCamera->GetRight()));
-        glUniform3fv(mUniform.find("CameraUp_worldspace")->second, 1, glm::value_ptr(RenderWindow::mCurrentCamera->GetUp()));
-    }
-    else {
-        std::cout << "CAMERA DONT EXIST!!!!!!!!!!!!" << std::endl;
+        glm::mat4 ViewProj(1.0f);
+        ViewProj = RenderWindow::mCurrentCamera->mVMatrix * RenderWindow::mCurrentCamera->mPMatrix;
+
+        //glUniformMatrix4fv(mUniform.find("uViewProj")->second, 1, GL_FALSE, glm::value_ptr(ViewProj));
     }
 
+}
+
+void MaterialParticle::UpdateUniforms(glm::mat4* Transform, glm::vec4* color)
+{
+    initializeOpenGLFunctions();
+    glUseProgram(mShaderProgram);
+
+    glUniformMatrix4fv(mUniform.find("uTransform")->second, 1, GL_FALSE, glm::value_ptr(*Transform));
+    glUniform4fv(mUniform.find("uColor")->second, 1, glm::value_ptr(*color));
 }
 
 void MaterialParticle::SetupUniforms()
 {
     initializeOpenGLFunctions();
-    if(uniformsHasBeenSetup) return;
+    if (uniformsHasBeenSetup) return;
 
-    mUniform.insert(std::make_pair<std::string,GLuint>("vMatrix", glGetUniformLocation( mShaderProgram, "vMatrix")));
-    mUniform.insert(std::make_pair<std::string,GLuint>("pMatrix", glGetUniformLocation( mShaderProgram, "pMatrix")));
-    mUniform.insert(std::make_pair<std::string,GLuint>("textureSampler", glGetUniformLocation( mShaderProgram, "textureSampler")));
-    mUniform.insert(std::make_pair<std::string, GLuint>("CameraRight_worldspace", glGetUniformLocation(mShaderProgram, "CameraRight_worldspace")));
-    mUniform.insert(std::make_pair<std::string, GLuint>("CameraUp_worldspace", glGetUniformLocation(mShaderProgram, "CameraUp_worldspace")));
+    mUniform.insert(std::make_pair<std::string, GLuint>("vMatrix", glGetUniformLocation(mShaderProgram, "vMatrix")));
+    mUniform.insert(std::make_pair<std::string, GLuint>("pMatrix", glGetUniformLocation(mShaderProgram, "pMatrix")));
 
+    //ViewProj, Transform, Color
+    //mUniform.insert(std::make_pair<std::string, GLuint>("uViewProj", glGetUniformLocation(mShaderProgram, "uViewProj")));
+    mUniform.insert(std::make_pair<std::string, GLuint>("uTransform", glGetUniformLocation(mShaderProgram, "uTransform")));
+    mUniform.insert(std::make_pair<std::string, GLuint>("uColor", glGetUniformLocation(mShaderProgram, "uColor")));
 
     uniformsHasBeenSetup = true;
 }

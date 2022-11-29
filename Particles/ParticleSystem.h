@@ -1,61 +1,45 @@
+#pragma once
 #include "Core/VisualObject.h"
-#include "Core/Camera.h"
-#include "Core/texture.h"
 
-struct Particle {
-	glm::vec3 pos, speed;
-	unsigned char r, g, b, a; //Color
-	float size, angle, weight;
-	float life;
-	float cameraDistance;
-
-	bool operator<(const Particle& that) const {
-		return this->cameraDistance > that.cameraDistance;
-	}
+struct ParticleProperties {
+	glm::vec3 Position;
+	glm::vec3 Velocity, VelocityVariation;
+	glm::vec4 ColorBegin, ColorEnd;
+	float SizeBegin, SizeEnd, SizeVariation;
+	float LifeTime = 1.0f;
 };
-
 
 class ParticleSystem : public VisualObject
 {
 public:
-
-	ParticleSystem(std::string materialName, Camera* cam);
+	ParticleSystem(std::string MaterialName);
 	~ParticleSystem();
 
-	void init() override;
-	void draw() override;
+	void init();
+	void draw();
 
-//	void move();
+	//Updates particles
+	void Update();
 
-	glm::vec3 mUp = glm::vec3(0.0f, 0.0f, 1.0f);
-	glm::vec3 mOrientation = glm::vec3(0.0f, 1.0f, 0.0f);
-	glm::mat4 billView = glm::mat4(1.0f);
+	//Spawns 1 particle
+	void Emit(const ParticleProperties& particleProps);
 
 private:
-	Camera* mCam{ nullptr };
+	struct Particle {
+		glm::vec3 mPosition;
+		glm::vec3 mVelocity;
+		glm::vec4 mColorBegin, mColorEnd;
+		float mRotation = 0.0f;
+		float mSizeBegin, mSizeEnd;
+		float mLifeTime = 1.0f;
+		float mLifeRemaining = 0.0f;
 
-	Texture* mTexture{ nullptr };
+		bool Active = false;
+	};
 
-	//void RotateToCamMatrix();
-	//void RotateToCamDirect();
+	std::vector<Particle> mParticlePool;
+	uint32_t mPoolIndex = 999;
 
-
-
-public:
-	int FindUnusedParticle();
-	void SortParticles();
-
-	GLuint billboardVertexBuffer{0};
-	GLuint particlePositionBuffer{0};
-	GLuint particleColorBuffer{0};
-
-	const static int MaxParticles{ 100000 };
-
-	Particle ParticleContainer[MaxParticles];
-
-	int ParticlesCount{ 0 };
-	int LastUsedParticle{ 0 };
-
-	GLfloat* g_particule_position_size_data;
-	GLubyte* g_particule_color_data;
+	//REMEMBER SHADER UNIFORMS CHECK VIDEO 8:20
 };
+

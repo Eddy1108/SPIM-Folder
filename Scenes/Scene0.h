@@ -20,7 +20,7 @@
 //#include "Mesh/LAZSurface.h"
 //#include "Mesh/rollingball.h"
 
-class ParticleSystem;
+#include "Particles/ParticleSystem.h"
 
 class Scene0 : public Scene
 {
@@ -39,5 +39,8 @@ public:
     void mouseMoveEvent(QMouseEvent* event) override;
     void keyPressEvent(QKeyEvent* event) override;
     void keyReleaseEvent(QKeyEvent* event) override;
+
+    ParticleProperties mParticle;
+    ParticleSystem* mParticleSystem{nullptr};
 };
 

@@ -2,13 +2,19 @@
 
 #include "Mesh/ObjLoader.h"
 
-#include "Particles/ParticleSystem.h"
-
 Scene0::Scene0()
 {
     mCamera = new Camera();
 
     mSkybox = new SkyBox("materialskybox");
+
+    mParticle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
+    mParticle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
+    mParticle.SizeBegin = 0.5f, mParticle.SizeVariation = 0.3f, mParticle.SizeEnd = 0.0f;
+    mParticle.LifeTime = 1.0f;
+    mParticle.Velocity = { 0.0f, 0.0f, 0.0f };
+    mParticle.VelocityVariation = { 3.0f, 1.0f, 2.0f };
+    mParticle.Position = { 0.0f, 0.0f, 0.0f };
 }
 
 Scene0::~Scene0()
@@ -26,20 +32,18 @@ void Scene0::objects()
     //mObjects.push_back(temp = new ObjLoader("materialplain", "../SPIM-Folder/Assets/models/crew.obj"));
     //temp->setName("Amongus");
 
-    //mObjects.push_back(temp = new ObjLoader("materialplain", "../SPIM-Folder/Assets/models/crew.obj"));
-    //temp->setName("Amongus2");
-    //temp->move(2, 2, 0);
+    mObjects.push_back(temp = new ObjLoader("materialplain", "../SPIM-Folder/Assets/models/crew.obj"));
+    temp->setName("Amongus2");
+    temp->move(2, 2, 0);
 
-    mObjects.push_back(temp = new Kube("materialplain"));
-    temp->setName("Kube");
+    //mObjects.push_back(temp = new Kube("materialplain"));
+    //temp->setName("Kube");
     
-    mObjects.push_back(temp = new ParticleSystem("materialparticle", mCamera));
+    mObjects.push_back(mParticleSystem = new ParticleSystem("materialparticle"));
     temp->setName("ParticleSystem");
     
     //mObjects.push_back(temp = new Billboard("materialbillboard", mCamera));
     //temp->setName("Billboard");
-
-
 
     //mMap3?
     InteractiveObject* mInteract = new Player("materialphong");
@@ -76,6 +80,11 @@ void Scene0::init()
 
 void Scene0::draw()
 {
+    for (int i = 0; i < 5; i++)
+    {
+        mParticleSystem->Emit(mParticle);
+    }
+
     Scene::draw();
 }
 
