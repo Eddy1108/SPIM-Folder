@@ -6,6 +6,8 @@
 ParticleSystem::ParticleSystem(std::string MaterialName) : VisualObject(MaterialName)
 {
 	mParticlePool.resize(1000);
+	move(0, 0, 0);
+	mMatrix = glm::mat4(1.0f);
 }
 
 ParticleSystem::~ParticleSystem()
@@ -30,9 +32,9 @@ void ParticleSystem::init()
 	glBindBuffer(GL_ARRAY_BUFFER, mVBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	glEnableVertexAttribArray(mVBO);
+	
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
-
+	glEnableVertexAttribArray(0);
 	uint32_t indices[] = {
 		0, 1, 2, 2, 3, 0
 	};
@@ -91,7 +93,11 @@ void ParticleSystem::Update()
 		particle.mLifeRemaining -= RenderWindow::mDeltaTime;
 		particle.mPosition += particle.mVelocity * (float)RenderWindow::mDeltaTime;
 		particle.mRotation += 0.01f * RenderWindow::mDeltaTime;
+
+		//std::cout << "Life: " << particle.mLifeRemaining << std::endl;
 	}
+
+	std::cout << "Life: " << RenderWindow::mDeltaTime << std::endl;
 }
 
 void ParticleSystem::Emit(const ParticleProperties& particleProps)
@@ -105,6 +111,7 @@ void ParticleSystem::Emit(const ParticleProperties& particleProps)
 	particle.mVelocity = particleProps.Velocity;
 	particle.mVelocity.x += particleProps.VelocityVariation.x * (Random::Float() - 0.5f);
 	particle.mVelocity.y += particleProps.VelocityVariation.y * (Random::Float() - 0.5f);
+	particle.mVelocity.z += particleProps.VelocityVariation.z * (Random::Float() - 0.5f);
 
 	//Color
 	particle.mColorBegin = particleProps.ColorBegin;

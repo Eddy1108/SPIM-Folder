@@ -39,7 +39,5 @@ private:
 
 	std::vector<Particle> mParticlePool;
 	uint32_t mPoolIndex = 999;
-
-	//REMEMBER SHADER UNIFORMS CHECK VIDEO 8:20
 };
 

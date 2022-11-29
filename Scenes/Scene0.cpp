@@ -32,15 +32,15 @@ void Scene0::objects()
     //mObjects.push_back(temp = new ObjLoader("materialplain", "../SPIM-Folder/Assets/models/crew.obj"));
     //temp->setName("Amongus");
 
-    mObjects.push_back(temp = new ObjLoader("materialplain", "../SPIM-Folder/Assets/models/crew.obj"));
-    temp->setName("Amongus2");
-    temp->move(2, 2, 0);
+    //mObjects.push_back(temp = new ObjLoader("materialplain", "../SPIM-Folder/Assets/models/crew.obj"));
+    //temp->setName("Amongus2");
+    //temp->move(2, 2, 0);
 
     //mObjects.push_back(temp = new Kube("materialplain"));
     //temp->setName("Kube");
     
     mObjects.push_back(mParticleSystem = new ParticleSystem("materialparticle"));
-    temp->setName("ParticleSystem");
+    mParticleSystem->setName("ParticleSystem");
     
     //mObjects.push_back(temp = new Billboard("materialbillboard", mCamera));
     //temp->setName("Billboard");
@@ -76,14 +76,16 @@ void Scene0::objects()
 void Scene0::init()
 {
     Scene::init();
+
+    //mParticleSystem->Emit(mParticle);
 }
 
 void Scene0::draw()
 {
-    for (int i = 0; i < 5; i++)
-    {
-        mParticleSystem->Emit(mParticle);
-    }
+ 
+    mParticleSystem->Emit(mParticle);
+    mParticleSystem->Emit(mParticle);
+
 
     Scene::draw();
 }

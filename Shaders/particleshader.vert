@@ -9,7 +9,7 @@ uniform mat4 uTransform;
 
 void main()
 {
-	mat4 uViewProj = vMatrix * pMatrix;
+	mat4 uViewProj = pMatrix * vMatrix;
 
 	gl_Position = uViewProj * uTransform * vec4(aPosition, 1.0);
 }
