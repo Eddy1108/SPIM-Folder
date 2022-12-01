@@ -10,11 +10,12 @@ Scene0::Scene0()
 
     mParticle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
     mParticle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
-    mParticle.SizeBegin = 0.5f, mParticle.SizeVariation = 0.3f, mParticle.SizeEnd = 0.0f;
+    mParticle.SizeBegin = 0.2f, mParticle.SizeVariation = 0.3f, mParticle.SizeEnd = 0.0f;
     mParticle.LifeTime = 1.0f;
     mParticle.Velocity = { 0.0f, 0.0f, 0.0f };
-    mParticle.VelocityVariation = { 3.0f, 1.0f, 2.0f };
+    mParticle.VelocityVariation = { 3.0f, 3.0f, 3.0f };
     mParticle.Position = { 0.0f, 0.0f, 0.0f };
+    mParticle.bFaceCamera = false;
 }
 
 Scene0::~Scene0()
@@ -84,7 +85,7 @@ void Scene0::draw()
 {
  
     mParticleSystem->Emit(mParticle);
-    mParticleSystem->Emit(mParticle);
+    //mParticleSystem->Emit(mParticle);
 
 
     Scene::draw();

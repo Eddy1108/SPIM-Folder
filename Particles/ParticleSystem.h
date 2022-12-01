@@ -6,7 +6,8 @@ struct ParticleProperties {
 	glm::vec3 Velocity, VelocityVariation;
 	glm::vec4 ColorBegin, ColorEnd;
 	float SizeBegin, SizeEnd, SizeVariation;
-	float LifeTime = 1.0f;
+	float LifeTime{ 1.0f };
+	bool bFaceCamera{ false };
 };
 
 class ParticleSystem : public VisualObject
@@ -17,6 +18,8 @@ public:
 
 	void init();
 	void draw();
+
+	glm::mat4 RotateToCamMatrix();
 
 	//Updates particles
 	void Update();
@@ -29,15 +32,16 @@ private:
 		glm::vec3 mPosition;
 		glm::vec3 mVelocity;
 		glm::vec4 mColorBegin, mColorEnd;
-		float mRotation = 0.0f;
+		float mRotation{ 0.0f };
 		float mSizeBegin, mSizeEnd;
-		float mLifeTime = 1.0f;
+		float mLifeTime{ 1.0f };
 		float mLifeRemaining = 0.0f;
 
-		bool Active = false;
+		bool bFaceCam{ false };
+		bool Active{ false };
 	};
 
 	std::vector<Particle> mParticlePool;
-	uint32_t mPoolIndex = 999;
+	uint32_t mPoolIndex{ 999 };
 };
 

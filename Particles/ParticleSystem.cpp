@@ -6,8 +6,6 @@
 ParticleSystem::ParticleSystem(std::string MaterialName) : VisualObject(MaterialName)
 {
 	mParticlePool.resize(1000);
-	move(0, 0, 0);
-	mMatrix = glm::mat4(1.0f);
 }
 
 ParticleSystem::~ParticleSystem()
@@ -59,11 +57,21 @@ void ParticleSystem::draw()
 
 		float size = glm::lerp(particle.mSizeEnd, particle.mSizeBegin, life);
 
+		glm::mat4 transform;
+		if (particle.bFaceCam)
+		{
+			transform = glm::translate(glm::mat4(1.0f), { particle.mPosition.x, particle.mPosition.y, particle.mPosition.z })
+			* RotateToCamMatrix()
+			* glm::scale(glm::mat4(1.0f), { size, size, 1.0f });
+		}
+		else 
+		{
+			transform = glm::translate(glm::mat4(1.0f), { particle.mPosition.x, particle.mPosition.y, particle.mPosition.z })
+			* glm::scale(glm::mat4(1.0f), { size, size, 1.0f })
+			* glm::scale(glm::mat4(1.0f), { size, size, 1.0f });
+		}
+		
 		//Render
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), { particle.mPosition.x, particle.mPosition.y, particle.mPosition.z })
-		 * glm::rotate(glm::mat4(1.0f), particle.mRotation, { 0.f,0.f,1.f })
-		 * glm::scale(glm::mat4(1.0f), { size, size, 1.0f });
-
 		mMaterial->UpdateUniforms(&transform, &color);
 		glBindVertexArray(mVAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
@@ -73,6 +81,24 @@ void ParticleSystem::draw()
 	Update();
 
 	//std::cout << "DRAW DONE" << std::endl;
+}
+
+glm::mat4 ParticleSystem::RotateToCamMatrix()
+{
+	glm::mat4 billView = glm::inverse(RenderWindow::mCurrentCamera->mVMatrix);
+
+	glm::vec4 leftVectorX = billView[0];
+	glm::vec4 upVectorY = billView[1];
+	glm::vec4 forwardVectorZ = billView[2];
+
+	//Keep only rotation
+	glm::mat4 matrix = glm::mat4(1.0f);
+	matrix[0] = leftVectorX;
+	matrix[1] = upVectorY;
+	matrix[2] = forwardVectorZ;
+
+	return matrix;
+
 }
 
 void ParticleSystem::Update()
@@ -90,20 +116,22 @@ void ParticleSystem::Update()
 			continue;
 		}
 
-		particle.mLifeRemaining -= RenderWindow::mDeltaTime;
-		particle.mPosition += particle.mVelocity * (float)RenderWindow::mDeltaTime;
-		particle.mRotation += 0.01f * RenderWindow::mDeltaTime;
+		particle.mLifeRemaining -= 0.01f;
+		particle.mPosition += particle.mVelocity * 0.01f;
+		particle.mRotation += 0.01f * 0.01f;
 
-		//std::cout << "Life: " << particle.mLifeRemaining << std::endl;
+		//Deltatime version, buggy atm
+		//particle.mLifeRemaining -= RenderWindow::mDeltaTime;
+		//particle.mPosition += particle.mVelocity * (float)RenderWindow::mDeltaTime;
+		//particle.mRotation += 0.01f  * RenderWindow::mDeltaTime;
 	}
-
-	std::cout << "Life: " << RenderWindow::mDeltaTime << std::endl;
 }
 
 void ParticleSystem::Emit(const ParticleProperties& particleProps)
 {
 	Particle& particle = mParticlePool[mPoolIndex];
 	particle.Active = true;
+	particle.bFaceCam = particleProps.bFaceCamera;
 	particle.mPosition = particleProps.Position;
 	particle.mRotation = Random::Float() * 2.0f * glm::pi<float>();
 
