@@ -57,8 +57,9 @@ void TerrainBaseChunk::noiseContinentalnessTransformation()
         mNoiseContinental->SetFrequency(0.002f);
         mNoiseContinental->SetFractalOctaves(8);
         mNoiseContinental->SetFractalLacunarity(2);
-        mHeightIntensity = 8;
+        mContinentalIntensity = 16;
         mHeightOffset = 3;
+        mNoiseHeighOffsetIntensity = 1;
         break;
 
     case Desert:
@@ -68,7 +69,7 @@ void TerrainBaseChunk::noiseContinentalnessTransformation()
         mNoiseContinental->SetFractalOctaves(8);
         mNoiseContinental->SetFractalLacunarity(2);
         mNoiseContinental->SetFractalGain(0.0f);
-        mHeightIntensity = 1.f;
+        mContinentalIntensity = 1.f;
         break;
 
     case Hills:
@@ -78,7 +79,7 @@ void TerrainBaseChunk::noiseContinentalnessTransformation()
         mNoiseContinental->SetFractalOctaves(4);
         mNoiseContinental->SetFractalLacunarity(2);
         mNoiseContinental->SetFractalGain(0.4f);
-        mHeightIntensity = 2;
+        mContinentalIntensity = 2;
         break;
     }
 
@@ -129,9 +130,9 @@ void TerrainBaseChunk::generateChunk(glm::vec2 coords)
             u = (float)i/mChunkComplexity;
 
             //<<debug colors>>
-            r = z/(mHeightIntensity);
+            r = z/(mContinentalIntensity);
             //g = z+1;
-            b = -z/(mHeightIntensity);
+            b = -z/(mContinentalIntensity);
 
             // Create Vertex
             mVertices.push_back(Vertex{ x + xOffset, y + yOffset, z, r, g, b, u,v });
@@ -161,14 +162,13 @@ float TerrainBaseChunk::getHeight(int i, int j)
 {
     int dataIndex = i + j * mChunkComplexity;
     // ---- Gather noise data ----
-    float valContinental = mNoiseContinentalData[dataIndex];
-    float valHeightOffset = mNoiseHeightOffsetData[dataIndex];
+    float valContinental = mNoiseContinentalData[dataIndex] * mContinentalIntensity;
+    float valHeightOffset = mNoiseHeightOffsetData[dataIndex] * mNoiseHeighOffsetIntensity;
     // ---- Add together ----
     float z = valContinental;
-    z *= mHeightIntensity;
 
     //z += std::clamp(valHeightOffset, 0.0f, 1.f);
-    z+= valHeightOffset * 1;
+    z+= valHeightOffset;
     ///Should be done last
     z += mHeightOffset;
 

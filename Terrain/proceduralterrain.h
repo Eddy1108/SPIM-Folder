@@ -29,22 +29,18 @@ public:
 
 private:
     const int mSeed{20};
-    const float mChunkSize{20}; // The lenght and width of each chunk in worldspace.
+    const float mChunkSize{100}; // The lenght and width of each chunk in worldspace.
     //Important, must be a value of the Power of two + 1.   e.g. 33, 65, 129
-    const unsigned int mChunkComplexity{129}; // The amount of vertices along the width & length of the chunk.
+    const unsigned int mChunkComplexity{128 + 1}; // The amount of vertices along the width & length of the chunk.
     //mipMap must be a factor of (mChunkComplexity - 1)  // 1,2,4,8,16,32,64,128.
     const int mipMap{5}; // 0 means no reduction of detail.
 
-    std::unordered_map<std::string, TerrainBaseChunk*> mChunks; // Chunk coords & chunk
-
-    QuadTree* mQuadTree{nullptr};
+    const float mRenderDistance{ 800 };
     Camera* mCamera{nullptr};
-
-
     glm::vec2 mCamPosOld{0,0};
-    TerrainBaseChunk* mChunkWithin{nullptr};
-    float mRenderDistance{ 170 };
 
+    std::unordered_map<std::string, TerrainBaseChunk*> mChunks; // Chunk coords & chunk
+    QuadTree* mQuadTree{nullptr};
 
 
     bool mFirstLoad = true;

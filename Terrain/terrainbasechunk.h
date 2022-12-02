@@ -24,6 +24,7 @@ public:
     glm::vec2 getCoords();
     glm::vec2 getPos();
     int getLOD();
+    void setIndices(int LOD);
 private:
     void generateFastNoise();
     void noiseContinentalnessTransformation();
@@ -39,12 +40,13 @@ private:
 
     const int mSeed{20};
     const float mChunkSize{20}; // The lenght and width of each chunk in worldspace.
-    //IMPORTANT: ChunkComplexity should only be a value within the power of two. 64, 128, 256, etc.
-    unsigned int mChunkComplexity{128}; // The amount of vertices along the width & length of the chunk.
-    const short unsigned int mLevelOfDetail{0}; // 0 means no reduction of detail.
+    //IMPORTANT: ChunkComplexity should only be a value within the power of two + 1. 64+1, 128+1, 256+1, etc.
+    unsigned int mChunkComplexity{128 + 1}; // The amount of vertices along the width & length of the chunk.
+    short int mLevelOfDetail{-1}; // 0 means no reduction of detail.
 
     float mHeightOffset{0};
-    float mHeightIntensity{1};
+    float mContinentalIntensity{1};
+    float mNoiseHeighOffsetIntensity{1};
 
     BiomeType mBiomeType{Mountains};
 
