@@ -22,8 +22,10 @@ SOURCES += main.cpp \
     Core/shader.cpp \
     Core/texture.cpp \
     Light/Light.cpp \
+    Materials/materialparticle.cpp \
     Math/Barycentric.cpp \
     Math/BezierCurve.cpp \
+    Math/Random.cpp \
     Math/SortCoords.cpp \
     Mesh/Billboard.cpp \
     Mesh/Disc.cpp \
@@ -40,6 +42,7 @@ SOURCES += main.cpp \
     Mesh/Triangle.cpp \
     Mesh/TriangleSurface.cpp \
     Mesh/line.cpp \
+    Particles/ParticleSystem.cpp \
     Scenes/Scene.cpp \
     Scenes/Scene0.cpp \
     Scenes/Scene1.cpp \
@@ -71,8 +74,10 @@ HEADERS += \
     Core/shader.h \
     Core/texture.h \
     Light/Light.h \
+    Materials/materialparticle.h \
     Math/Barycentric.h \
     Math/BezierCurve.h \
+    Math/Random.h \
     Math/SortCoords.h \
     Mesh/Billboard.h \
     Mesh/Disc.h \
@@ -89,6 +94,7 @@ HEADERS += \
     Mesh/Triangle.h \
     Mesh/TriangleSurface.h \
     Mesh/line.h \
+    Particles/ParticleSystem.h \
     Scenes/Scene.h \
     Scenes/Scene0.h \
     Scenes/Scene1.h \
@@ -141,6 +147,8 @@ DISTFILES += \
     Assets/Texture/skybox/front.jpg \
     Assets/Texture/skybox/back.jpg \
     #shaders
+    Shaders/particleshader.frag \
+    Shaders/particleshader.vert \
     Shaders/phongshader.frag \
     Shaders/phongshader.vert \
     Shaders/plainshader.frag \

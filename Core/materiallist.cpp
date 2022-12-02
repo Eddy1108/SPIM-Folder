@@ -6,6 +6,7 @@
 #include "Materials/materialphong.h"
 #include "Materials/materialcubemap.h" // Used for skybox
 #include "Materials/materialbillboard.h"
+#include "Materials/materialparticle.h"
 
 #include "stb_image/stb_image.h"
 
@@ -42,6 +43,7 @@ void MaterialList::CompileShaders()
     mShaderProgram[2].first = "phongshader";
     mShaderProgram[3].first = "skyboxshader";
     mShaderProgram[4].first = "plainshaderChad";
+    mShaderProgram[5].first = "particleshader";
 
     for(int i = 0; i < mShaderProgramSize; i++){
         if(!mShaderProgram[i].first.empty()){
@@ -220,4 +222,10 @@ void MaterialList::CompileMaterials()
     mMaterial[matIndex].first = "materialbillboard";
     mMaterial[matIndex].second = new MaterialBillboard(mShaderProgram[1].second->getProgram(), 6);
     mMaterial[matIndex].second->SetupUniforms();
+    matIndex++;
+
+    mMaterial[matIndex].first = "materialparticle";
+    mMaterial[matIndex].second = new MaterialParticle(mShaderProgram[5].second->getProgram(), 6);
+    mMaterial[matIndex].second->SetupUniforms();
+    matIndex++;
 }

@@ -54,12 +54,6 @@ void Billboard::draw()
 	RotateToCamMatrix();
 	//RotateToCamDirect();
 
-	//Not needed but to overwrite other textures in this slot we must do this each draw call
-    //glActiveTexture(GL_TEXTURE1);
-    //glBindTexture(GL_TEXTURE_2D, mTexture->id());
-
-	//mMaterial->UpdateUniforms(&mMatrix);
-
 	VisualObject::draw();
 
 }
@@ -88,6 +82,7 @@ void Billboard::RotateToCamMatrix()
 	//std::cout << "Cam Pos: " << mCam->getPos().x << ", " << mCam->getPos().y << ", " << mCam->getPos().z << std::endl;
 }
 
+//Kinda broken?
 void Billboard::RotateToCamDirect()
 {
 	billView = glm::lookAt(mPosition, mCam->mPosition, mCam->mUp);
@@ -101,4 +96,5 @@ void Billboard::RotateToCamDirect()
 	mMatrix[0] = leftVectorX;
 	mMatrix[1] = upVectorY;
 	mMatrix[2] = forwardVectorZ;
+
 }

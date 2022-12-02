@@ -20,6 +20,8 @@
 //#include "Mesh/LAZSurface.h"
 //#include "Mesh/rollingball.h"
 
+#include "Particles/ParticleSystem.h"
+
 class Scene0 : public Scene
 {
 
@@ -40,5 +42,7 @@ public:
 
 private:
     class ProceduralTerrain* myTerrain;
+    ParticleProperties mParticle;
+    ParticleSystem* mParticleSystem{nullptr};
 };
 

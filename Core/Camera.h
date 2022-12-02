@@ -36,6 +36,7 @@ public:
 	glm::vec3 getPos() { return mPosition; };
 	glm::vec3 GetUp() { return mUp; };
 	glm::vec3 GetForward() { return mOrientation; };
+	glm::vec3 GetRight() { return glm::cross(mOrientation, mUp); };
 
 
 	//glm::vec3 GetUpWorld() { return mPosition + mUp; };

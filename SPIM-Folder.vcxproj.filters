@@ -188,6 +188,21 @@
     <ClCompile Include="Materials\materialbillboard.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="Particles\ParticleSystemOld.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\materialparticleOld.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\ParticleSystem.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Random.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\materialparticle.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Audio.h">
@@ -373,6 +388,21 @@
     <ClInclude Include="Materials\materialbillboard.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="Particles\ParticleSystemOld.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\materialparticleOld.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles\ParticleSystem.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Random.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\materialparticle.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -447,5 +477,9 @@
     </None>
     <None Include="Shaders\billboardShader.frag" />
     <None Include="Shaders\billboardShader.vert" />
+    <None Include="Shaders\particleshaderOld.frag" />
+    <None Include="Shaders\particleshaderOld.vert" />
+    <None Include="Shaders\particleshader.frag" />
+    <None Include="Shaders\particleshader.vert" />
   </ItemGroup>
 </Project>

@@ -53,7 +53,7 @@ public:
 
     inline static glm::vec3 triangle[3];
 
-    inline static float mDeltaTime{ 0 };
+    inline static double mDeltaTime{ 0 };
 
     inline static Camera* mCurrentCamera{ nullptr };
 
