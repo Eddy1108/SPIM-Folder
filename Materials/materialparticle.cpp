@@ -30,6 +30,8 @@ void MaterialParticle::UpdateUniforms(glm::mat4* Transform, glm::vec4* color)
 
     glUniformMatrix4fv(mUniform.find("uTransform")->second, 1, GL_FALSE, glm::value_ptr(*Transform));
     glUniform4fv(mUniform.find("uColor")->second, 1, glm::value_ptr(*color));
+
+    glUniform1i(mUniform.find("textureSampler")->second, mTextureIndex[0]);
 }
 
 void MaterialParticle::SetupUniforms()
@@ -44,6 +46,7 @@ void MaterialParticle::SetupUniforms()
     //mUniform.insert(std::make_pair<std::string, GLuint>("uViewProj", glGetUniformLocation(mShaderProgram, "uViewProj")));
     mUniform.insert(std::make_pair<std::string, GLuint>("uTransform", glGetUniformLocation(mShaderProgram, "uTransform")));
     mUniform.insert(std::make_pair<std::string, GLuint>("uColor", glGetUniformLocation(mShaderProgram, "uColor")));
+    mUniform.insert(std::make_pair<std::string, GLuint>("textureSampler", glGetUniformLocation(mShaderProgram, "textureSampler")));
 
     uniformsHasBeenSetup = true;
 }

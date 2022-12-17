@@ -193,9 +193,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\Audio.cpp" />
-    <ClCompile Include="Materials\materialparticle.cpp" />
     <ClCompile Include="Materials\materialbillboard.cpp" />
-    <ClCompile Include="Materials\materialparticleOld.cpp" />
     <ClCompile Include="Math\Barycentric.cpp" />
     <ClCompile Include="Math\BezierCurve.cpp" />
     <ClCompile Include="Mesh\Billboard.cpp" />
@@ -210,17 +208,15 @@
     <ClCompile Include="Light\Light.cpp" />
     <ClCompile Include="Mesh\ObjLoader.cpp" />
     <ClCompile Include="Mesh\OctahedronBall.cpp" />
+    <ClCompile Include="Particles\ParticleSystem.cpp" />
     <ClCompile Include="Mesh\Player\Player.cpp" />
     <ClCompile Include="Mesh\PointCloud.cpp" />
-    <ClCompile Include="Particles\ParticleSystem.cpp" />
-    <ClCompile Include="Particles\ParticleSystemOld.cpp" />
     <ClCompile Include="Math\Random.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="Scenes\Scene0.cpp" />
     <ClCompile Include="Scenes\Scene1.cpp" />
     <ClCompile Include="Scenes\SceneSwitcher.cpp" />
     <ClCompile Include="Mesh\SkyBox.cpp" />
-    <ClCompile Include="Shaders\SkyBoxShader.cpp" />
     <ClCompile Include="Math\SortCoords.cpp" />
     <ClCompile Include="Mesh\Triangle.cpp" />
     <ClCompile Include="Mesh\TriangleSurface.cpp" />
@@ -237,19 +233,20 @@
     <ClCompile Include="Core\material.cpp" />
     <ClCompile Include="Materials\materialcubemap.cpp" />
     <ClCompile Include="Core\materiallist.cpp" />
+    <ClCompile Include="Materials\materialparticle.cpp" />
     <ClCompile Include="Materials\materialphong.cpp" />
     <ClCompile Include="Materials\materialplain.cpp" />
     <ClCompile Include="Materials\materialtexture.cpp" />
+    <ClCompile Include="Terrain\proceduralterrain.cpp" />
     <ClCompile Include="Core\quadtree.cpp" />
     <ClCompile Include="renderwindow.cpp" />
     <ClCompile Include="Core\shader.cpp" />
+    <ClCompile Include="Terrain\terrainbasechunk.cpp" />
     <ClCompile Include="Core\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Audio.h" />
-    <ClInclude Include="Materials\materialparticle.h" />
     <ClInclude Include="Materials\materialbillboard.h" />
-    <ClInclude Include="Materials\materialparticleOld.h" />
     <ClInclude Include="Math\Barycentric.h" />
     <ClInclude Include="Math\BezierCurve.h" />
     <ClInclude Include="Mesh\Billboard.h" />
@@ -257,6 +254,7 @@
     <ClInclude Include="Core\CollisionShapes.h" />
     <ClInclude Include="Mesh\Disc.h" />
     <ClInclude Include="Mesh\Equidistance.h" />
+    <ClInclude Include="library_includes\Noise\FastNoiseLite.h" />
     <ClInclude Include="Mesh\Heightmap.h" />
     <ClInclude Include="Mesh\Player\InteractiveObject.h" />
     <ClInclude Include="Mesh\Kube.h" />
@@ -264,17 +262,15 @@
     <ClInclude Include="Light\Light.h" />
     <ClInclude Include="Mesh\ObjLoader.h" />
     <ClInclude Include="Mesh\OctahedronBall.h" />
+    <ClInclude Include="Particles\ParticleSystem.h" />
     <ClInclude Include="Mesh\Player\Player.h" />
     <ClInclude Include="Mesh\PointCloud.h" />
-    <ClInclude Include="Particles\ParticleSystem.h" />
-    <ClInclude Include="Particles\ParticleSystemOld.h" />
     <ClInclude Include="Math\Random.h" />
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="Scenes\Scene0.h" />
     <ClInclude Include="Scenes\Scene1.h" />
     <ClInclude Include="Scenes\SceneSwitcher.h" />
     <ClInclude Include="Mesh\SkyBox.h" />
-    <ClInclude Include="Shaders\SkyBoxShader.h" />
     <ClInclude Include="Math\SortCoords.h" />
     <ClInclude Include="Mesh\Triangle.h" />
     <ClInclude Include="Mesh\TriangleSurface.h" />
@@ -298,15 +294,18 @@
     <ClInclude Include="Core\material.h" />
     <ClInclude Include="Materials\materialcubemap.h" />
     <ClInclude Include="Core\materiallist.h" />
+    <ClInclude Include="Materials\materialparticle.h" />
     <ClInclude Include="Materials\materialphong.h" />
     <ClInclude Include="Materials\materialplain.h" />
     <ClInclude Include="Materials\materialtexture.h" />
+    <ClInclude Include="Terrain\proceduralterrain.h" />
     <ClInclude Include="Core\quadtree.h" />
     <QtMoc Include="renderwindow.h">
     </QtMoc>
     <ClInclude Include="Core\shader.h" />
     <ClInclude Include="stb_image\stb_image.cpp" />
     <ClInclude Include="stb_image\stb_image.h" />
+    <ClInclude Include="Terrain\terrainbasechunk.h" />
     <ClInclude Include="Lua_files\test0.lua" />
     <ClInclude Include="Lua_files\test1.lua" />
     <ClInclude Include="Lua_files\test1.out" />
@@ -345,12 +344,8 @@
     <None Include="Assets\Texture\hund.bmp" />
     <None Include="Assets\Texture\skybox\left.jpg" />
     <None Include="Assets\Texture\linus.bmp" />
-    <None Include="Shaders\billboardShader.frag" />
-    <None Include="Shaders\billboardShader.vert" />
     <None Include="Shaders\particleshader.frag" />
     <None Include="Shaders\particleshader.vert" />
-    <None Include="Shaders\particleshaderOld.frag" />
-    <None Include="Shaders\particleshaderOld.vert" />
     <None Include="Shaders\phongshader.frag" />
     <None Include="Shaders\phongshader.vert" />
     <None Include="Shaders\plainshader.frag" />
