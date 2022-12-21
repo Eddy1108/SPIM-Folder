@@ -13,15 +13,25 @@ Scene0::Scene0()
     mSkybox = new SkyBox("materialskybox");
 
 
-    // ---- Particle settings ----
-    mParticle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
-    mParticle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
+    // ---- Particle settings Example ----
+    //mParticle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
+    //mParticle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
+    //mParticle.SizeBegin = 0.8f, mParticle.SizeVariation = 0.3f, mParticle.SizeEnd = 0.0f;
+    //mParticle.LifeTime = 1.0f;
+    //mParticle.Velocity = { 0.0f, 0.0f, 0.0f };
+    //mParticle.VelocityVariation = { 3.0f, 3.0f, 3.0f };
+    //mParticle.Position = { 0.0f, 0.0f, 0.0f };
+    //mParticle.bFaceCamera = false;
+
+    mParticle.ColorBegin = { 1, 0, 0, 1.0f };
+    mParticle.ColorEnd = { 244/255.0f, 211/255.0f, 35/255.0f, 0 };
     mParticle.SizeBegin = 0.8f, mParticle.SizeVariation = 0.3f, mParticle.SizeEnd = 0.0f;
-    mParticle.LifeTime = 1.0f;
+    mParticle.LifeTime = 0.5f;
     mParticle.Velocity = { 0.0f, 0.0f, 0.0f };
-    mParticle.VelocityVariation = { 3.0f, 3.0f, 3.0f };
+    mParticle.VelocityVariation = { 8.0f, 8.0f, 8.0f };
     mParticle.Position = { 0.0f, 0.0f, 0.0f };
     mParticle.bFaceCamera = false;
+    mParticle.bUseGravity = true;
 }
 
 Scene0::~Scene0()
@@ -91,8 +101,6 @@ void Scene0::objects()
 void Scene0::init()
 {
     Scene::init();
-
-    //mParticleSystem->Emit(mParticle);
 }
 
 void Scene0::draw()

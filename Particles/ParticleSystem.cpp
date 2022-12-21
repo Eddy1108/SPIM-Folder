@@ -7,8 +7,6 @@ ParticleSystem::ParticleSystem(std::string MaterialName) : VisualObject(Material
 {
 	mParticlePool.resize(1000);
 
-
-
 	mVertices.push_back(Vertex(-0.5f, -0.5f, 0.f,		1.f, 0.f, 0.f,	 0.f, 0.f)); //A
 	mVertices.push_back(Vertex(0.5f, -0.5f, 0.f,		0.f, 1.f, 0.f,	 1.f, 0.f)); //C
 	mVertices.push_back(Vertex(0.5f, 0.5f, 0.f,			0.f, 0.f, 1.f,	 1.f, 1.f)); //D
@@ -65,46 +63,6 @@ void ParticleSystem::init()
 
 	glBindVertexArray(0);
 
-
-
-
-
-
-
-
-	//float vertices[] = {
-	//	//Position				//UV
-	//	-0.5f, -0.5f, 0.0f,		0.0f, 0.0f,
-	//	0.5f, -0.5f, 0.0f,		1.0f, 0.0f,
-	//	0.5f, 0.5f, 0.0f,		1.0f, 1.0f,
-	//	-0.5f, 0.5f, 0.0f,		0.0f, 1.0f,
-	//};
-
-	//float texCoors[] = {
-	//	0.0f, 0.0f,
-	//	1.0f, 0.0f,
-	//	1.0f, 1.0f,
-	//	0.0f, 1.0f
-	//};
-
-	//glGenVertexArrays(1, &mVAO);
-	//glBindVertexArray(mVAO);
-
-	//glGenBuffers(1, &mVBO);
-	//glBindBuffer(GL_ARRAY_BUFFER, mVBO);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	//
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), 0);
-	//glEnableVertexAttribArray(0);
-
-	//uint32_t indices[] = {
-	//	0, 1, 2, 2, 3, 0
-	//};
-
-	//glGenBuffers(1, &mEBO);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEBO);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 }
 
 void ParticleSystem::draw()
@@ -116,11 +74,11 @@ void ParticleSystem::draw()
 		if (!particle.Active)
 			continue;
 
-		float life = particle.mLifeRemaining / particle.mLifeTime;
-		glm::vec4 color = glm::lerp(particle.mColorEnd, particle.mColorBegin, life);
-		color.a = color.a * life;
+		float lifeVal = particle.mLifeRemaining / particle.mLifeTime;
+		glm::vec4 color = glm::lerp(particle.mColorEnd, particle.mColorBegin, lifeVal);
+		//color.a = color.a * life;
 
-		float size = glm::lerp(particle.mSizeEnd, particle.mSizeBegin, life);
+		float size = glm::lerp(particle.mSizeEnd, particle.mSizeBegin, lifeVal);
 
 		glm::mat4 transform;
 		if (particle.bFaceCam)
@@ -186,8 +144,17 @@ void ParticleSystem::Update()
 		}
 
 		particle.mLifeRemaining -= 0.01f;
-		particle.mPosition += particle.mVelocity * 0.01f;
+		//particle.mPosition += particle.mVelocity * 0.01f;
 		particle.mRotation += 0.01f * 0.01f;
+
+		if (particle.bUseGravity)
+		{
+			particle.mVelocity = particle.mVelocity + glm::vec3{ 0.f,0,-9.81f } * 0.01f;
+			particle.mPosition += particle.mVelocity * 0.01f;
+		}
+		else
+			particle.mPosition += particle.mVelocity * 0.01f;
+
 
 		//Deltatime version, buggy atm
 		//particle.mLifeRemaining -= RenderWindow::mDeltaTime;
@@ -201,6 +168,7 @@ void ParticleSystem::Emit(const ParticleProperties& particleProps)
 	Particle& particle = mParticlePool[mPoolIndex];
 	particle.Active = true;
 	particle.bFaceCam = particleProps.bFaceCamera;
+	particle.bUseGravity = particleProps.bUseGravity;
 	particle.mPosition = particleProps.Position;
 	particle.mRotation = Random::Float() * 2.0f * glm::pi<float>();
 

@@ -8,6 +8,7 @@ struct ParticleProperties {
 	float SizeBegin, SizeEnd, SizeVariation;
 	float LifeTime{ 1.0f };
 	bool bFaceCamera{ false };
+	bool bUseGravity{ false };
 };
 
 class ParticleSystem : public VisualObject
@@ -38,6 +39,7 @@ private:
 		float mLifeRemaining = 0.0f;
 
 		bool bFaceCam{ false };
+		bool bUseGravity{ false };
 		bool Active{ false };
 	};
 

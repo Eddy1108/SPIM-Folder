@@ -161,6 +161,9 @@
     <ClCompile Include="Core\material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Materials\materialbillboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Materials\materialcubemap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -196,9 +199,6 @@
     </ClCompile>
     <ClCompile Include="Core\texture.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Materials\materialbillboard.cpp">
-      <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -337,6 +337,9 @@
     <ClInclude Include="Core\material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Materials\materialbillboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Materials\materialcubemap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -397,17 +400,19 @@
     <ClInclude Include="Core\texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Materials\materialbillboard.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    
+    
     <CustomBuild Include="debug\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
     <CustomBuild Include="release\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
+    
+    
+    
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="mainwindow.ui">

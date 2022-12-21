@@ -9,6 +9,6 @@ uniform vec4 uColor;
 void main()
 {
 	//oColor = uColor;
-	oColor = texture(textureSampler, TexCoords);
+	oColor = texture(textureSampler, TexCoords) * uColor;
 	//fragColor = texture(textureSampler, UV).rgb;
 }
