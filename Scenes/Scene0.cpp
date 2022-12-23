@@ -23,15 +23,20 @@ Scene0::Scene0()
     //mParticle.Position = { 0.0f, 0.0f, 0.0f };
     //mParticle.bFaceCamera = false;
 
-    mParticle.ColorBegin = { 1, 0, 0, 1.0f };
-    mParticle.ColorEnd = { 244/255.0f, 211/255.0f, 35/255.0f, 0 };
+    mParticle.ColorBegin = { 1, 1, 1, 1.0f };
+    mParticle.ColorEnd = { 244/255.0f, 211/255.0f, 35/255.0f, 0.0f };
     mParticle.SizeBegin = 0.8f, mParticle.SizeVariation = 0.3f, mParticle.SizeEnd = 0.0f;
     mParticle.LifeTime = 0.5f;
     mParticle.Velocity = { 0.0f, 0.0f, 0.0f };
     mParticle.VelocityVariation = { 8.0f, 8.0f, 8.0f };
     mParticle.Position = { 0.0f, 0.0f, 0.0f };
+
     mParticle.bFaceCamera = false;
     mParticle.bUseGravity = true;
+    mParticle.bSizeOverTime = false;
+    mParticle.bColorOverTime = false;
+    mParticle.bTransparencyOverTime = true;
+
 }
 
 Scene0::~Scene0()

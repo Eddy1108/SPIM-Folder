@@ -75,11 +75,28 @@ void ParticleSystem::draw()
 			continue;
 
 		float lifeVal = particle.mLifeRemaining / particle.mLifeTime;
-		glm::vec4 color = glm::lerp(particle.mColorEnd, particle.mColorBegin, lifeVal);
-		//color.a = color.a * life;
 
-		float size = glm::lerp(particle.mSizeEnd, particle.mSizeBegin, lifeVal);
+		//Calc Color over time
+		glm::vec4 color;
+		if (particle.bColorOverTime)
+			color = glm::lerp(particle.mColorEnd, particle.mColorBegin, lifeVal);
+		else
+			color = particle.mColorBegin;
 
+		if (particle.bTransparencyOverTime)
+		{
+			color.a = glm::lerp(particle.mAlphaEnd, particle.mAlphaBegin, lifeVal);
+		}
+		
+
+		//Calc Size over time
+		float size;
+		if (particle.bSizeOverTime)
+			size = glm::lerp(particle.mSizeEnd, particle.mSizeBegin, lifeVal);
+		else
+			size = particle.mSizeBegin;
+		
+		//Calc transform
 		glm::mat4 transform;
 		if (particle.bFaceCam)
 		{
@@ -144,9 +161,11 @@ void ParticleSystem::Update()
 		}
 
 		particle.mLifeRemaining -= 0.01f;
-		//particle.mPosition += particle.mVelocity * 0.01f;
+
+		//Update Rotation
 		particle.mRotation += 0.01f * 0.01f;
 
+		//Update Position
 		if (particle.bUseGravity)
 		{
 			particle.mVelocity = particle.mVelocity + glm::vec3{ 0.f,0,-9.81f } * 0.01f;
@@ -169,6 +188,10 @@ void ParticleSystem::Emit(const ParticleProperties& particleProps)
 	particle.Active = true;
 	particle.bFaceCam = particleProps.bFaceCamera;
 	particle.bUseGravity = particleProps.bUseGravity;
+	particle.bSizeOverTime = particleProps.bSizeOverTime;
+	particle.bColorOverTime = particleProps.bColorOverTime;
+	particle.bTransparencyOverTime = particleProps.bTransparencyOverTime;
+
 	particle.mPosition = particleProps.Position;
 	particle.mRotation = Random::Float() * 2.0f * glm::pi<float>();
 
@@ -179,8 +202,10 @@ void ParticleSystem::Emit(const ParticleProperties& particleProps)
 	particle.mVelocity.z += particleProps.VelocityVariation.z * (Random::Float() - 0.5f);
 
 	//Color
-	particle.mColorBegin = particleProps.ColorBegin;
-	particle.mColorEnd = particleProps.ColorEnd;
+	particle.mColorBegin = particleProps.ColorBegin; particle.mColorBegin.a = 1.0f;
+	particle.mColorEnd = particleProps.ColorEnd; particle.mColorEnd.a = 1.0f;
+	particle.mAlphaBegin = particleProps.ColorBegin.a;
+	particle.mAlphaEnd = particleProps.ColorEnd.a;
 
 	particle.mLifeTime = particleProps.LifeTime;
 	particle.mLifeRemaining = particleProps.LifeTime;
