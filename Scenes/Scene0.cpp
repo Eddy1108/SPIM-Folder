@@ -54,8 +54,8 @@ void Scene0::objects()
     //mObjects.push_back(temp = new ObjLoader("materialplain", "../SPIM-Folder/Assets/models/crew.obj"));
     //temp->setName("Amongus");
 
-    //mObjects.push_back(temp = new Kube("materialplain"));
-    //temp->setName("Kube");
+    mObjects.push_back(temp = new Kube("materialplain"));
+    temp->setName("Kube");
 
 //    mObjects.push_back(temp = new Billboard("materialtexture", mCamera));
 //    temp->setName("Billboard");
@@ -63,18 +63,9 @@ void Scene0::objects()
     mObjects.push_back(temp = new ProceduralTerrain(mCamera, "materialplain"));
     temp->setName("Terrain");
 
-    //mObjects.push_back(temp = new ObjLoader("materialplain", "../SPIM-Folder/Assets/models/crew.obj"));
-    //temp->setName("Amongus2");
-    //temp->move(2, 2, 0);
-
-    //mObjects.push_back(temp = new Kube("materialplain"));
-    //temp->setName("Kube");
     
     mObjects.push_back(mParticleSystem = new ParticleSystem("materialparticle"));
     mParticleSystem->setName("ParticleSystem");
-    
-    //mObjects.push_back(temp = new Billboard("materialbillboard", mCamera));
-    //temp->setName("Billboard");
 
     InteractiveObject* mInteract = new Player("materialphong");
     //mObjects3.push_back(mInteract);
