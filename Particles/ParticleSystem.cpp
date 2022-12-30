@@ -184,6 +184,18 @@ void ParticleSystem::Update()
 
 void ParticleSystem::Emit(const ParticleProperties& particleProps)
 {
+	double timeCheck = 1.f / particleProps.SpawnRate;	// 1/5 = 0.2
+
+	timeTaken += RenderWindow::mDeltaTime;
+	//std::cout << "Delta: " << timeTaken << std::endl;
+
+	if (timeTaken < timeCheck)
+	{
+		return;
+	}
+
+	timeTaken -= timeCheck;
+
 	Particle& particle = mParticlePool[mPoolIndex];
 	particle.Active = true;
 	particle.bFaceCam = particleProps.bFaceCamera;

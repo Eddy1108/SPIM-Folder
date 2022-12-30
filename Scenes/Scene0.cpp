@@ -30,6 +30,7 @@ Scene0::Scene0()
     mParticle.Velocity = { 0.0f, 0.0f, 0.0f };
     mParticle.VelocityVariation = { 8.0f, 8.0f, 8.0f };
     mParticle.Position = { 0.0f, 0.0f, 0.0f };
+    mParticle.SpawnRate = 5;
 
     mParticle.bFaceCamera = false;
     mParticle.bUseGravity = true;
