@@ -198,7 +198,7 @@ float TerrainBaseChunk::getHeight(int i, int j)
     float valHeightOffset = mNoiseHeightOffsetData[dataIndex] * mNoiseHeighOffsetIntensity;
     // ---- Add together ----
 
-    float z = valContinental * valMountainPeaks;
+    float z = valContinental/* * valMountainPeaks*/;
 
     //z += std::clamp(valHeightOffset, 0.0f, 1.f);
 
