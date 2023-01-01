@@ -99,7 +99,9 @@ void MaterialList::CompileTextures()
     //7
     mTexture[texIndex++].first = "win.bmp";
     //8
-    //mTexture[texIndex++].first = "fire.png";
+    mTexture[texIndex++].first = "SeaWater.jpg";
+    //9
+    mTexture[texIndex++].first = "Sand.jpg";
 
     //For loop that constructs all the Textures based of the paths given.
     for(int i = 1; i < mTextureSize; i++){
@@ -226,6 +228,11 @@ void MaterialList::CompileMaterials()
 
     mMaterial[matIndex].first = "materialparticle";
     mMaterial[matIndex].second = new MaterialParticle(mShaderProgram[5].second->getProgram(), 6);
+    mMaterial[matIndex].second->SetupUniforms();
+    matIndex++;
+
+    mMaterial[matIndex].first = "materialwater";
+    mMaterial[matIndex].second = new MaterialTexture(mShaderProgram[1].second->getProgram(), 8);
     mMaterial[matIndex].second->SetupUniforms();
     matIndex++;
 }

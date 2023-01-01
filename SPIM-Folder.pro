@@ -53,6 +53,7 @@ SOURCES += main.cpp \
     Materials/materialbillboard.cpp \
     Scenes/SceneSwitcher.cpp \
     Terrain/terrainbasechunk.cpp \
+    Terrain/terrainwater.cpp \
     logger.cpp \
     Lua_files/luafunctiontest.cpp \
     mainwindow.cpp \
@@ -105,6 +106,7 @@ HEADERS += \
     Materials/materialtexture.h \
     Materials/materialbillboard.h \
     Terrain/terrainbasechunk.h \
+    Terrain/terrainwater.h \
     library_includes/dr_lib/dr_wav.h \
     logger.h \
     Lua_files/luafunctiontest.h \

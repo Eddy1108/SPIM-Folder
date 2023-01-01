@@ -18,6 +18,14 @@ TerrainBaseChunk::TerrainBaseChunk(const int seed,
 
     mNoiseContinentalData.clear();
     mNoiseHeightOffsetData.clear();
+
+    //Generate water
+    mWater = new TerrainWater(0, mPos, mChunkSize, "materialplain");
+}
+
+TerrainBaseChunk::~TerrainBaseChunk()
+{
+    delete mWater;
 }
 
 void TerrainBaseChunk::generateFastNoise()
@@ -109,7 +117,7 @@ void TerrainBaseChunk::generateChunk(glm::vec2 coords)
     float xOffset = -mChunkSize/2, yOffset = -mChunkSize/2;
 
     //Normal / Color
-
+    //...
 
     float iteratorIncrement = std::pow(2, mLevelOfDetail);
     float delta = mChunkSize/(mChunkComplexity-1);
@@ -266,6 +274,9 @@ void TerrainBaseChunk::init()
     glEnableVertexAttribArray(2);
 
     glBindVertexArray(0);	//release
+
+    //Init Water
+    mWater->init();
 }
 
 void TerrainBaseChunk::draw()
@@ -275,4 +286,7 @@ void TerrainBaseChunk::draw()
     glBindVertexArray(mVAO);
     glDrawElements(GL_TRIANGLES, mIndices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
+
+    //Draw water
+    mWater->draw();
 }
