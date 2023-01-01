@@ -8,6 +8,7 @@ TARGET      = 3D-programmering
 
 SOURCES += main.cpp \
     #Core/stb_image.cpp \
+    Components/BaseComponent.cpp \
     Core/materiallist.cpp \
     Core/material.cpp \
     Core/Audio.cpp \
@@ -27,6 +28,7 @@ SOURCES += main.cpp \
     Math/BezierCurve.cpp \
     Math/Random.cpp \
     Math/SortCoords.cpp \
+    Components/AudioComponent.cpp \
     Mesh/Billboard.cpp \
     Mesh/Disc.cpp \
     Mesh/Equidistance.cpp \
@@ -62,6 +64,7 @@ SOURCES += main.cpp \
 
 HEADERS += \
     #Core/stb_image.h \
+    Components/BaseComponent.h \
     Core/materiallist.h \
     Core/material.h \
     Core/Audio.h \
@@ -80,6 +83,7 @@ HEADERS += \
     Math/BezierCurve.h \
     Math/Random.h \
     Math/SortCoords.h \
+    Components/AudioComponent.h \
     Mesh/Billboard.h \
     Mesh/Disc.h \
     Mesh/Equidistance.h \

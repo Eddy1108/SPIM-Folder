@@ -101,6 +101,8 @@ void MaterialList::CompileTextures()
     //8
     mTexture[texIndex++].first = "SeaWater.jpg";
     //9
+    mTexture[texIndex++].first = "fire.png";
+    //9
     mTexture[texIndex++].first = "Sand.jpg";
 
     //For loop that constructs all the Textures based of the paths given.

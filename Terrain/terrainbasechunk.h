@@ -31,6 +31,7 @@ public:
 private:
     void generateFastNoise();
     void noiseContinentalnessTransformation();
+    void noiseMountainPeaksTransformations();
     void noiseHeightOffsetTransformation();
 
     void generateChunk(glm::vec2 coords);
@@ -51,12 +52,17 @@ private:
     float mContinentalIntensity{1};
     float mNoiseHeighOffsetIntensity{1};
 
+    float mMountainPeaksIntensity{2};
+
     BiomeType mBiomeType{Mountains};
 
     // ---- Noise ----
     //Continental
     FastNoiseLite* mNoiseContinental{nullptr};
     std::vector<float> mNoiseContinentalData;
+    //Extreme Mountains
+    FastNoiseLite* mNoiseMountainPeaks{nullptr};
+    std::vector<float> mNoiseMountainPeaksData;
     //Height Offset
     FastNoiseLite* mNoiseHeightOffset{nullptr};
     std::vector<float> mNoiseHeightOffsetData;
