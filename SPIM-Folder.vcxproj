@@ -195,6 +195,7 @@
     <ClCompile Include="Core\Audio.cpp" />
     <ClCompile Include="Math\Barycentric.cpp" />
     <ClCompile Include="Math\BezierCurve.cpp" />
+    <ClCompile Include="Components\MeshComponent.cpp" />
     <ClCompile Include="Mesh\Billboard.cpp" />
     <ClCompile Include="Core\Camera.cpp" />
     <ClCompile Include="Core\CollisionShapes.cpp" />
@@ -250,6 +251,7 @@
     <ClInclude Include="Core\Audio.h" />
     <ClInclude Include="Math\Barycentric.h" />
     <ClInclude Include="Math\BezierCurve.h" />
+    <ClInclude Include="Components\MeshComponent.h" />
     <ClInclude Include="Mesh\Billboard.h" />
     <ClInclude Include="Core\Camera.h" />
     <ClInclude Include="Core\CollisionShapes.h" />

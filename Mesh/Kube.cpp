@@ -150,6 +150,10 @@ void Kube::init()
 	BaseComponent* temp = new AudioComponent(this, "WhereMono.wav", false);
 	temp->setName("AudioComponent");
 	mComponents.insert(std::pair<std::string, BaseComponent*>{(temp)->mComponentName, temp});
+
+	temp = new MeshComponent(this, "crew.obj", true, glm::vec3{ 0.f,0.f,2.f }, true);
+	temp->setName("MeshCoponent");
+	mComponents.insert(std::pair<std::string, BaseComponent*>{(temp)->mComponentName, temp});
 	
 	VisualObject::initComponents();
 	

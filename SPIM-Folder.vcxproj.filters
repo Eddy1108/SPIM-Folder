@@ -206,6 +206,9 @@
     <ClCompile Include="Components\AudioComponent.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="Components\MeshComponent.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Audio.h">
@@ -410,6 +413,9 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="Components\AudioComponent.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\MeshComponent.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

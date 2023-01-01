@@ -104,8 +104,6 @@ void Scene0::draw()
 {
  
     mParticleSystem->Emit(mParticle);
-    //mParticleSystem->Emit(mParticle);
-
 
     Scene::draw();
 }

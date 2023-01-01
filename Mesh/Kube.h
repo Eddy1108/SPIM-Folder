@@ -6,7 +6,9 @@
 #include "Core/Vertex.h"
 #include "Core/VisualObject.h"
 
+//Component Includes
 #include "Components/AudioComponent.h"
+#include "Components/MeshComponent.h"
 
 class Kube : public VisualObject
 {

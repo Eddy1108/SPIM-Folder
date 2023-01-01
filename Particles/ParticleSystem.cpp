@@ -187,7 +187,7 @@ void ParticleSystem::Emit(const ParticleProperties& particleProps)
 	double timeCheck = 1.f / particleProps.SpawnRate;	// 1/5 = 0.2
 
 	timeTaken += RenderWindow::mDeltaTime;
-	//std::cout << "Delta: " << timeTaken << std::endl;
+	//std::cout << "Delta: " << timeTaken << std::endl;	//Its so strange
 
 	if (timeTaken < timeCheck)
 	{
@@ -223,6 +223,8 @@ void ParticleSystem::Emit(const ParticleProperties& particleProps)
 	particle.mLifeRemaining = particleProps.LifeTime;
 	particle.mSizeBegin = particleProps.SizeBegin + particleProps.SizeVariation * (Random::Float() - 0.5f);
 	particle.mSizeEnd = particleProps.SizeEnd;
+
+	particle.mSpawnRate = particleProps.SpawnRate;
 
 	mPoolIndex = --mPoolIndex % mParticlePool.size();
 }
