@@ -5,6 +5,9 @@
 #include <vector>
 #include "Core/Vertex.h"
 #include "Core/VisualObject.h"
+
+#include "Components/AudioComponent.h"
+
 class Kube : public VisualObject
 {
 private:
@@ -15,5 +18,5 @@ public:
 	~Kube() override;
 	void init() override;
 	void draw() override;
-	void LoadAudio() override;
+	//void LoadAudio() override;
 };

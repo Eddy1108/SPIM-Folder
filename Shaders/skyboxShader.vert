@@ -14,7 +14,5 @@ void main()
     TexCoords = positionIn;
     mat4 view = mat4(mat3(vMatrix));
 
-    //vec4 pos = pMatrix * view * rotMatrix * vec4(positionIn, 1.0);
     gl_Position = pMatrix * view * rotMatrix * vec4(positionIn, 1.0);
-    //gl_Position = pos.xyww;
 }

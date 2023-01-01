@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8B193CD9-E482-377B-B91A-9C7DB34AED11}</ProjectGuid>
+    <ProjectGuid>{DA3DC5AF-AF94-36DB-A115-E2BA6B3CA954}</ProjectGuid>
     <RootNamespace>3D-programmering</RootNamespace>
     <Keyword>QtVS_v304</Keyword>
     <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
@@ -66,11 +66,11 @@
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <QtInstall>6.4.0_msvc2019_64</QtInstall>
+    <QtInstall>6.2.4_msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets;opengl</QtModules>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <QtInstall>6.4.0_msvc2019_64</QtInstall>
+    <QtInstall>6.2.4_msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets;opengl</QtModules>
   </PropertyGroup>
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
@@ -78,7 +78,7 @@
   </ImportGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;.;build_libraries\debug\OpenAL;library_includes;library_includes\Lua;release;/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;build_libraries\debug\OpenAL;library_includes;library_includes\Lua;release;/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -permissive- -Zc:__cplusplus -Zc:externConstexpr -utf-8 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>release\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -95,13 +95,12 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>"C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\build_libraries\debug\OpenAL\OpenAL32.lib";"C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\library_includes\Lua\lua5.4.3-static.lib";"C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\library_includes\Lua\luac.lib";$(QTDIR)\lib\Qt6Widgets.lib;$(QTDIR)\lib\Qt6OpenGL.lib;$(QTDIR)\lib\Qt6Gui.lib;$(QTDIR)\lib\Qt6Core.lib;$(QTDIR)\lib\Qt6EntryPoint.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\build_libraries\debug\OpenAL;C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\library_includes\Lua;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>.\build_libraries\debug\OpenAL\OpenAL32.lib;.\library_includes\Lua\lua5.4.3-static.lib;.\library_includes\Lua\luac.lib;$(QTDIR)\lib\Qt6Widgets.lib;$(QTDIR)\lib\Qt6OpenGL.lib;$(QTDIR)\lib\Qt6Gui.lib;$(QTDIR)\lib\Qt6Core.lib;$(QTDIR)\lib\Qt6EntryPoint.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\build_libraries\debug\OpenAL;.\library_includes\Lua;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -124,7 +123,7 @@
     </ResourceCompile>
     <QtMoc>
       <CompilerFlavor>msvc</CompilerFlavor>
-      <Include>C:/Users/edvar/OneDrive/University Files 2020/5th Semester/Spillmotor/SPIM-Folder/$(Configuration)/moc_predefs.h</Include>
+      <Include>./$(Configuration)/moc_predefs.h</Include>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
       <DynamicSource>output</DynamicSource>
       <QtMocDir>$(Configuration)</QtMocDir>
@@ -138,7 +137,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;.;build_libraries\debug\OpenAL;library_includes;library_includes\Lua;debug;/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;build_libraries\debug\OpenAL;library_includes;library_includes\Lua;debug;/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -permissive- -Zc:__cplusplus -Zc:externConstexpr -utf-8 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -153,16 +152,15 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>"C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\build_libraries\debug\OpenAL\OpenAL32.lib";"C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\library_includes\Lua\lua5.4.3-static.lib";"C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\library_includes\Lua\luac.lib";$(QTDIR)\lib\Qt6Widgetsd.lib;$(QTDIR)\lib\Qt6OpenGLd.lib;$(QTDIR)\lib\Qt6Guid.lib;$(QTDIR)\lib\Qt6Cored.lib;$(QTDIR)\lib\Qt6EntryPointd.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\build_libraries\debug\OpenAL;C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\library_includes\Lua;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>/DEBUG "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>.\build_libraries\debug\OpenAL\OpenAL32.lib;.\library_includes\Lua\lua5.4.3-static.lib;.\library_includes\Lua\luac.lib;$(QTDIR)\lib\Qt6Widgetsd.lib;$(QTDIR)\lib\Qt6OpenGLd.lib;$(QTDIR)\lib\Qt6Guid.lib;$(QTDIR)\lib\Qt6Cored.lib;$(QTDIR)\lib\Qt6EntryPointd.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\build_libraries\debug\OpenAL;.\library_includes\Lua;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
       <OutputFile>$(OutDir)\3D-programmering.exe</OutputFile>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
@@ -184,7 +182,7 @@
     </QtUic>
     <QtMoc>
       <CompilerFlavor>msvc</CompilerFlavor>
-      <Include>C:/Users/edvar/OneDrive/University Files 2020/5th Semester/Spillmotor/SPIM-Folder/$(Configuration)/moc_predefs.h</Include>
+      <Include>./$(Configuration)/moc_predefs.h</Include>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
       <DynamicSource>output</DynamicSource>
       <QtMocDir>$(Configuration)</QtMocDir>
@@ -192,10 +190,9 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Components\AudioComponent.cpp" />
+    <ClCompile Include="Components\BaseComponent.cpp" />
     <ClCompile Include="Core\Audio.cpp" />
-    <ClCompile Include="Materials\materialparticle.cpp" />
-    <ClCompile Include="Materials\materialbillboard.cpp" />
-    <ClCompile Include="Materials\materialparticleOld.cpp" />
     <ClCompile Include="Math\Barycentric.cpp" />
     <ClCompile Include="Math\BezierCurve.cpp" />
     <ClCompile Include="Mesh\Billboard.cpp" />
@@ -210,17 +207,15 @@
     <ClCompile Include="Light\Light.cpp" />
     <ClCompile Include="Mesh\ObjLoader.cpp" />
     <ClCompile Include="Mesh\OctahedronBall.cpp" />
+    <ClCompile Include="Particles\ParticleSystem.cpp" />
     <ClCompile Include="Mesh\Player\Player.cpp" />
     <ClCompile Include="Mesh\PointCloud.cpp" />
-    <ClCompile Include="Particles\ParticleSystem.cpp" />
-    <ClCompile Include="Particles\ParticleSystemOld.cpp" />
     <ClCompile Include="Math\Random.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="Scenes\Scene0.cpp" />
     <ClCompile Include="Scenes\Scene1.cpp" />
     <ClCompile Include="Scenes\SceneSwitcher.cpp" />
     <ClCompile Include="Mesh\SkyBox.cpp" />
-    <ClCompile Include="Shaders\SkyBoxShader.cpp" />
     <ClCompile Include="Math\SortCoords.cpp" />
     <ClCompile Include="Mesh\Triangle.cpp" />
     <ClCompile Include="Mesh\TriangleSurface.cpp" />
@@ -235,21 +230,24 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="Core\material.cpp" />
+    <ClCompile Include="Materials\materialbillboard.cpp" />
     <ClCompile Include="Materials\materialcubemap.cpp" />
     <ClCompile Include="Core\materiallist.cpp" />
+    <ClCompile Include="Materials\materialparticle.cpp" />
     <ClCompile Include="Materials\materialphong.cpp" />
     <ClCompile Include="Materials\materialplain.cpp" />
     <ClCompile Include="Materials\materialtexture.cpp" />
+    <ClCompile Include="Terrain\proceduralterrain.cpp" />
     <ClCompile Include="Core\quadtree.cpp" />
     <ClCompile Include="renderwindow.cpp" />
     <ClCompile Include="Core\shader.cpp" />
+    <ClCompile Include="Terrain\terrainbasechunk.cpp" />
     <ClCompile Include="Core\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components\AudioComponent.h" />
+    <ClInclude Include="Components\BaseComponent.h" />
     <ClInclude Include="Core\Audio.h" />
-    <ClInclude Include="Materials\materialparticle.h" />
-    <ClInclude Include="Materials\materialbillboard.h" />
-    <ClInclude Include="Materials\materialparticleOld.h" />
     <ClInclude Include="Math\Barycentric.h" />
     <ClInclude Include="Math\BezierCurve.h" />
     <ClInclude Include="Mesh\Billboard.h" />
@@ -257,6 +255,7 @@
     <ClInclude Include="Core\CollisionShapes.h" />
     <ClInclude Include="Mesh\Disc.h" />
     <ClInclude Include="Mesh\Equidistance.h" />
+    <ClInclude Include="library_includes\Noise\FastNoiseLite.h" />
     <ClInclude Include="Mesh\Heightmap.h" />
     <ClInclude Include="Mesh\Player\InteractiveObject.h" />
     <ClInclude Include="Mesh\Kube.h" />
@@ -264,17 +263,15 @@
     <ClInclude Include="Light\Light.h" />
     <ClInclude Include="Mesh\ObjLoader.h" />
     <ClInclude Include="Mesh\OctahedronBall.h" />
+    <ClInclude Include="Particles\ParticleSystem.h" />
     <ClInclude Include="Mesh\Player\Player.h" />
     <ClInclude Include="Mesh\PointCloud.h" />
-    <ClInclude Include="Particles\ParticleSystem.h" />
-    <ClInclude Include="Particles\ParticleSystemOld.h" />
     <ClInclude Include="Math\Random.h" />
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="Scenes\Scene0.h" />
     <ClInclude Include="Scenes\Scene1.h" />
     <ClInclude Include="Scenes\SceneSwitcher.h" />
     <ClInclude Include="Mesh\SkyBox.h" />
-    <ClInclude Include="Shaders\SkyBoxShader.h" />
     <ClInclude Include="Math\SortCoords.h" />
     <ClInclude Include="Mesh\Triangle.h" />
     <ClInclude Include="Mesh\TriangleSurface.h" />
@@ -296,17 +293,21 @@
     <QtMoc Include="mainwindow.h">
     </QtMoc>
     <ClInclude Include="Core\material.h" />
+    <ClInclude Include="Materials\materialbillboard.h" />
     <ClInclude Include="Materials\materialcubemap.h" />
     <ClInclude Include="Core\materiallist.h" />
+    <ClInclude Include="Materials\materialparticle.h" />
     <ClInclude Include="Materials\materialphong.h" />
     <ClInclude Include="Materials\materialplain.h" />
     <ClInclude Include="Materials\materialtexture.h" />
+    <ClInclude Include="Terrain\proceduralterrain.h" />
     <ClInclude Include="Core\quadtree.h" />
     <QtMoc Include="renderwindow.h">
     </QtMoc>
     <ClInclude Include="Core\shader.h" />
     <ClInclude Include="stb_image\stb_image.cpp" />
     <ClInclude Include="stb_image\stb_image.h" />
+    <ClInclude Include="Terrain\terrainbasechunk.h" />
     <ClInclude Include="Lua_files\test0.lua" />
     <ClInclude Include="Lua_files\test1.lua" />
     <ClInclude Include="Lua_files\test1.out" />
@@ -345,12 +346,8 @@
     <None Include="Assets\Texture\hund.bmp" />
     <None Include="Assets\Texture\skybox\left.jpg" />
     <None Include="Assets\Texture\linus.bmp" />
-    <None Include="Shaders\billboardShader.frag" />
-    <None Include="Shaders\billboardShader.vert" />
     <None Include="Shaders\particleshader.frag" />
     <None Include="Shaders\particleshader.vert" />
-    <None Include="Shaders\particleshaderOld.frag" />
-    <None Include="Shaders\particleshaderOld.vert" />
     <None Include="Shaders\phongshader.frag" />
     <None Include="Shaders\phongshader.vert" />
     <None Include="Shaders\plainshader.frag" />

@@ -92,10 +92,16 @@
     <ClCompile Include="Mesh\OctahedronBall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Particles\ParticleSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Mesh\Player\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mesh\PointCloud.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Random.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\Scene.cpp">
@@ -111,9 +117,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mesh\SkyBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shaders\SkyBoxShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Math\SortCoords.cpp">
@@ -158,10 +161,16 @@
     <ClCompile Include="Core\material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Materials\materialbillboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Materials\materialcubemap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Core\materiallist.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials\materialparticle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Materials\materialphong.cpp">
@@ -173,6 +182,9 @@
     <ClCompile Include="Materials\materialtexture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Terrain\proceduralterrain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Core\quadtree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -182,25 +194,16 @@
     <ClCompile Include="Core\shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Terrain\terrainbasechunk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Core\texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Materials\materialbillboard.cpp">
+    <ClCompile Include="Components\BaseComponent.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="Particles\ParticleSystemOld.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Materials\materialparticleOld.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Particles\ParticleSystem.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Random.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Materials\materialparticle.cpp">
+    <ClCompile Include="Components\AudioComponent.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -229,6 +232,9 @@
     <ClInclude Include="Mesh\Equidistance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="library_includes\Noise\FastNoiseLite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Mesh\Heightmap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -250,10 +256,16 @@
     <ClInclude Include="Mesh\OctahedronBall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Particles\ParticleSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Mesh\Player\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Mesh\PointCloud.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Random.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\Scene.h">
@@ -269,9 +281,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Mesh\SkyBox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders\SkyBoxShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Math\SortCoords.h">
@@ -334,10 +343,16 @@
     <ClInclude Include="Core\material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Materials\materialbillboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Materials\materialcubemap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\materiallist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials\materialparticle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Materials\materialphong.h">
@@ -347,6 +362,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Materials\materialtexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain\proceduralterrain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\quadtree.h">
@@ -362,6 +380,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stb_image\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain\terrainbasechunk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Lua_files\test0.lua">
@@ -385,22 +406,10 @@
     <ClInclude Include="Core\texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Materials\materialbillboard.h">
+    <ClInclude Include="Components\BaseComponent.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="Particles\ParticleSystemOld.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Materials\materialparticleOld.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Particles\ParticleSystem.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Random.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Materials\materialparticle.h">
+    <ClInclude Include="Components\AudioComponent.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -439,6 +448,12 @@
     <None Include="Assets\Texture\linus.bmp">
       <Filter>Distribution Files</Filter>
     </None>
+    <None Include="Shaders\particleshader.frag">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="Shaders\particleshader.vert">
+      <Filter>Distribution Files</Filter>
+    </None>
     <None Include="Shaders\phongshader.frag">
       <Filter>Distribution Files</Filter>
     </None>
@@ -475,11 +490,5 @@
     <None Include="Assets\Texture\skybox\top.jpg">
       <Filter>Distribution Files</Filter>
     </None>
-    <None Include="Shaders\billboardShader.frag" />
-    <None Include="Shaders\billboardShader.vert" />
-    <None Include="Shaders\particleshaderOld.frag" />
-    <None Include="Shaders\particleshaderOld.vert" />
-    <None Include="Shaders\particleshader.frag" />
-    <None Include="Shaders\particleshader.vert" />
   </ItemGroup>
 </Project>

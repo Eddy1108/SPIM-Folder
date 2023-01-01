@@ -5,9 +5,14 @@ struct ParticleProperties {
 	glm::vec3 Position;
 	glm::vec3 Velocity, VelocityVariation;
 	glm::vec4 ColorBegin, ColorEnd;
+	int SpawnRate{ 1 };
 	float SizeBegin, SizeEnd, SizeVariation;
 	float LifeTime{ 1.0f };
 	bool bFaceCamera{ false };
+	bool bUseGravity{ false };
+	bool bSizeOverTime{ false };
+	bool bColorOverTime{ false };
+	bool bTransparencyOverTime{ false };
 };
 
 class ParticleSystem : public VisualObject
@@ -28,16 +33,27 @@ public:
 	void Emit(const ParticleProperties& particleProps);
 
 private:
+
+	double timeTaken{ 0.f };
+	int mSpawnedSoFar{ 0 };
+
 	struct Particle {
 		glm::vec3 mPosition;
 		glm::vec3 mVelocity;
 		glm::vec4 mColorBegin, mColorEnd;
+		int mSpawnRate{ 1 };
 		float mRotation{ 0.0f };
 		float mSizeBegin, mSizeEnd;
 		float mLifeTime{ 1.0f };
 		float mLifeRemaining = 0.0f;
+		float mAlphaBegin, mAlphaEnd;
 
 		bool bFaceCam{ false };
+		bool bUseGravity{ false };
+		bool bSizeOverTime{ false };
+		bool bColorOverTime{ false };
+		bool bTransparencyOverTime{ false };
+
 		bool Active{ false };
 	};
 

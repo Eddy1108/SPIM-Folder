@@ -115,7 +115,7 @@ void VisualObject::initTexture()
 	glBindVertexArray(0);	//release
 
 	//init Components here
-	StartAudio();
+	//StartAudio();
 }
 
 void VisualObject::draw()
@@ -127,7 +127,7 @@ void VisualObject::draw()
 
 
 	//Render Components here
-    UpdateAudio();
+    //UpdateAudio();
 }
 
 void VisualObject::setMaterial(std::string materialName)
@@ -204,26 +204,21 @@ std::string VisualObject::getName() const
 	return mName;
 }
 
-void VisualObject::StartAudio()
+//Use in init call
+void VisualObject::initComponents()
 {
-	if (AudioVec.size() > 0)
+	for (auto it = mComponents.begin(); it != mComponents.end(); it++)
 	{
-		for (int i = 0; i < AudioVec.size(); i++)
-		{
-			AudioVec[i]->PlayAudio(1.f,1.f,true, mPosition);
-		}
+		(*it).second->init();
 	}
 }
 
-void VisualObject::UpdateAudio()
+//Use in draw call
+void VisualObject::updateComponents()
 {
-	if (AudioVec.size() > 0)
+	for (auto it = mComponents.begin(); it != mComponents.end(); it++)
 	{
-		for (int i = 0; i < AudioVec.size(); i++)
-		{
-			AudioVec[i]->UpdateAudio(1.f, 1.f, mPosition);
-			AudioVec[i]->UpdateListener(RenderWindow::mCurrentCamera->getPos(), glm::vec3{ 0.f,0.f,0.f }, RenderWindow::mCurrentCamera->GetUp(), RenderWindow::mCurrentCamera->GetForward());
-		}
+		(*it).second->update();
 	}
 }
 

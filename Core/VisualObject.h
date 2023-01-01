@@ -13,6 +13,8 @@
 #include "Core/Audio.h"
 #include "material.h"
 
+#include "Components/BaseComponent.h"
+
 class RenderWindow;
 class MaterialList;
 
@@ -39,6 +41,7 @@ public:
 
 	void setName(std::string name);
 	std::string getName() const;
+    std::string mMaterialName;
 
     glm::mat4 mMatrix = glm::mat4{ 1.0f };
     float mx{0.f}, my{0.f}, mz{0.f}; // position
@@ -53,11 +56,15 @@ public:
 
 	bool bPlay{ true };
 
-    std::string mMaterialName;
 
+	std::unordered_map<std::string, BaseComponent*> mComponents;
 
 
 protected:
+
+	void initComponents();
+	void updateComponents();
+
     Material* mMaterial{nullptr};
 
 	GLuint mVAO{ 0 };
@@ -71,8 +78,4 @@ protected:
 	std::string mName;
 
 	std::vector<Audio*> AudioVec;
-
-	virtual void LoadAudio() { ; }
-	void StartAudio();
-	void UpdateAudio();
 };
