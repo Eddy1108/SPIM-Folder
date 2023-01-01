@@ -18,6 +18,14 @@ TerrainBaseChunk::TerrainBaseChunk(const int seed,
 
     mNoiseContinentalData.clear();
     mNoiseHeightOffsetData.clear();
+
+    //Generate water
+    mWater = new TerrainWater(0, mPos, mChunkSize, "materialplain");
+}
+
+TerrainBaseChunk::~TerrainBaseChunk()
+{
+    delete mWater;
 }
 
 void TerrainBaseChunk::generateFastNoise()
@@ -36,11 +44,21 @@ void TerrainBaseChunk::generateFastNoise()
                                              mChunkComplexity, mChunkComplexity);
     }
 
+    // -- Extreme Mountain Noise --
+    // Side note: This is used to generate giant mountains in certain spots to create more variation between each mountains highest peak
+    // Create and configure FastNoise object
+    if(!mNoiseMountainPeaks) {
+        mNoiseMountainPeaks = new FastNoiseLite(mSeed);
+        noiseMountainPeaksTransformations();
+        mNoiseMountainPeaksData = getNoiseData(mNoiseMountainPeaks, noiseCoords,
+                                             mChunkComplexity, mChunkComplexity);
+    }
+
     // -- Height Offset Noise --
     // Create and configure FastNoise object
     if(!mNoiseHeightOffset) {
         mNoiseHeightOffset = new FastNoiseLite(mSeed);
-        noiseContinentalnessTransformation();
+        noiseHeightOffsetTransformation();
         mNoiseHeightOffsetData = getNoiseData(mNoiseHeightOffset, noiseCoords,
                                               mChunkComplexity, mChunkComplexity);
     }
@@ -79,10 +97,20 @@ void TerrainBaseChunk::noiseContinentalnessTransformation()
         mNoiseContinental->SetFractalOctaves(4);
         mNoiseContinental->SetFractalLacunarity(2);
         mNoiseContinental->SetFractalGain(0.4f);
-        mContinentalIntensity = 2;
+        mContinentalIntensity = 10;
         break;
     }
 
+}
+
+void TerrainBaseChunk::noiseMountainPeaksTransformations()
+{
+    mNoiseMountainPeaks->SetNoiseType(FastNoiseLite::NoiseType_OpenSimplex2S);
+    mNoiseMountainPeaks->SetFractalType(FastNoiseLite::FractalType_FBm);
+    mNoiseMountainPeaks->SetFrequency(0.001f);
+    mNoiseMountainPeaks->SetFractalOctaves(1);
+    mNoiseMountainPeaks->SetFractalLacunarity(0);
+    mNoiseMountainPeaks->SetFractalGain(0);
 }
 
 void TerrainBaseChunk::noiseHeightOffsetTransformation()
@@ -109,7 +137,7 @@ void TerrainBaseChunk::generateChunk(glm::vec2 coords)
     float xOffset = -mChunkSize/2, yOffset = -mChunkSize/2;
 
     //Normal / Color
-
+    //...
 
     float iteratorIncrement = std::pow(2, mLevelOfDetail);
     float delta = mChunkSize/(mChunkComplexity-1);
@@ -163,11 +191,18 @@ float TerrainBaseChunk::getHeight(int i, int j)
     int dataIndex = i + j * mChunkComplexity;
     // ---- Gather noise data ----
     float valContinental = mNoiseContinentalData[dataIndex] * mContinentalIntensity;
+    float mountainPeaksLimit = 0.6f;
+    float mountainPeaksMaxHeight = 0.889f;
+    float mountainPeaksRatio = (mNoiseMountainPeaksData[dataIndex] - mountainPeaksLimit) / (0.889f - mountainPeaksLimit);
+    float valMountainPeaks = (mountainPeaksRatio >= 0) ? (mountainPeaksRatio*mMountainPeaksIntensity + 1) : 1;
     float valHeightOffset = mNoiseHeightOffsetData[dataIndex] * mNoiseHeighOffsetIntensity;
     // ---- Add together ----
-    float z = valContinental;
+
+    float z = valContinental/* * valMountainPeaks*/;
 
     //z += std::clamp(valHeightOffset, 0.0f, 1.f);
+
+
     z+= valHeightOffset;
     ///Should be done last
     z += mHeightOffset;
@@ -266,6 +301,9 @@ void TerrainBaseChunk::init()
     glEnableVertexAttribArray(2);
 
     glBindVertexArray(0);	//release
+
+    //Init Water
+    mWater->init();
 }
 
 void TerrainBaseChunk::draw()
@@ -275,4 +313,7 @@ void TerrainBaseChunk::draw()
     glBindVertexArray(mVAO);
     glDrawElements(GL_TRIANGLES, mIndices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
+
+    //Draw water
+    mWater->draw();
 }

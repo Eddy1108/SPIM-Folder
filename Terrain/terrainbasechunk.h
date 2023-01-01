@@ -2,6 +2,7 @@
 #define TERRAINBASECHUNK_H
 
 #include "Core/VisualObject.h"
+#include "terrainwater.h"
 
 
 enum BiomeType
@@ -17,6 +18,8 @@ class TerrainBaseChunk : public VisualObject
 {
 public:
     TerrainBaseChunk(const int seed, glm::vec2 position, BiomeType biomeType, const float chunkSize = 20, const unsigned int chunkComplexity = 128, std::string materialName = "materialplane", const short unsigned int LevelOfDetaial = 0);
+    ~TerrainBaseChunk();
+
 
     void init() override;
     void draw() override;
@@ -28,6 +31,7 @@ public:
 private:
     void generateFastNoise();
     void noiseContinentalnessTransformation();
+    void noiseMountainPeaksTransformations();
     void noiseHeightOffsetTransformation();
 
     void generateChunk(glm::vec2 coords);
@@ -48,15 +52,23 @@ private:
     float mContinentalIntensity{1};
     float mNoiseHeighOffsetIntensity{1};
 
+    float mMountainPeaksIntensity{2};
+
     BiomeType mBiomeType{Mountains};
 
     // ---- Noise ----
     //Continental
     FastNoiseLite* mNoiseContinental{nullptr};
     std::vector<float> mNoiseContinentalData;
+    //Extreme Mountains
+    FastNoiseLite* mNoiseMountainPeaks{nullptr};
+    std::vector<float> mNoiseMountainPeaksData;
     //Height Offset
     FastNoiseLite* mNoiseHeightOffset{nullptr};
     std::vector<float> mNoiseHeightOffsetData;
+
+    // ---- Water ----
+    TerrainWater* mWater {nullptr};
 
 };
 
