@@ -50,7 +50,13 @@
     <ClCompile Include="Core\Audio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Components\AudioComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Math\Barycentric.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\BaseComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Math\BezierCurve.cpp">
@@ -197,16 +203,16 @@
     <ClCompile Include="Terrain\terrainbasechunk.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Terrain\terrainwater.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Core\texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Components\BaseComponent.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\AudioComponent.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="Components\MeshComponent.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ParticleComponent.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -214,7 +220,13 @@
     <ClInclude Include="Core\Audio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Components\AudioComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Math\Barycentric.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\BaseComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Math\BezierCurve.h">
@@ -388,6 +400,9 @@
     <ClInclude Include="Terrain\terrainbasechunk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Terrain\terrainwater.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Lua_files\test0.lua">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -409,13 +424,10 @@
     <ClInclude Include="Core\texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Components\BaseComponent.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\AudioComponent.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="Components\MeshComponent.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\ParticleComponent.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

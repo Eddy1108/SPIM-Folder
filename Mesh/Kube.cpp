@@ -1,5 +1,7 @@
 #include "Kube.h"
 
+#include "Scenes/Scene0.h"
+
 Kube::Kube(std::string materialName)
     :VisualObject(materialName)
 {
@@ -147,12 +149,16 @@ void Kube::init()
 	VisualObject::init();
 
 
-	BaseComponent* temp = new AudioComponent(this, "WhereMono.wav", false);
+	BaseComponent* temp = new AudioComponent(this, "WhereMono.wav", true);
 	temp->setName("AudioComponent");
 	mComponents.insert(std::pair<std::string, BaseComponent*>{(temp)->mComponentName, temp});
 
-	temp = new MeshComponent(this, "crew.obj", true, glm::vec3{ 0.f,0.f,2.f }, true);
+	temp = new MeshComponent(this, "crew.obj", true, glm::vec3{ 0.f,0.f,1.f }, true);
 	temp->setName("MeshCoponent");
+	mComponents.insert(std::pair<std::string, BaseComponent*>{(temp)->mComponentName, temp});
+
+	temp = new ParticleComponent(this, true, true, nullptr, glm::vec3{ 0.f,0.f,-1.f });
+	temp->setName("ParticleComponent");
 	mComponents.insert(std::pair<std::string, BaseComponent*>{(temp)->mComponentName, temp});
 	
 	VisualObject::initComponents();

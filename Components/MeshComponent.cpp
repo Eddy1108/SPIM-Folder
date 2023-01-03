@@ -12,7 +12,7 @@ void MeshComponent::init()
 {
 	if (bAttachToParent)
 	{
-		mObjLoader->mMatrix = mParent->mMatrix;	//We copy the matrix to make sure rotation and scale is also tranfered over.
+		mObjLoader->mMatrix = mParent->mMatrix;	//We copy the matrix to make sure rotation and scale is also copied over.
 		mObjLoader->move(mObjLoader->mMatrix[3].x + mPositionOffset.x, mObjLoader->mMatrix[3].y + mPositionOffset.y, mObjLoader->mMatrix[3].z + mPositionOffset.z);
 	}
 	mObjLoader->init();

@@ -190,12 +190,12 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Components\AudioComponent.cpp" />
-    <ClCompile Include="Components\BaseComponent.cpp" />
-    <ClCompile Include="Core\Audio.cpp" />
-    <ClCompile Include="Math\Barycentric.cpp" />
-    <ClCompile Include="Math\BezierCurve.cpp" />
     <ClCompile Include="Components\MeshComponent.cpp" />
+    <ClCompile Include="Core\Audio.cpp" />
+    <ClCompile Include="Components\AudioComponent.cpp" />
+    <ClCompile Include="Math\Barycentric.cpp" />
+    <ClCompile Include="Components\BaseComponent.cpp" />
+    <ClCompile Include="Math\BezierCurve.cpp" />
     <ClCompile Include="Mesh\Billboard.cpp" />
     <ClCompile Include="Core\Camera.cpp" />
     <ClCompile Include="Core\CollisionShapes.cpp" />
@@ -208,6 +208,7 @@
     <ClCompile Include="Light\Light.cpp" />
     <ClCompile Include="Mesh\ObjLoader.cpp" />
     <ClCompile Include="Mesh\OctahedronBall.cpp" />
+    <ClCompile Include="Components\ParticleComponent.cpp" />
     <ClCompile Include="Particles\ParticleSystem.cpp" />
     <ClCompile Include="Mesh\Player\Player.cpp" />
     <ClCompile Include="Mesh\PointCloud.cpp" />
@@ -243,15 +244,16 @@
     <ClCompile Include="renderwindow.cpp" />
     <ClCompile Include="Core\shader.cpp" />
     <ClCompile Include="Terrain\terrainbasechunk.cpp" />
+    <ClCompile Include="Terrain\terrainwater.cpp" />
     <ClCompile Include="Core\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Components\AudioComponent.h" />
-    <ClInclude Include="Components\BaseComponent.h" />
-    <ClInclude Include="Core\Audio.h" />
-    <ClInclude Include="Math\Barycentric.h" />
-    <ClInclude Include="Math\BezierCurve.h" />
     <ClInclude Include="Components\MeshComponent.h" />
+    <ClInclude Include="Core\Audio.h" />
+    <ClInclude Include="Components\AudioComponent.h" />
+    <ClInclude Include="Math\Barycentric.h" />
+    <ClInclude Include="Components\BaseComponent.h" />
+    <ClInclude Include="Math\BezierCurve.h" />
     <ClInclude Include="Mesh\Billboard.h" />
     <ClInclude Include="Core\Camera.h" />
     <ClInclude Include="Core\CollisionShapes.h" />
@@ -265,6 +267,7 @@
     <ClInclude Include="Light\Light.h" />
     <ClInclude Include="Mesh\ObjLoader.h" />
     <ClInclude Include="Mesh\OctahedronBall.h" />
+    <ClInclude Include="Components\ParticleComponent.h" />
     <ClInclude Include="Particles\ParticleSystem.h" />
     <ClInclude Include="Mesh\Player\Player.h" />
     <ClInclude Include="Mesh\PointCloud.h" />
@@ -310,6 +313,7 @@
     <ClInclude Include="stb_image\stb_image.cpp" />
     <ClInclude Include="stb_image\stb_image.h" />
     <ClInclude Include="Terrain\terrainbasechunk.h" />
+    <ClInclude Include="Terrain\terrainwater.h" />
     <ClInclude Include="Lua_files\test0.lua" />
     <ClInclude Include="Lua_files\test1.lua" />
     <ClInclude Include="Lua_files\test1.out" />

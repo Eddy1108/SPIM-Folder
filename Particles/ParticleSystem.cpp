@@ -67,6 +67,7 @@ void ParticleSystem::init()
 
 void ParticleSystem::draw()
 {
+	initializeOpenGLFunctions();
 	//mMaterial->UpdateUniforms();
 
 	for (auto& particle : mParticlePool)

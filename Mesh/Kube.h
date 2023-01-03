@@ -9,6 +9,7 @@
 //Component Includes
 #include "Components/AudioComponent.h"
 #include "Components/MeshComponent.h"
+#include "Components/ParticleComponent.h"
 
 class Kube : public VisualObject
 {
