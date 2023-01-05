@@ -76,6 +76,13 @@ void ParticleSystem::draw()
 		if (!particle.Active)
 			continue;
 
+		if (particle.mLifeRemaining <= 0.0f)	//Should particle still be active?
+		{
+			particle.Active = false;
+			continue;
+		}
+		particle.mLifeRemaining -= 0.01f;
+
 		float lifeVal = particle.mLifeRemaining / particle.mLifeTime;
 
 		//Calc Color over time
@@ -98,6 +105,18 @@ void ParticleSystem::draw()
 		else
 			size = particle.mSizeBegin;
 		
+		//Update Rotation
+		particle.mRotation += 0.01f * 0.01f;
+
+		//Update Position
+		if (particle.bUseGravity)
+		{
+			particle.mVelocity = particle.mVelocity + glm::vec3{ 0.f,0,-9.81f } *0.01f;	//Apply gravity
+			particle.mPosition += particle.mVelocity * 0.01f;
+		}
+		else
+			particle.mPosition += particle.mVelocity * 0.01f;
+
 		//Calc transform
 		glm::mat4 transform;
 		if (particle.bFaceCam)
@@ -124,7 +143,7 @@ void ParticleSystem::draw()
 
 
 	}
-	Update();
+	//Update();
 }
 
 glm::mat4 ParticleSystem::RotateToCamMatrix()
