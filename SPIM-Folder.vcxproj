@@ -16,8 +16,7 @@
     <Keyword>QtVS_v304</Keyword>
     <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
-    <QtMsBuild Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
-  </PropertyGroup>
+  <QtMsBuild Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild></PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <PlatformToolset>v143</PlatformToolset>
@@ -37,10 +36,7 @@
     <IntermediateDirectory>debug\</IntermediateDirectory>
     <PrimaryOutput>3D-programmering</PrimaryOutput>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
-    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
-  </Target>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" /><Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')"><Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." /></Target>
   <ImportGroup Label="ExtensionSettings" />
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
@@ -48,34 +44,8 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
   </ImportGroup>
-  <PropertyGroup Label="UserMacros" />
-  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
-    <Import Project="$(QtMsBuild)\qt_defaults.props" />
-  </ImportGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>debug\</OutDir>
-    <IntDir>debug\</IntDir>
-    <TargetName>3D-programmering</TargetName>
-    <IgnoreImportLibrary>true</IgnoreImportLibrary>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>release\</OutDir>
-    <IntDir>release\</IntDir>
-    <TargetName>3D-programmering</TargetName>
-    <IgnoreImportLibrary>true</IgnoreImportLibrary>
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <QtInstall>6.4.0_msvc2019_64</QtInstall>
-    <QtModules>core;gui;widgets;opengl</QtModules>
-  </PropertyGroup>
-  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <QtInstall>6.4.0_msvc2019_64</QtInstall>
-    <QtModules>core;gui;widgets;opengl</QtModules>
-  </PropertyGroup>
-  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
-    <Import Project="$(QtMsBuild)\qt.props" />
-  </ImportGroup>
+  <PropertyGroup Label="UserMacros" /><ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')"><Import Project="$(QtMsBuild)\qt_defaults.props" /></ImportGroup><PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"><OutDir>debug\</OutDir><IntDir>debug\</IntDir><TargetName>3D-programmering</TargetName><IgnoreImportLibrary>true</IgnoreImportLibrary></PropertyGroup><PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'"><OutDir>release\</OutDir><IntDir>release\</IntDir><TargetName>3D-programmering</TargetName><IgnoreImportLibrary>true</IgnoreImportLibrary><LinkIncremental>false</LinkIncremental></PropertyGroup><PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"><QtInstall>6.4.0_msvc2019_64</QtInstall><QtModules>core;gui;widgets;opengl</QtModules></PropertyGroup><PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'"><QtInstall>6.4.0_msvc2019_64</QtInstall><QtModules>core;gui;widgets;opengl</QtModules></PropertyGroup><ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')"><Import Project="$(QtMsBuild)\qt.props" /></ImportGroup>
+  
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;.;build_libraries\debug\OpenAL;library_includes;library_includes\Lua;release;/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -90,15 +60,13 @@
       <Optimization>MaxSpeed</Optimization>
       <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;NDEBUG;QT_NO_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
-      <ProgramDataBaseFileName>
-      </ProgramDataBaseFileName>
+      <ProgramDataBaseFileName></ProgramDataBaseFileName>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-    </ClCompile>
+    <MultiProcessorCompilation>true</MultiProcessorCompilation></ClCompile>
     <Link>
       <AdditionalDependencies>"C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\build_libraries\debug\OpenAL\OpenAL32.lib";"C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\library_includes\Lua\lua5.4.3-static.lib";"C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\library_includes\Lua\luac.lib";$(QTDIR)\lib\Qt6Widgets.lib;$(QTDIR)\lib\Qt6OpenGL.lib;$(QTDIR)\lib\Qt6Gui.lib;$(QTDIR)\lib\Qt6Core.lib;$(QTDIR)\lib\Qt6EntryPoint.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\build_libraries\debug\OpenAL;C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\library_includes\Lua;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -122,20 +90,7 @@
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;NDEBUG;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_OPENGL_LIB;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
-    <QtMoc>
-      <CompilerFlavor>msvc</CompilerFlavor>
-      <Include>C:/Users/edvar/OneDrive/University Files 2020/5th Semester/Spillmotor/SPIM-Folder/$(Configuration)/moc_predefs.h</Include>
-      <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
-      <DynamicSource>output</DynamicSource>
-      <QtMocDir>$(Configuration)</QtMocDir>
-      <QtMocFileName>moc_%(Filename).cpp</QtMocFileName>
-    </QtMoc>
-    <QtUic>
-      <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
-      <QtUicDir>$(ProjectDir)</QtUicDir>
-      <QtUicFileName>ui_%(Filename).h</QtUicFileName>
-    </QtUic>
-  </ItemDefinitionGroup>
+  <QtMoc><CompilerFlavor>msvc</CompilerFlavor><Include>C:/Users/edvar/OneDrive/University Files 2020/5th Semester/Spillmotor/SPIM-Folder/$(Configuration)/moc_predefs.h</Include><ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription><DynamicSource>output</DynamicSource><QtMocDir>$(Configuration)</QtMocDir><QtMocFileName>moc_%(Filename).cpp</QtMocFileName></QtMoc><QtUic><ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription><QtUicDir>$(ProjectDir)</QtUicDir><QtUicFileName>ui_%(Filename).h</QtUicFileName></QtUic></ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>GeneratedFiles\$(ConfigurationName);GeneratedFiles;.;build_libraries\debug\OpenAL;library_includes;library_includes\Lua;debug;/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -155,8 +110,7 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-    </ClCompile>
+    <MultiProcessorCompilation>true</MultiProcessorCompilation></ClCompile>
     <Link>
       <AdditionalDependencies>"C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\build_libraries\debug\OpenAL\OpenAL32.lib";"C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\library_includes\Lua\lua5.4.3-static.lib";"C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\library_includes\Lua\luac.lib";$(QTDIR)\lib\Qt6Widgetsd.lib;$(QTDIR)\lib\Qt6OpenGLd.lib;$(QTDIR)\lib\Qt6Guid.lib;$(QTDIR)\lib\Qt6Cored.lib;$(QTDIR)\lib\Qt6EntryPointd.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\build_libraries\debug\OpenAL;C:\Users\edvar\OneDrive\University Files 2020\5th Semester\Spillmotor\SPIM-Folder\library_includes\Lua;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -177,23 +131,8 @@
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_WIDGETS_LIB;QT_OPENGL_LIB;QT_GUI_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
-    <QtUic>
-      <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
-      <QtUicDir>$(ProjectDir)</QtUicDir>
-      <QtUicFileName>ui_%(Filename).h</QtUicFileName>
-    </QtUic>
-    <QtMoc>
-      <CompilerFlavor>msvc</CompilerFlavor>
-      <Include>C:/Users/edvar/OneDrive/University Files 2020/5th Semester/Spillmotor/SPIM-Folder/$(Configuration)/moc_predefs.h</Include>
-      <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
-      <DynamicSource>output</DynamicSource>
-      <QtMocDir>$(Configuration)</QtMocDir>
-      <QtMocFileName>moc_%(Filename).cpp</QtMocFileName>
-    </QtMoc>
-  </ItemDefinitionGroup>
+  <QtUic><ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription><QtUicDir>$(ProjectDir)</QtUicDir><QtUicFileName>ui_%(Filename).h</QtUicFileName></QtUic><QtMoc><CompilerFlavor>msvc</CompilerFlavor><Include>C:/Users/edvar/OneDrive/University Files 2020/5th Semester/Spillmotor/SPIM-Folder/$(Configuration)/moc_predefs.h</Include><ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription><DynamicSource>output</DynamicSource><QtMocDir>$(Configuration)</QtMocDir><QtMocFileName>moc_%(Filename).cpp</QtMocFileName></QtMoc></ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Components\MeshComponent.cpp" />
-    <ClCompile Include="Components\ParticleComponent.cpp" />
     <ClCompile Include="Core\Audio.cpp" />
     <ClCompile Include="Components\AudioComponent.cpp" />
     <ClCompile Include="Math\Barycentric.cpp" />
@@ -209,8 +148,10 @@
     <ClCompile Include="Mesh\Kube.cpp" />
     <ClCompile Include="Mesh\LAZSurface.cpp" />
     <ClCompile Include="Light\Light.cpp" />
+    <ClCompile Include="Components\MeshComponent.cpp" />
     <ClCompile Include="Mesh\ObjLoader.cpp" />
     <ClCompile Include="Mesh\OctahedronBall.cpp" />
+    <ClCompile Include="Components\ParticleComponent.cpp" />
     <ClCompile Include="Particles\ParticleSystem.cpp" />
     <ClCompile Include="Mesh\Player\Player.cpp" />
     <ClCompile Include="Mesh\PointCloud.cpp" />
@@ -250,8 +191,6 @@
     <ClCompile Include="Core\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Components\MeshComponent.h" />
-    <ClInclude Include="Components\ParticleComponent.h" />
     <ClInclude Include="Core\Audio.h" />
     <ClInclude Include="Components\AudioComponent.h" />
     <ClInclude Include="Math\Barycentric.h" />
@@ -268,8 +207,10 @@
     <ClInclude Include="Mesh\Kube.h" />
     <ClInclude Include="Mesh\LAZSurface.h" />
     <ClInclude Include="Light\Light.h" />
+    <ClInclude Include="Components\MeshComponent.h" />
     <ClInclude Include="Mesh\ObjLoader.h" />
     <ClInclude Include="Mesh\OctahedronBall.h" />
+    <ClInclude Include="Components\ParticleComponent.h" />
     <ClInclude Include="Particles\ParticleSystem.h" />
     <ClInclude Include="Mesh\Player\Player.h" />
     <ClInclude Include="Mesh\PointCloud.h" />
@@ -298,6 +239,14 @@
     <ClInclude Include="Lua_files\luafunctiontest.h" />
     <ClInclude Include="library_includes\Lua\lualib.h" />
     <QtMoc Include="mainwindow.h">
+      
+      
+      
+      
+      
+      
+      
+      
     </QtMoc>
     <ClInclude Include="Core\material.h" />
     <ClInclude Include="Materials\materialbillboard.h" />
@@ -310,6 +259,14 @@
     <ClInclude Include="Terrain\proceduralterrain.h" />
     <ClInclude Include="Core\quadtree.h" />
     <QtMoc Include="renderwindow.h">
+      
+      
+      
+      
+      
+      
+      
+      
     </QtMoc>
     <ClInclude Include="Core\shader.h" />
     <ClInclude Include="stb_image\stb_image.cpp" />
@@ -325,6 +282,8 @@
     <ClInclude Include="Core\texture.h" />
   </ItemGroup>
   <ItemGroup>
+    
+    
     <CustomBuild Include="debug\moc_predefs.h.cbt">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -341,9 +300,21 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\moc_predefs.h;%(Outputs)</Outputs>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </CustomBuild>
+    
+    
+    
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="mainwindow.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
     </QtUic>
   </ItemGroup>
   <ItemGroup>
@@ -369,9 +340,6 @@
     <None Include="Shaders\textureshader.vert" />
     <None Include="Assets\Texture\skybox\top.jpg" />
   </ItemGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
-    <Import Project="$(QtMsBuild)\qt.targets" />
-  </ImportGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" /><ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')"><Import Project="$(QtMsBuild)\qt.targets" /></ImportGroup>
   <ImportGroup Label="ExtensionTargets" />
 </Project>

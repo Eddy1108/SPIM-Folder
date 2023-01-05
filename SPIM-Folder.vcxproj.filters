@@ -92,10 +92,16 @@
     <ClCompile Include="Light\Light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Components\MeshComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Mesh\ObjLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mesh\OctahedronBall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ParticleComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Particles\ParticleSystem.cpp">
@@ -209,12 +215,6 @@
     <ClCompile Include="Core\texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Components\MeshComponent.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\ParticleComponent.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Audio.h">
@@ -265,10 +265,16 @@
     <ClInclude Include="Light\Light.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Components\MeshComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Mesh\ObjLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Mesh\OctahedronBall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\ParticleComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Particles\ParticleSystem.h">
@@ -424,20 +430,19 @@
     <ClInclude Include="Core\texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Components\MeshComponent.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\ParticleComponent.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    
+    
     <CustomBuild Include="debug\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
     <CustomBuild Include="release\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
+    
+    
+    
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="mainwindow.ui">
