@@ -5,7 +5,7 @@
 #include "renderwindow.h"
 #include "Core/Camera.h"
 
-ProceduralTerrain::ProceduralTerrain(Camera* camera, const float seed std::string materialName) : VisualObject(materialName), mCamera(camera), mSeed(seed)
+ProceduralTerrain::ProceduralTerrain(Camera* camera, const float seed, std::string materialName) : VisualObject(materialName), mCamera(camera), mSeed(seed)
 {
     mQuadTree = new QuadTree();
 
