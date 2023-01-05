@@ -125,8 +125,6 @@ void ParticleSystem::draw()
 
 	}
 	Update();
-
-	//std::cout << "DRAW CALL DONE" << std::endl;
 }
 
 glm::mat4 ParticleSystem::RotateToCamMatrix()
@@ -161,7 +159,6 @@ void ParticleSystem::Update()
 			particle.Active = false;
 			continue;
 		}
-
 		particle.mLifeRemaining -= 0.01f;
 
 		//Update Rotation
@@ -176,6 +173,7 @@ void ParticleSystem::Update()
 		else
 			particle.mPosition += particle.mVelocity * 0.01f;
 
+		//multiplying by 0.01f instead of using deltatime for now
 
 		//Deltatime version, buggy atm
 		//particle.mLifeRemaining -= RenderWindow::mDeltaTime;

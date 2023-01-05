@@ -60,7 +60,7 @@ void Scene0::objects()
     mObjects.push_back(temp = new Kube("materialplain"));
     temp->setName("Kube");
 
-    mObjects.push_back(temp = new ProceduralTerrain(mCamera, "materialplain"));
+    mObjects.push_back(temp = new ProceduralTerrain(mCamera, 20, "materialplain"));
     temp->setName("Terrain");
 
     
