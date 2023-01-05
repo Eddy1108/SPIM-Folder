@@ -13,7 +13,7 @@ class ProceduralTerrain : public VisualObject
 {
 public:
     //const std::string materialName{"materialplain"};
-    ProceduralTerrain(Camera* camera, std::string materialName = "materialplain");
+    ProceduralTerrain(Camera* camera, const float seed, std::string materialName = "materialplain");
     ~ProceduralTerrain();
     void init();
     void draw();
