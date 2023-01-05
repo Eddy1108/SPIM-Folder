@@ -14,7 +14,7 @@ Scene0::Scene0()
     mSkybox = new SkyBox("materialskybox");
 
 
-    // ---- Particle settings Example ----
+    // ---- Particle Properties Example ----
     //mParticle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
     //mParticle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
     //mParticle.SizeBegin = 0.8f, mParticle.SizeVariation = 0.3f, mParticle.SizeEnd = 0.0f;
@@ -23,6 +23,10 @@ Scene0::Scene0()
     //mParticle.VelocityVariation = { 3.0f, 3.0f, 3.0f };
     //mParticle.Position = { 0.0f, 0.0f, 0.0f };
     //mParticle.bFaceCamera = false;
+    //mParticle.bUseGravity = true;
+    //mParticle.bSizeOverTime = false;
+    //mParticle.bColorOverTime = false;
+    //mParticle.bTransparencyOverTime = true;
 
     mParticle.ColorBegin = { 1, 1, 1, 1.0f };
     mParticle.ColorEnd = { 244/255.0f, 211/255.0f, 35/255.0f, 0.0f };
@@ -53,14 +57,8 @@ void Scene0::objects()
     mObjects.push_back(temp = new XYZ("materialplain"));
     temp->setName("XYZ");
 
-    //mObjects.push_back(temp = new ObjLoader("materialplain", "../SPIM-Folder/Assets/models/crew.obj"));
-    //temp->setName("Amongus");
-
     mObjects.push_back(temp = new Kube("materialplain"));
     temp->setName("Kube");
-
-//    mObjects.push_back(temp = new Billboard("materialtexture", mCamera));
-//    temp->setName("Billboard");
 
     mObjects.push_back(temp = new ProceduralTerrain(mCamera, "materialplain"));
     temp->setName("Terrain");
@@ -104,7 +102,7 @@ void Scene0::init()
 void Scene0::draw()
 {
  
-    mParticleSystem->Emit(mParticle);
+    mParticleSystem->Spawn(mParticle);
 
     Scene::draw();
 }

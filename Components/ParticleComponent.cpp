@@ -41,7 +41,7 @@ void ParticleComponent::update()
 	{
 		glm::vec3 parentPos = mParent->getPosition3D();
 		mParticleProps->Position = parentPos + mPositionOffset;
-		mParticleSystem->Emit(*mParticleProps);
+		mParticleSystem->Spawn(*mParticleProps);
 		mParticleSystem->draw();
 	}
 }

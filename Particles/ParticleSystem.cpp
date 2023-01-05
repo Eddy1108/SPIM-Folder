@@ -13,17 +13,18 @@ ParticleSystem::ParticleSystem(std::string MaterialName) : VisualObject(Material
 	mVertices.push_back(Vertex(-0.5f, 0.5f, 0.f,		1.f, 0.f, 0.f,	 0.f, 1.f)); //A
 
 
-	uint32_t indices[] = {
-	0, 1, 2, 2, 3, 0
+	int indices[] = 
+	{
+		0, 1, 2, 2, 3, 0
 	};
 
-	for (size_t i = 0; i < std::size(indices); i++)
+	for (int i = 0; i < std::size(indices); i++)
 	{
 		mIndices.push_back(indices[i]);
 	}
 
-	mMatrix = glm::mat4(1.0f);
-	mPosition = glm::vec3(0.f, 0.f, 3.f);
+	mMatrix = glm::mat4(1.0f);	//set to identity
+	mPosition = glm::vec3(0.f, 0.f, 3.f);	//standard position
 }
 
 ParticleSystem::~ParticleSystem()
@@ -150,12 +151,12 @@ void ParticleSystem::Update()
 {
 	for (auto& particle : mParticlePool)
 	{
-		if (!particle.Active)
+		if (!particle.Active)	//Is particle still active?
 		{
 			continue;
 		}
 
-		if (particle.mLifeRemaining <= 0.0f)
+		if (particle.mLifeRemaining <= 0.0f)	//Should particle still be active?
 		{
 			particle.Active = false;
 			continue;
@@ -169,7 +170,7 @@ void ParticleSystem::Update()
 		//Update Position
 		if (particle.bUseGravity)
 		{
-			particle.mVelocity = particle.mVelocity + glm::vec3{ 0.f,0,-9.81f } * 0.01f;
+			particle.mVelocity = particle.mVelocity + glm::vec3{ 0.f,0,-9.81f } * 0.01f;	//Apply gravity
 			particle.mPosition += particle.mVelocity * 0.01f;
 		}
 		else
@@ -183,28 +184,31 @@ void ParticleSystem::Update()
 	}
 }
 
-void ParticleSystem::Emit(const ParticleProperties& particleProps)
+void ParticleSystem::Spawn(const ParticleProperties& particleProps)
 {
-	double timeCheck = 1.f / particleProps.SpawnRate;	// 1/5 = 0.2
+	double timeCheck = 1.f / particleProps.SpawnRate;	// 1.f / 5 sec = 0.2 per sec
 
 	timeTaken += RenderWindow::mDeltaTime;
-	//std::cout << "Delta: " << timeTaken << std::endl;	//Its so strange
+	//std::cout << "Delta: " << timeTaken << std::endl;	//Deltatime not accurate somehow
 
 	if (timeTaken < timeCheck)
 	{
-		return;
+		return; //If its not time to spawn, skip and wait.
 	}
 
 	timeTaken -= timeCheck;
 
 	Particle& particle = mParticlePool[mPoolIndex];
 	particle.Active = true;
+
+	//Properties
 	particle.bFaceCam = particleProps.bFaceCamera;
 	particle.bUseGravity = particleProps.bUseGravity;
 	particle.bSizeOverTime = particleProps.bSizeOverTime;
 	particle.bColorOverTime = particleProps.bColorOverTime;
 	particle.bTransparencyOverTime = particleProps.bTransparencyOverTime;
 
+	//Position
 	particle.mPosition = particleProps.Position;
 	particle.mRotation = Random::Float() * 2.0f * glm::pi<float>();
 
@@ -214,18 +218,21 @@ void ParticleSystem::Emit(const ParticleProperties& particleProps)
 	particle.mVelocity.y += particleProps.VelocityVariation.y * (Random::Float() - 0.5f);
 	particle.mVelocity.z += particleProps.VelocityVariation.z * (Random::Float() - 0.5f);
 
-	//Color
+	//Color & Alpha
 	particle.mColorBegin = particleProps.ColorBegin; particle.mColorBegin.a = 1.0f;
 	particle.mColorEnd = particleProps.ColorEnd; particle.mColorEnd.a = 1.0f;
 	particle.mAlphaBegin = particleProps.ColorBegin.a;
 	particle.mAlphaEnd = particleProps.ColorEnd.a;
-
+	
+	//Life
 	particle.mLifeTime = particleProps.LifeTime;
 	particle.mLifeRemaining = particleProps.LifeTime;
+
+	//Size
 	particle.mSizeBegin = particleProps.SizeBegin + particleProps.SizeVariation * (Random::Float() - 0.5f);
 	particle.mSizeEnd = particleProps.SizeEnd;
 
 	particle.mSpawnRate = particleProps.SpawnRate;
 
-	mPoolIndex = --mPoolIndex % mParticlePool.size();
+	mPoolIndex = --mPoolIndex % mParticlePool.size(); //Set next particle
 }
