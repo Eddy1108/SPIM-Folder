@@ -9,6 +9,8 @@ TARGET      = 3D-programmering
 SOURCES += main.cpp \
     #Core/stb_image.cpp \
     Components/BaseComponent.cpp \
+    Components/MeshComponent.cpp \
+    Components/ParticleComponent.cpp \
     Core/materiallist.cpp \
     Core/material.cpp \
     Core/Audio.cpp \
@@ -65,6 +67,8 @@ SOURCES += main.cpp \
 HEADERS += \
     #Core/stb_image.h \
     Components/BaseComponent.h \
+    Components/MeshComponent.h \
+    Components/ParticleComponent.h \
     Core/materiallist.h \
     Core/material.h \
     Core/Audio.h \
