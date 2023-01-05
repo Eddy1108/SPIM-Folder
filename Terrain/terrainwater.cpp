@@ -7,11 +7,12 @@ TerrainWater::TerrainWater(float waterHeightOffset, glm::vec2 position, const fl
 
 void TerrainWater::generateWater(float waterHeightOffset, glm::vec2 pos, float chunkSize)
 {
+    float offset = chunkSize/2;
     //Create flat water surface
-    mVertices.push_back(Vertex{pos.x, pos.y,waterHeightOffset, 0.1f,0.3f,1, 0,0});
-    mVertices.push_back(Vertex{pos.x + chunkSize, pos.y,waterHeightOffset, 0.1f,0.3f,1, 1,0});
-    mVertices.push_back(Vertex{pos.x + chunkSize, pos.y + chunkSize,waterHeightOffset, 0.1f,0.3f,1, 1,1});
-    mVertices.push_back(Vertex{pos.x, pos.y + chunkSize,waterHeightOffset, 0.1f,0.3f,1, 0,1});
+    mVertices.push_back(Vertex{pos.x - offset, pos.y - offset, waterHeightOffset, 0.2f,0.5f,1, 0,0});
+    mVertices.push_back(Vertex{pos.x + offset, pos.y - offset, waterHeightOffset, 0.2f,0.5f,1, 1,0});
+    mVertices.push_back(Vertex{pos.x + offset, pos.y + offset, waterHeightOffset, 0.2f,0.5f,1, 1,1});
+    mVertices.push_back(Vertex{pos.x - offset, pos.y + offset, waterHeightOffset, 0.2f,0.5f,1, 0,1});
 
     mIndices.push_back(0);
     mIndices.push_back(1);

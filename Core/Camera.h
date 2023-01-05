@@ -45,7 +45,7 @@ public:
 	glm::vec3 GetForwardWorld() { return glm::vec3(mVMatrix[0][1], mVMatrix[1][1], mVMatrix[2][1]); };
 
 
-	//New camera stuff
+    //New camera stuff
 	bool bFollowPlayer{ false };
 	float speed = 0.1f;
 	float sensitivity = 0.4f;

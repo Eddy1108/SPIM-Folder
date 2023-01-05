@@ -31,8 +31,9 @@ public:
 private:
     void generateFastNoise();
     void noiseContinentalnessTransformation();
-    void noiseMountainPeaksTransformations();
+    void noisePeakAndValleysTransformations();
     void noiseHeightOffsetTransformation();
+    void noiseRiversTransformations();
 
     void generateChunk(glm::vec2 coords);
     float getHeight(int i, int j);
@@ -52,7 +53,12 @@ private:
     float mContinentalIntensity{1};
     float mNoiseHeighOffsetIntensity{1};
 
-    float mMountainPeaksIntensity{2};
+    float mPeaksAndValleysIntensity{7};
+    float mPeaksAndValleysFrequencyReduction {0.4f};
+    float mPeaksAndValleysMaxHeight {0.889f};
+
+    float mRiversIntensity {8};
+    float mRiversFrequencyReduction {0.95f};
 
     BiomeType mBiomeType{Mountains};
 
@@ -61,11 +67,14 @@ private:
     FastNoiseLite* mNoiseContinental{nullptr};
     std::vector<float> mNoiseContinentalData;
     //Extreme Mountains
-    FastNoiseLite* mNoiseMountainPeaks{nullptr};
-    std::vector<float> mNoiseMountainPeaksData;
+    FastNoiseLite* mNoisePeaksAndValleys{nullptr};
+    std::vector<float> mNoisePeakAndValleysData;
     //Height Offset
     FastNoiseLite* mNoiseHeightOffset{nullptr};
     std::vector<float> mNoiseHeightOffsetData;
+    //Rivers
+    FastNoiseLite* mNoiseRivers{nullptr};
+    std::vector<float> mNoiseRiversData;
 
     // ---- Water ----
     TerrainWater* mWater {nullptr};

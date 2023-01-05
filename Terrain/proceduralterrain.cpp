@@ -8,30 +8,6 @@
 ProceduralTerrain::ProceduralTerrain(Camera* camera, std::string materialName) : VisualObject(materialName), mCamera(camera)
 {
     mQuadTree = new QuadTree();
-
-
-    // ---- Code used for testing ----
-
-//    generateChunk(glm::vec2(0,0));
-
-    //for(int j = 0; j < 6; j++)
-    //    for(int i = 0; i < 6; i++) {
-    //            BiomeType biomeType = BiomeType(std::rand() % 3);
-    //            TerrainBaseChunk* chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*i,mChunkSize*j), biomeType, mChunkSize, mChunkComplexity, materialName);
-    //            mChunks.push_back(chunk);
-    //}
-
-    //TerrainBaseChunk* chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*0,mChunkSize*0), BiomeType::Desert, mChunkSize, mChunkComplexity, materialName);
-    //mChunks.push_back(std::make_pair(glm::vec2(0,0), chunk));
-//
-    //chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*1,mChunkSize*0), BiomeType::Desert, mChunkSize, mChunkComplexity, materialName);
-    //mChunks.push_back(std::make_pair(glm::vec2(1,0), chunk));
-//
-    //chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*0,mChunkSize*1), BiomeType::Hills, mChunkSize, mChunkComplexity, materialName);
-    //mChunks.push_back(std::make_pair(glm::vec2(0,1), chunk));
-//
-    //chunk = new TerrainBaseChunk(mSeed, glm::vec2(mChunkSize*1,mChunkSize*1), BiomeType::Mountains, mChunkSize, mChunkComplexity, materialName);
-    //mChunks.push_back(std::make_pair(glm::vec2(1,1), chunk));
 }
 
 ProceduralTerrain::~ProceduralTerrain()
