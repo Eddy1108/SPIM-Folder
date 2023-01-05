@@ -9,6 +9,7 @@ Scene0::Scene0()
 {
     mCamera = new Camera();
     RenderWindow::mCurrentCamera = mCamera;
+    mCamera->mPosition += glm::vec3(0,0,20);
 
     mSkybox = new SkyBox("materialskybox");
 
@@ -206,6 +207,22 @@ void Scene0::keyPressEvent(QKeyEvent *event)
         //else
         //    static_cast<InteractiveObject*>( mMap3["mia"])->EMove = true;
 
+    }
+
+    if (event->key() == Qt::Key_Shift)
+    {
+        if (!mCamera->bFollowPlayer)
+        {
+            mCamera->speed += 0.1;
+        }
+    }
+
+    if (event->key() == Qt::Key_Control)
+    {
+        if (!mCamera->bFollowPlayer)
+        {
+            mCamera->speed -= 0.1;
+        }
     }
 }
 

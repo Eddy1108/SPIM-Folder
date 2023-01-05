@@ -91,7 +91,7 @@ void MaterialList::CompileTextures()
     //3
     mTexture[texIndex++].first = "hund.bmp";
     //4
-    mTexture[texIndex++].first = "RealGrass.bmp";
+    mTexture[texIndex++].first = "RealGrass.jpg";
     //5
     mTexture[texIndex++].first = "Sand.jpg";
     //6
@@ -235,6 +235,11 @@ void MaterialList::CompileMaterials()
 
     mMaterial[matIndex].first = "materialwater";
     mMaterial[matIndex].second = new MaterialTexture(mShaderProgram[1].second->getProgram(), 8);
+    mMaterial[matIndex].second->SetupUniforms();
+    matIndex++;
+
+    mMaterial[matIndex].first = "materialgrass";
+    mMaterial[matIndex].second = new MaterialTexture(mShaderProgram[1].second->getProgram(), 4);
     mMaterial[matIndex].second->SetupUniforms();
     matIndex++;
 }
