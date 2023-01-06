@@ -30,7 +30,7 @@ public:
 	glm::mat4 RotateToCamMatrix();
 
 	//Updates particles
-	void Update();
+	//void Update();
 
 	//Spawns 1 particle
 	void Spawn(const ParticleProperties& particleProps);

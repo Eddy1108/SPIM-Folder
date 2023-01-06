@@ -171,7 +171,7 @@ void Kube::draw()
 	VisualObject::updateComponents();
 
 
-	static glm::vec3 moveTest{ 0.f,0.f,0.f };
+	static glm::vec3 moveTest{ 0.f,0.f,2.f };
 	moveTest.x += 0.01f;
 	moveTest.y += 0.01f;
 

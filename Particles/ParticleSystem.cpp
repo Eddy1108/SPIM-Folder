@@ -73,7 +73,7 @@ void ParticleSystem::draw()
 
 	for (auto& particle : mParticlePool)
 	{
-		if (!particle.Active)
+		if (!particle.Active) //Is particle active?
 			continue;
 
 		if (particle.mLifeRemaining <= 0.0f)	//Should particle still be active?
@@ -88,16 +88,15 @@ void ParticleSystem::draw()
 		//Calc Color over time
 		glm::vec4 color;
 		if (particle.bColorOverTime)
-			color = glm::lerp(particle.mColorEnd, particle.mColorBegin, lifeVal);
+			color = glm::lerp(particle.mColorEnd, particle.mColorBegin, lifeVal);	//Lerp color based on time alive
 		else
 			color = particle.mColorBegin;
 
 		if (particle.bTransparencyOverTime)
 		{
-			color.a = glm::lerp(particle.mAlphaEnd, particle.mAlphaBegin, lifeVal);
+			color.a = glm::lerp(particle.mAlphaEnd, particle.mAlphaBegin, lifeVal); //lerp aplha based on time alive
 		}
 		
-
 		//Calc Size over time
 		float size;
 		if (particle.bSizeOverTime)
@@ -108,7 +107,7 @@ void ParticleSystem::draw()
 		//Update Rotation
 		particle.mRotation += 0.01f * 0.01f;
 
-		//Update Position
+		//Calc Position
 		if (particle.bUseGravity)
 		{
 			particle.mVelocity = particle.mVelocity + glm::vec3{ 0.f,0,-9.81f } *0.01f;	//Apply gravity
@@ -117,7 +116,7 @@ void ParticleSystem::draw()
 		else
 			particle.mPosition += particle.mVelocity * 0.01f;
 
-		//Calc transform
+		//Calc final transform
 		glm::mat4 transform;
 		if (particle.bFaceCam)
 		{
@@ -143,7 +142,6 @@ void ParticleSystem::draw()
 
 
 	}
-	//Update();
 }
 
 glm::mat4 ParticleSystem::RotateToCamMatrix()
@@ -163,43 +161,42 @@ glm::mat4 ParticleSystem::RotateToCamMatrix()
 	return matrix;
 
 }
-
-void ParticleSystem::Update()
-{
-	for (auto& particle : mParticlePool)
-	{
-		if (!particle.Active)	//Is particle still active?
-		{
-			continue;
-		}
-
-		if (particle.mLifeRemaining <= 0.0f)	//Should particle still be active?
-		{
-			particle.Active = false;
-			continue;
-		}
-		particle.mLifeRemaining -= 0.01f;
-
-		//Update Rotation
-		particle.mRotation += 0.01f * 0.01f;
-
-		//Update Position
-		if (particle.bUseGravity)
-		{
-			particle.mVelocity = particle.mVelocity + glm::vec3{ 0.f,0,-9.81f } * 0.01f;	//Apply gravity
-			particle.mPosition += particle.mVelocity * 0.01f;
-		}
-		else
-			particle.mPosition += particle.mVelocity * 0.01f;
-
-		//multiplying by 0.01f instead of using deltatime for now
-
-		//Deltatime version, buggy atm
-		//particle.mLifeRemaining -= RenderWindow::mDeltaTime;
-		//particle.mPosition += particle.mVelocity * (float)RenderWindow::mDeltaTime;
-		//particle.mRotation += 0.01f  * RenderWindow::mDeltaTime;
-	}
-}
+//void ParticleSystem::Update()
+//{
+//	for (auto& particle : mParticlePool)
+//	{
+//		if (!particle.Active)	//Is particle still active?
+//		{
+//			continue;
+//		}
+//
+//		if (particle.mLifeRemaining <= 0.0f)	//Should particle still be active?
+//		{
+//			particle.Active = false;
+//			continue;
+//		}
+//		particle.mLifeRemaining -= 0.01f;
+//
+//		//Update Rotation
+//		particle.mRotation += 0.01f * 0.01f;
+//
+//		//Update Position
+//		if (particle.bUseGravity)
+//		{
+//			particle.mVelocity = particle.mVelocity + glm::vec3{ 0.f,0,-9.81f } * 0.01f;	//Apply gravity
+//			particle.mPosition += particle.mVelocity * 0.01f;
+//		}
+//		else
+//			particle.mPosition += particle.mVelocity * 0.01f;
+//
+//		//multiplying by 0.01f instead of using deltatime for now
+//
+//		//Deltatime version, buggy atm
+//		//particle.mLifeRemaining -= RenderWindow::mDeltaTime;
+//		//particle.mPosition += particle.mVelocity * (float)RenderWindow::mDeltaTime;
+//		//particle.mRotation += 0.01f  * RenderWindow::mDeltaTime;
+//	}
+//}
 
 void ParticleSystem::Spawn(const ParticleProperties& particleProps)
 {
