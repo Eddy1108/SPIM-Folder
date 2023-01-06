@@ -109,7 +109,6 @@ void TerrainBaseChunk::noiseContinentalnessTransformation()
         mContinentalIntensity = 10;
         break;
     }
-
 }
 
 void TerrainBaseChunk::noisePeakAndValleysTransformations()
@@ -221,11 +220,11 @@ float TerrainBaseChunk::getHeight(int i, int j)
     // ---- Add together ----
     float z = 0;
     ///Create continental terrain (base noise)
-    //z = (valContinental + 10) * valMountainPeaks - 10;
     z = valContinental;
+    //z += valMountainPeaks;
 
     ///Slightly higher mountains at certain areas
-    z += valMountainPeaks * valHeightOffset * 5 + valContinental * valMountainPeaks * 0.2f;
+    z += valMountainPeaks * valHeightOffset + valContinental * valMountainPeaks * 0.2f;
 
     //z += valHeightOffset;
     //z += valRivers;

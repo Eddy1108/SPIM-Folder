@@ -116,14 +116,6 @@ void ProceduralTerrain::loadChunksWithinRadius()
                     break;
                 }
             }
-            //Temporary code
-//            if(distance <= mRenderDistance){
-//                //Chunk should be visible
-//                if(!chunkExistsAtCoords(chunkCoords)){
-//                    // Generate chunk if chunk at coords doesn't exist
-//                    generateChunk(chunkCoords, 6);
-//                }
-//            }
         }
     }
 }
