@@ -51,7 +51,7 @@ private:
 
     float mHeightOffset{0};
     float mContinentalIntensity{1};
-    float mNoiseHeighOffsetIntensity{1};
+    float mNoiseHeighOffsetIntensity{6};
 
     float mPeaksAndValleysIntensity{7};
     float mPeaksAndValleysFrequencyReduction {0.4f};
