@@ -178,9 +178,9 @@ void TerrainBaseChunk::generateChunk(glm::vec2 coords)
 
             //<<debug colors>>
             r = (z >= -2.f) ? (1-(z/(mContinentalIntensity))) : 0;
-            g = (z >= -2.f) ? 0.5f : 0;
+            g = (z >= -2.f) ? 0.5f : 0.5f;
             //g = z+1;
-            b = (z < -2.f) ? ((mContinentalIntensity/2+z)/(mContinentalIntensity)) : 0;
+            //b = (z < -2.f) ? ((mContinentalIntensity/2+z)/(mContinentalIntensity)) : 0;
 
             // Create Vertex
             mVertices.push_back(Vertex{ x + xOffset, y + yOffset, z, r, g, b, u,v });
